@@ -1,0 +1,50 @@
+name: Deploy to GitHub Pages
+
+# The site is built locally from the full-resolution files on David's NAS (tools/build.py)
+# and committed in site/. This workflow checks the build and publishes site/ as it is.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Every image the page references exists
+        run: |
+          python3 - <<'PY'
+          import re, pathlib, json, sys
+          html = pathlib.Path("site/index.html").read_text()
+          refs = set(re.findall(r'(?:src|srcset|imagesrcset)="([^"]+)"', html))
+          files = {p.split(" ")[0] for r in refs for p in r.split(", ")}
+          missing = [f for f in files if not f.startswith("http") and not (pathlib.Path("site") / f.lstrip("/")).exists()]
+          ld = re.search(r'ld\+json">(.*?)</script>', html, re.S).group(1)
+          json.loads(ld)
+          print(len(files), "files referenced;", "missing:", missing)
+          sys.exit(1 if missing else 0)
+          PY
+  deploy:
+    needs: check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
