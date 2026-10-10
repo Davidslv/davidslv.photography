@@ -88,3 +88,15 @@ footer a { color: inherit; }
 .spread img { box-shadow: 0 12px 40px rgba(40, 30, 15, .16); }
 nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; }
 @media (max-width: 720px) { .book-head { grid-template-columns: 1fr; } }
+/* Accessibility pass (10 Oct 2026): readable menu over any hero, real tap targets, visible focus, larger labels. */
+header.site { flex-wrap: wrap; gap: 4px 24px; text-shadow: 0 1px 10px rgba(0,0,0,.55), 0 0 2px rgba(0,0,0,.35); }
+header.site nav a { font-size: 12px; padding: 12px 0; display: inline-block; }
+.hero::after { background: linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,0) 32%, rgba(0,0,0,0) 52%, rgba(0,0,0,.55)); }
+.hero .words { text-shadow: 0 1px 14px rgba(0,0,0,.45); }
+.lbl, figcaption { font-size: 12px; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.more a, footer a, .book-text a { display: inline-block; padding-block: 3px; }
+footer nav { display: flex; gap: 18px; flex-wrap: wrap; width: 100%; }
+footer nav a { padding-block: 10px; }
+@media (max-width: 720px) { header.site { padding-top: 16px; } header.site nav { gap: 18px; } }
+header.site .name { display: inline-block; padding-block: 6px; }

@@ -244,7 +244,8 @@ def header(page):
 
 def footer():
     js = (ROOT / "tools/site.js").read_text()
-    return (f'<footer><span>{NAME} · London</span><span>All photographs © {NAME}. Please ask before using them.</span>'
+    links = "".join(f'<a href="{h}">{n}</a>' for n, h in NAV)
+    return (f'<footer><nav aria-label="Footer">{links}</nav><span>{NAME} · London</span><span>All photographs © {NAME}. Please ask before using them.</span>'
             f'<a href="https://davidslv.uk/" rel="me">Writing and engineering: davidslv.uk</a></footer>\n'
             f"<script>{js}</script>\n</body>\n</html>\n")
 

@@ -123,6 +123,18 @@ footer a { color: inherit; }
 .spread img { box-shadow: 0 12px 40px rgba(40, 30, 15, .16); }
 nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; }
 @media (max-width: 720px) { .book-head { grid-template-columns: 1fr; } }
+/* Accessibility pass (10 Oct 2026): readable menu over any hero, real tap targets, visible focus, larger labels. */
+header.site { flex-wrap: wrap; gap: 4px 24px; text-shadow: 0 1px 10px rgba(0,0,0,.55), 0 0 2px rgba(0,0,0,.35); }
+header.site nav a { font-size: 12px; padding: 12px 0; display: inline-block; }
+.hero::after { background: linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,0) 32%, rgba(0,0,0,0) 52%, rgba(0,0,0,.55)); }
+.hero .words { text-shadow: 0 1px 14px rgba(0,0,0,.45); }
+.lbl, figcaption { font-size: 12px; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.more a, footer a, .book-text a { display: inline-block; padding-block: 3px; }
+footer nav { display: flex; gap: 18px; flex-wrap: wrap; width: 100%; }
+footer nav a { padding-block: 10px; }
+@media (max-width: 720px) { header.site { padding-top: 16px; } header.site nav { gap: 18px; } }
+header.site .name { display: inline-block; padding-block: 6px; }
 </style>
 <script type="application/ld+json">{
  "@context": "https://schema.org",
@@ -650,7 +662,7 @@ nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 
 <div><p class="lbl">Presets</p><h3>LAST ROLL and KERBSIDE</h3><p>The Lightroom looks I grade with. <a href="https://davidslv.gumroad.com/l/last-roll">LAST ROLL</a> · <a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE</a></p></div>
 <div><p class="lbl">Contact</p><h3>Commissions, prints and licensing</h3><p><a href="mailto:davidslv.london@gmail.com">davidslv.london@gmail.com</a><br><a href="https://www.instagram.com/davidslv.photography/" rel="me">@davidslv.photography</a></p></div>
 </section>
-<footer><span>David Silva · London</span><span>All photographs © David Silva. Please ask before using them.</span><a href="https://davidslv.uk/" rel="me">Writing and engineering: davidslv.uk</a></footer>
+<footer><nav aria-label="Footer"><a href="/#work">Work</a><a href="/sunday/">Sunday</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav><span>David Silva · London</span><span>All photographs © David Silva. Please ask before using them.</span><a href="https://davidslv.uk/" rel="me">Writing and engineering: davidslv.uk</a></footer>
 <script>// Photo pairs drift a little against each other as you scroll. Nothing else moves.
 (() => {
   const pairs = [...document.querySelectorAll(".pair")];
