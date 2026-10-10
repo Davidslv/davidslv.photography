@@ -92,7 +92,7 @@ SEQUENCE = [
 
 IG = "https://www.instagram.com/davidslv.photography/"
 GUMROAD = "https://davidslv.gumroad.com/l/it-started-on-a-sunday"
-WIDTHS = (800, 1600, 2400)
+WIDTHS = {"book-cover": (800, 1600), "book-spread-umbrellas": (800, 1600, 2000), "book-spread-show-and-tell": (800, 1600, 2000)}
 
 
 def assets(img_dir):
@@ -112,7 +112,7 @@ def assets(img_dir):
     pages["book-cover"] = pages[1]
     for name in ("book-cover", "book-spread-umbrellas", "book-spread-show-and-tell"):
         im = pages[name]
-        for w in WIDTHS:
+        for w in WIDTHS[name]:
             w2 = min(w, im.width)
             v = im.resize((w2, round(im.height * w2 / im.width)), Image.LANCZOS)
             v.save(img_dir / f"{name}-{w2}.jpg", quality=84, optimize=True, progressive=True)
@@ -120,9 +120,10 @@ def assets(img_dir):
 
 
 def book_img(name, alt, sizes, ratio):
-    avif = ", ".join(f"/img/{name}-{w}.avif {w}w" for w in WIDTHS)
-    jpg = ", ".join(f"/img/{name}-{w}.jpg {w}w" for w in WIDTHS)
-    w, h = 2400, round(2400 * ratio)
+    avif = ", ".join(f"/img/{name}-{w}.avif {w}w" for w in WIDTHS[name])
+    jpg = ", ".join(f"/img/{name}-{w}.jpg {w}w" for w in WIDTHS[name])
+    w = WIDTHS[name][-1]
+    h = round(w * ratio)
     return (f'<picture><source type="image/avif" srcset="{avif}" sizes="{sizes}"><img src="/img/{name}-800.jpg" '
             f'srcset="{jpg}" sizes="{sizes}" width="{w}" height="{h}" alt="{alt}" loading="lazy" decoding="async"></picture>')
 

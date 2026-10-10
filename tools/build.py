@@ -30,7 +30,8 @@ IMG = SITE / "img"
 URL = "https://davidslv.photography"
 NAME, EMAIL, IG = "David Silva", "davidslv.london@gmail.com", "https://www.instagram.com/davidslv.photography/"
 PORTRAIT = Path.home() / "projects/davidslv.github.com/img/david-silva.jpg"
-WIDTHS = (640, 1200, 2400)
+WIDTHS = (640, 1200)  # plus the cap below
+CAP_COLUMN, CAP_WIDE = 1600, 2000  # David, 10 Oct 2026: keep web copies too small for a quality large print
 E = html.escape
 NAV = [("Work", "/#work"), ("Sunday", "/sunday/"), ("About", "/#about"), ("Contact", "/#contact")]
 
@@ -66,10 +67,15 @@ def slug(key):
     return f"{key}-" + "-".join(words)
 
 
+def cap(key):
+    wide = any(s[0] in ("hero", "wide") and key in s[1:] for page in PAGES for s in page.SEQUENCE)
+    return CAP_WIDE if wide else CAP_COLUMN
+
+
 def export_one(key):
     im = load(key)
     out = []
-    for target in WIDTHS:
+    for target in WIDTHS + (cap(key),):
         w = min(target, im.width)
         if out and w == out[-1]:
             break
