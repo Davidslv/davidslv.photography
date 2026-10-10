@@ -77,3 +77,14 @@ footer { max-width: 1040px; margin: 0 auto; padding-block: 28px 140px; border-to
 footer a { color: inherit; }
 .more a { text-underline-offset: 3px; }
 .part p.lbl { font: 500 11px/1.4 var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--soft); font-style: normal; max-width: none; }
+.book { max-width: 1240px; margin: 0 auto; padding-block: clamp(110px, 18vh, 220px) 20px; display: grid; gap: clamp(48px, 9vh, 110px); }
+.book-head { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(24px, 5vw, 72px); align-items: center; }
+.book-cover img { box-shadow: 0 24px 60px rgba(40, 30, 15, .22); }
+.book-text h2 { font: 300 clamp(36px, 4.4vw, 58px)/1.02 var(--display); margin: 10px 0 6px; }
+.book-text .sub { font: italic 300 22px/1.4 var(--display); color: var(--soft); margin: 0 0 22px; }
+.book-text p { max-width: 46ch; margin: 0 0 14px; color: #3b3832; }
+.btn { display: inline-block; margin-top: 10px; padding: 13px 20px; border: 1px solid var(--ink); color: var(--ink); text-decoration: none; font: 600 14px var(--label); letter-spacing: .02em; }
+.btn:hover { background: var(--ink); color: var(--paper); }
+.spread img { box-shadow: 0 12px 40px rgba(40, 30, 15, .16); }
+nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; }
+@media (max-width: 720px) { .book-head { grid-template-columns: 1fr; } }
