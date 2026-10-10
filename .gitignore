@@ -2,3 +2,4 @@
 tools/lighthouse.json
 tools/fonts.css
 tools/.pdf/
+__pycache__/
