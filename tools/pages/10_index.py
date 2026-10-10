@@ -65,10 +65,11 @@ EMAIL, IG = "davidslv.london@gmail.com", "https://www.instagram.com/davidslv.pho
 
 def after(meta):
     return f"""<section class="about" id="about">
-<img src="/img/david-silva.jpg" width="800" height="800" loading="lazy" decoding="async" alt="Portrait of David Silva.">
+<img src="/images/{meta['_portrait']}" width="800" height="800" loading="lazy" decoding="async" alt="Portrait of David Silva.">
 <div><p class="lbl">About</p><h2>I photograph people in London’s light.</h2>
 <p>Someone crossing a wet street, waiting in a doorway, laughing on a corner. Mostly late in the day and after dark, with one camera and a 35mm lens.</p>
 <p>On Sunday mornings I photograph the car meets, for the same reason.</p></div></section>
+<a class="next" href="/sunday/"><span class="lbl">Next</span><span class="next-title">It Started on a Sunday</span><span class="next-sub">The car meets, and the book out 15 November</span></a>
 <section class="more" id="contact">
 <div><p class="lbl">The book</p><h3><a href="/sunday/"><em>It Started on a Sunday</em></a></h3><p>The car meets in and around London. Out 15 November 2026. <a href="/sunday/">See the photographs</a></p></div>
 <div><p class="lbl">Presets</p><h3>LAST ROLL and KERBSIDE</h3><p>The Lightroom looks I grade with. <a href="https://davidslv.gumroad.com/l/last-roll">LAST ROLL</a> · <a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE</a></p></div>

@@ -1,7 +1,7 @@
 """Build davidslv.photography into site/ from David's full-resolution files on the NAS.
 
   tools/run.sh          # images + HTML for every page (needs the NAS mounted)
-  tools/run.sh --html   # HTML only, reuse site/img
+  tools/run.sh --html   # HTML only, reuse site/images
 
 Design: proposal F, locked by David on 10 Oct 2026 (source in ~/projects/photography/web/concepts).
 Pages are rendered here as static HTML, so search engines and link previews see everything without
@@ -12,6 +12,7 @@ creator, credit and copyright; each page has schema.org data so Google Images ca
 
 Pages live in tools/pages/*.py. Each defines PHOTOS, SEQUENCE and the page's own text.
 """
+import hashlib
 import html
 import importlib.util
 import json
@@ -26,7 +27,7 @@ from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
-IMG = SITE / "img"
+IMG = SITE / "images"
 URL = "https://davidslv.photography"
 NAME, EMAIL, IG = "David Silva", "davidslv.london@gmail.com", "https://www.instagram.com/davidslv.photography/"
 PORTRAIT = Path.home() / "projects/davidslv.github.com/img/david-silva.jpg"
@@ -72,9 +73,18 @@ def cap(key):
     return CAP_WIDE if wide else CAP_COLUMN
 
 
+def hashed(path):
+    """Rename a written file to include a short content hash, so it can be cached for a year (immutable)."""
+    path = Path(path)
+    h = hashlib.sha1(path.read_bytes()).hexdigest()[:10]
+    new = path.with_name(f"{path.stem}.{h}{path.suffix}")
+    path.replace(new)
+    return new.name
+
+
 def export_one(key):
     im = load(key)
-    out = []
+    out, names = [], {}
     for target in WIDTHS + (cap(key),):
         w = min(target, im.width)
         if out and w == out[-1]:
@@ -84,18 +94,19 @@ def export_one(key):
         v.save(f"{base}.jpg", quality=82, optimize=True, progressive=True)
         v.save(f"{base}.avif", quality=60, speed=6)
         out.append(w)
-    return key, im.width, im.height, out
+        names[w] = {"jpg": str(base) + ".jpg", "avif": str(base) + ".avif"}
+    return key, im.width, im.height, out, names
 
 
-def tag_jpegs():
-    """Embed creator, credit and copyright in every JPEG (IPTC + XMP), the fields Google Images reads."""
+def tag_jpegs(files):
+    """Embed creator, credit and copyright in these JPEGs (IPTC + XMP), the fields Google Images reads."""
     year = date.today().year
     subprocess.run(["exiftool", "-q", "-overwrite_original", "-P",
                     f"-XMP-dc:Creator={NAME}", f"-IPTC:By-line={NAME}",
                     f"-XMP-photoshop:Credit={NAME}", f"-IPTC:Credit={NAME}",
                     f"-XMP-dc:Rights=© {year} {NAME}. All rights reserved.", f"-IPTC:CopyrightNotice=© {year} {NAME}",
                     f"-EXIF:Copyright=© {year} {NAME}", f"-XMP-xmpRights:WebStatement={URL}/#contact",
-                    f"-XMP-plus:LicensorURL={URL}/#contact", str(IMG)], check=True)
+                    f"-XMP-plus:LicensorURL={URL}/#contact", *map(str, files)], check=True)
 
 
 def og_image(key, out, top_frac=0.22):
@@ -107,14 +118,17 @@ def og_image(key, out, top_frac=0.22):
 
 
 # ---------- HTML pieces ----------
+def src(key, meta, w, fmt):
+    return "/images/" + meta[key][3][str(w)][fmt]
+
+
 def picture(key, meta, sizes, eager=False):
-    w, h, ws = meta[key]
-    s = slug(key)
-    avif = ", ".join(f"/img/{s}-{x}.avif {x}w" for x in ws)
-    jpg = ", ".join(f"/img/{s}-{x}.jpg {x}w" for x in ws)
+    w, h, ws, _ = meta[key]
+    avif = ", ".join(f"{src(key, meta, x, 'avif')} {x}w" for x in ws)
+    jpg = ", ".join(f"{src(key, meta, x, 'jpg')} {x}w" for x in ws)
     load_attr = 'fetchpriority="high" decoding="async"' if eager else 'loading="lazy" decoding="async"'
     return (f'<picture><source type="image/avif" srcset="{avif}" sizes="{sizes}">'
-            f'<img src="/img/{s}-{ws[0]}.jpg" srcset="{jpg}" sizes="{sizes}" '
+            f'<img src="{src(key, meta, ws[0], "jpg")}" srcset="{jpg}" sizes="{sizes}" '
             f'width="{w}" height="{h}" alt="{E(PHOTOS[key]["alt"])}" {load_attr}></picture>')
 
 
@@ -161,9 +175,9 @@ def sequence_html(page, meta):
     return "\n".join(out)
 
 
-def person():
+def person(meta):
     return {"@type": "Person", "@id": f"{URL}/#david", "name": NAME, "url": f"{URL}/",
-            "jobTitle": "Street photographer", "image": f"{URL}/img/david-silva.jpg", "email": f"mailto:{EMAIL}",
+            "jobTitle": "Street photographer", "image": f"{URL}/images/{meta['_portrait']}", "email": f"mailto:{EMAIL}",
             "address": {"@type": "PostalAddress", "addressLocality": "London", "addressCountry": "GB"},
             "sameAs": [IG, "https://davidslv.uk/"]}
 
@@ -172,10 +186,10 @@ def image_objects(page, meta):
     out = []
     for s in page.SEQUENCE:
         for key in [x for x in s[1:] if isinstance(x, str) and x in PHOTOS]:
-            w, h, ws = meta[key]
+            w, h, ws, _ = meta[key]
             ph = PHOTOS[key]
             o = {"@type": "ImageObject", "@id": f"{URL}{page.PATH}#photo-{key}",
-                 "contentUrl": f"{URL}/img/{slug(key)}-{ws[-1]}.jpg", "width": ws[-1], "height": round(h * ws[-1] / w),
+                 "contentUrl": URL + src(key, meta, ws[-1], "jpg"), "width": ws[-1], "height": round(h * ws[-1] / w),
                  "caption": f"{ph['cap']}. {ph['alt']}" if ph.get("cap") else ph["alt"],
                  "creator": {"@id": f"{URL}/#david"}, "creditText": NAME, "copyrightNotice": f"© {NAME}",
                  "copyrightHolder": {"@id": f"{URL}/#david"}, "license": f"{URL}/#contact",
@@ -190,12 +204,18 @@ def jsonld(page, meta):
     site = {"@type": "WebSite", "@id": f"{URL}/#site", "url": f"{URL}/", "name": f"{NAME} Photography",
             "publisher": {"@id": f"{URL}/#david"}, "inLanguage": "en-GB"}
     hero = page.SEQUENCE[0][1]
-    graph = [person(), site, {
-        "@type": "CollectionPage", "@id": f"{URL}{page.PATH}#page", "url": f"{URL}{page.PATH}", "name": page.HERO_TITLE,
-        "headline": page.HERO_TITLE, "description": page.DESC, "inLanguage": "en-GB", "isPartOf": {"@id": f"{URL}/#site"},
-        "author": {"@id": f"{URL}/#david"}, "primaryImageOfPage": {"@id": f"{URL}{page.PATH}#photo-{hero}"},
-        "mainEntity": {"@type": "ImageGallery", "name": page.GALLERY_NAME, "associatedMedia": image_objects(page, meta)}}]
-    graph += getattr(page, "extra_jsonld", lambda: [])()
+    gallery = {"@type": "ImageGallery", "name": page.GALLERY_NAME, "associatedMedia": image_objects(page, meta)}
+    node = {"@type": "CollectionPage", "@id": f"{URL}{page.PATH}#page", "url": f"{URL}{page.PATH}", "name": page.HERO_TITLE,
+            "headline": page.HERO_TITLE, "description": page.DESC, "inLanguage": "en-GB", "isPartOf": {"@id": f"{URL}/#site"},
+            "author": {"@id": f"{URL}/#david"}, "primaryImageOfPage": {"@id": f"{URL}{page.PATH}#photo-{hero}"},
+            "dateModified": date.today().isoformat()}
+    if page.PATH == "/":
+        # The home page is David's own profile: Google's ProfilePage, with the gallery as part of it.
+        node.update({"@type": ["ProfilePage", "CollectionPage"], "mainEntity": {"@id": f"{URL}/#david"}, "hasPart": gallery})
+    else:
+        node["mainEntity"] = gallery
+    graph = [person(meta), site, node]
+    graph += getattr(page, "extra_jsonld", lambda meta: [])(meta)
     if page.PATH != "/":
         graph.append({"@type": "BreadcrumbList", "itemListElement": [
             {"@type": "ListItem", "position": 1, "name": "Photography", "item": f"{URL}/"},
@@ -206,8 +226,7 @@ def jsonld(page, meta):
 def head(page, meta):
     hero = page.SEQUENCE[0][1]
     hw = meta[hero][2]
-    hs = slug(hero)
-    css = (ROOT / "tools/fonts-local.css").read_text() + (ROOT / "tools/site.css").read_text()
+    css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
     return f"""<!doctype html>
 <html lang="en-GB">
 <head>
@@ -236,9 +255,10 @@ def head(page, meta):
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" as="font" type="font/woff2" href="/fonts/Newsreader-normal-300.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/fonts/PublicSans-normal-400.woff2" crossorigin>
-<link rel="preload" as="image" type="image/avif" imagesrcset="{", ".join(f"/img/{hs}-{x}.avif {x}w" for x in hw)}" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" imagesrcset="{", ".join(f"{src(hero, meta, x, 'avif')} {x}w" for x in hw)}" imagesizes="100vw" fetchpriority="high">
 <style>{css}</style>
 <script type="application/ld+json">{jsonld(page, meta)}</script>
+<script type="speculationrules">{{"prerender": [{{"where": {{"and": [{{"href_matches": "/*"}}, {{"not": {{"href_matches": "/images/*"}}}}]}}, "eagerness": "moderate"}}]}}</script>
 </head>"""
 
 
@@ -261,12 +281,12 @@ def render(page, meta):
 
 
 # ---------- site files ----------
-def extras():
+def extras(meta):
     (SITE / "CNAME").write_text("davidslv.photography\n")
     (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {URL}/sitemap.xml\n")
     urls = []
     for page in PAGES:
-        imgs = "".join(f"<image:image><image:loc>{URL}/img/{slug(k)}-{max(int(p.stem.rsplit('-', 1)[1]) for p in IMG.glob(slug(k) + '-*.jpg'))}.jpg</image:loc></image:image>"
+        imgs = "".join(f"<image:image><image:loc>{URL}{src(k, meta, meta[k][2][-1], 'jpg')}</image:loc></image:image>"
                        for s in page.SEQUENCE for k in s[1:] if isinstance(k, str) and k in PHOTOS)
         urls.append(f"<url><loc>{URL}{page.PATH}</loc><lastmod>{date.today().isoformat()}</lastmod>{imgs}</url>")
     (SITE / "sitemap.xml").write_text(
@@ -278,6 +298,8 @@ def extras():
         "icons": [{"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"},
                   {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}]}, indent=1))
     (SITE / ".nojekyll").write_text("")
+    key = (ROOT / "tools/indexnow-key").read_text().strip()  # IndexNow: Bing, Yandex, Seznam, Naver (tools/indexnow.sh)
+    (SITE / f"{key}.txt").write_text(key + "\n")
     (SITE / "404.html").write_text(f"""<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Not found · {NAME}</title><meta name="robots" content="noindex"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>body{{margin:0;min-height:100vh;display:grid;place-items:center;background:#efece6;color:#1b1916;font:300 22px/1.4 Georgia,serif;text-align:center;padding:16px}}a{{color:inherit}}</style></head>
@@ -300,17 +322,26 @@ def icons():
 if __name__ == "__main__":
     IMG.mkdir(parents=True, exist_ok=True)
     meta_file = ROOT / "tools/images.json"
-    meta = {k: tuple(v) for k, v in json.loads(meta_file.read_text()).items()} if meta_file.exists() else {}
+    meta = json.loads(meta_file.read_text()) if meta_file.exists() else {}
+    meta = {k: (tuple(v) if k in PHOTOS else v) for k, v in meta.items()}
     if "--html" not in sys.argv:
         todo = [k for k in PHOTOS if k not in meta or "--all" in sys.argv]
         with ProcessPoolExecutor(6) as ex:
-            for k, w, h, ws in ex.map(export_one, todo):
-                meta[k] = (w, h, ws)
-        Image.open(PORTRAIT).save(IMG / "david-silva.jpg", quality=86, optimize=True)
+            exported = list(ex.map(export_one, todo))
+        portrait = IMG / "david-silva.jpg"
+        Image.open(PORTRAIT).save(portrait, quality=86, optimize=True)
+        assets = {}
         for page in PAGES:
             if hasattr(page, "assets"):
-                page.assets(IMG)
-        tag_jpegs()
+                assets.update(page.assets(IMG))
+        new_jpgs = [n["jpg"] for *_, names in exported for n in names.values()] + [str(portrait)] + \
+                   [n["jpg"] for sizes in assets.values() for n in sizes.values()]
+        tag_jpegs(new_jpgs)  # before hashing, so the hash covers the final bytes
+        for k, w, h, ws, names in exported:
+            meta[k] = (w, h, ws, {str(x): {f: hashed(n) for f, n in v.items()} for x, v in names.items()})
+        meta["_portrait"] = hashed(portrait)
+        meta["_assets"] = {name: {str(w): {f: hashed(n) for f, n in v.items()} for w, v in sizes.items()}
+                           for name, sizes in assets.items()}
         for page in PAGES:
             og_image(page.SEQUENCE[0][1], page.OG_IMAGE, getattr(page, "OG_TOP", 0.22))
         icons()
@@ -320,4 +351,4 @@ if __name__ == "__main__":
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(render(page, meta))
         print("built", out.relative_to(ROOT))
-    extras()
+    extras(meta)

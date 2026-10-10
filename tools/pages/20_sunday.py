@@ -110,30 +110,36 @@ def assets(img_dir):
         im.paste(l, (0, 0)); im.paste(r, (l.width + gap, 0))
         pages[name] = im
     pages["book-cover"] = pages[1]
+    out = {}
     for name in ("book-cover", "book-spread-umbrellas", "book-spread-show-and-tell"):
         im = pages[name]
+        out[name] = {}
         for w in WIDTHS[name]:
             w2 = min(w, im.width)
             v = im.resize((w2, round(im.height * w2 / im.width)), Image.LANCZOS)
             v.save(img_dir / f"{name}-{w2}.jpg", quality=84, optimize=True, progressive=True)
             v.save(img_dir / f"{name}-{w2}.avif", quality=62, speed=6)
+            out[name][w2] = {"jpg": str(img_dir / f"{name}-{w2}.jpg"), "avif": str(img_dir / f"{name}-{w2}.avif")}
+    return out
 
 
-def book_img(name, alt, sizes, ratio):
-    avif = ", ".join(f"/img/{name}-{w}.avif {w}w" for w in WIDTHS[name])
-    jpg = ", ".join(f"/img/{name}-{w}.jpg {w}w" for w in WIDTHS[name])
-    w = WIDTHS[name][-1]
+def book_img(meta, name, alt, sizes, ratio):
+    files = meta["_assets"][name]
+    ws = sorted(files, key=int)
+    avif = ", ".join(f"/images/{files[w]['avif']} {w}w" for w in ws)
+    jpg = ", ".join(f"/images/{files[w]['jpg']} {w}w" for w in ws)
+    w = int(ws[-1])
     h = round(w * ratio)
-    return (f'<picture><source type="image/avif" srcset="{avif}" sizes="{sizes}"><img src="/img/{name}-800.jpg" '
+    return (f'<picture><source type="image/avif" srcset="{avif}" sizes="{sizes}"><img src="/images/{files[ws[0]]["jpg"]}" '
             f'srcset="{jpg}" sizes="{sizes}" width="{w}" height="{h}" alt="{alt}" loading="lazy" decoding="async"></picture>')
 
 
 def after(meta):
-    cover = book_img("book-cover", "The cover of It Started on a Sunday: owners around a vintage racing car on frosted grass in fog.",
+    cover = book_img(meta, "book-cover", "The cover of It Started on a Sunday: owners around a vintage racing car on frosted grass in fog.",
                      "(max-width:720px) 100vw, 46vw", 595.276 / 841.89)
-    s1 = book_img("book-spread-umbrellas", "A spread from the book: people under umbrellas around a blue saloon on the left, the story and how it was shot on the right.",
+    s1 = book_img(meta, "book-spread-umbrellas", "A spread from the book: people under umbrellas around a blue saloon on the left, the story and how it was shot on the right.",
                   "(max-width:720px) 100vw, 1100px", 595.276 / (2 * 841.89))
-    s2 = book_img("book-spread-show-and-tell", "A spread from the book: two men at a vintage car on the left, the story of the photograph on the right.",
+    s2 = book_img(meta, "book-spread-show-and-tell", "A spread from the book: two men at a vintage car on the left, the story of the photograph on the right.",
                   "(max-width:720px) 100vw, 1100px", 595.276 / (2 * 841.89))
     return f"""<section class="book" id="book">
 <div class="book-head">
@@ -148,6 +154,7 @@ def after(meta):
 <figure class="spread">{s1}<figcaption class="lbl">From Winter: Umbrellas Up</figcaption></figure>
 <figure class="spread">{s2}<figcaption class="lbl">From Early spring: Show and Tell</figcaption></figure>
 </section>
+<a class="next" href="/"><span class="lbl">Next</span><span class="next-title">From last light to last train</span><span class="next-sub">One Saturday in London, and other nights</span></a>
 <section class="more" id="contact">
 <div><p class="lbl">More photographs</p><h3><a href="/">From last light to last train</a></h3><p>One Saturday in London, and other nights.</p></div>
 <div><p class="lbl">Presets</p><h3>KERBSIDE</h3><p>The looks this book was graded with. <a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE on Gumroad</a></p></div>
@@ -155,10 +162,10 @@ def after(meta):
 </section>"""
 
 
-def extra_jsonld():
+def extra_jsonld(meta):
     return [{"@type": "Book", "@id": "https://davidslv.photography/sunday/#book", "name": "It Started on a Sunday",
              "alternativeHeadline": "Cars and the People Who Love Them", "author": {"@id": "https://davidslv.photography/#david"},
              "datePublished": "2026-11-15", "bookFormat": "https://schema.org/EBook", "inLanguage": "en-GB",
-             "image": "https://davidslv.photography/img/book-cover-1600.jpg", "genre": "Photography",
+             "image": "https://davidslv.photography/images/" + meta["_assets"]["book-cover"][max(meta["_assets"]["book-cover"], key=int)]["jpg"], "genre": "Photography",
              "about": "Classic and sports car meets in and around London, and the people at them",
              "url": "https://davidslv.photography/sunday/#book"}]

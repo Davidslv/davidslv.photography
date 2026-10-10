@@ -6,7 +6,21 @@
 640,
 1200,
 2000
-]
+],
+{
+"640": {
+"jpg": "n147-two-women-smile-into-a-phone-640.58e05d81f6.jpg",
+"avif": "n147-two-women-smile-into-a-phone-640.4ac9b0889b.avif"
+},
+"1200": {
+"jpg": "n147-two-women-smile-into-a-phone-1200.67e18cae3a.jpg",
+"avif": "n147-two-women-smile-into-a-phone-1200.42e82f129b.avif"
+},
+"2000": {
+"jpg": "n147-two-women-smile-into-a-phone-2000.ccf29d0501.jpg",
+"avif": "n147-two-women-smile-into-a-phone-2000.5684648f91.avif"
+}
+}
 ],
 "n108": [
 4024,
@@ -15,7 +29,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n108-a-young-woman-covers-her-mouth-640.eb4c821e5a.jpg",
+"avif": "n108-a-young-woman-covers-her-mouth-640.13ddbc5b35.avif"
+},
+"1200": {
+"jpg": "n108-a-young-woman-covers-her-mouth-1200.3d05fca805.jpg",
+"avif": "n108-a-young-woman-covers-her-mouth-1200.d473eecc7c.avif"
+},
+"1600": {
+"jpg": "n108-a-young-woman-covers-her-mouth-1600.a652210896.jpg",
+"avif": "n108-a-young-woman-covers-her-mouth-1600.09c95af60c.avif"
+}
+}
 ],
 "n109": [
 4024,
@@ -24,7 +52,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n109-a-young-man-in-sunglasses-and-640.949f95ddb2.jpg",
+"avif": "n109-a-young-man-in-sunglasses-and-640.ff517c422d.avif"
+},
+"1200": {
+"jpg": "n109-a-young-man-in-sunglasses-and-1200.68112afe5f.jpg",
+"avif": "n109-a-young-man-in-sunglasses-and-1200.141101ef78.avif"
+},
+"1600": {
+"jpg": "n109-a-young-man-in-sunglasses-and-1600.b1d8c8f35a.jpg",
+"avif": "n109-a-young-man-in-sunglasses-and-1600.f97ad81f17.avif"
+}
+}
 ],
 "n141": [
 3610,
@@ -33,7 +75,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n141-an-older-man-in-glasses-reads-640.7f3bfbc716.jpg",
+"avif": "n141-an-older-man-in-glasses-reads-640.42091b91ab.avif"
+},
+"1200": {
+"jpg": "n141-an-older-man-in-glasses-reads-1200.d4070aaf2d.jpg",
+"avif": "n141-an-older-man-in-glasses-reads-1200.002e506074.avif"
+},
+"1600": {
+"jpg": "n141-an-older-man-in-glasses-reads-1600.983dc97caf.jpg",
+"avif": "n141-an-older-man-in-glasses-reads-1600.6005346623.avif"
+}
+}
 ],
 "n145": [
 2689,
@@ -42,7 +98,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n145-a-man-walks-away-down-a-640.25e0370b94.jpg",
+"avif": "n145-a-man-walks-away-down-a-640.4d3134667f.avif"
+},
+"1200": {
+"jpg": "n145-a-man-walks-away-down-a-1200.2031d531fe.jpg",
+"avif": "n145-a-man-walks-away-down-a-1200.dc8f6e6deb.avif"
+},
+"1600": {
+"jpg": "n145-a-man-walks-away-down-a-1600.217d5926d0.jpg",
+"avif": "n145-a-man-walks-away-down-a-1600.b78ad73e74.avif"
+}
+}
 ],
 "n146": [
 3018,
@@ -51,7 +121,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n146-two-young-women-laugh-as-they-640.2deeee577d.jpg",
+"avif": "n146-two-young-women-laugh-as-they-640.3cbae4f2d8.avif"
+},
+"1200": {
+"jpg": "n146-two-young-women-laugh-as-they-1200.279b6121a4.jpg",
+"avif": "n146-two-young-women-laugh-as-they-1200.a8e0cd6cf6.avif"
+},
+"1600": {
+"jpg": "n146-two-young-women-laugh-as-they-1600.45d29d176d.jpg",
+"avif": "n146-two-young-women-laugh-as-they-1600.4f31b71c8e.avif"
+}
+}
 ],
 "n153": [
 1533,
@@ -60,7 +144,21 @@
 640,
 1200,
 1533
-]
+],
+{
+"640": {
+"jpg": "n153-a-woman-in-a-patterned-scarf-640.71ed2b6530.jpg",
+"avif": "n153-a-woman-in-a-patterned-scarf-640.4d62b53741.avif"
+},
+"1200": {
+"jpg": "n153-a-woman-in-a-patterned-scarf-1200.934de38059.jpg",
+"avif": "n153-a-woman-in-a-patterned-scarf-1200.19b6ddb5e3.avif"
+},
+"1533": {
+"jpg": "n153-a-woman-in-a-patterned-scarf-1533.18fb035e97.jpg",
+"avif": "n153-a-woman-in-a-patterned-scarf-1533.28fa3f83dd.avif"
+}
+}
 ],
 "n172": [
 3277,
@@ -69,7 +167,21 @@
 640,
 1200,
 2000
-]
+],
+{
+"640": {
+"jpg": "n172-two-chefs-in-aprons-work-at-640.6af1e9e30a.jpg",
+"avif": "n172-two-chefs-in-aprons-work-at-640.d5f73a2e22.avif"
+},
+"1200": {
+"jpg": "n172-two-chefs-in-aprons-work-at-1200.6e5ab10459.jpg",
+"avif": "n172-two-chefs-in-aprons-work-at-1200.c300b79417.avif"
+},
+"2000": {
+"jpg": "n172-two-chefs-in-aprons-work-at-2000.36578fe6af.jpg",
+"avif": "n172-two-chefs-in-aprons-work-at-2000.24adce990e.avif"
+}
+}
 ],
 "n175": [
 4024,
@@ -78,7 +190,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n175-a-dancer-in-a-sequinned-dress-640.92939e9cdc.jpg",
+"avif": "n175-a-dancer-in-a-sequinned-dress-640.adf4233628.avif"
+},
+"1200": {
+"jpg": "n175-a-dancer-in-a-sequinned-dress-1200.778d20e937.jpg",
+"avif": "n175-a-dancer-in-a-sequinned-dress-1200.34c717e2ae.avif"
+},
+"1600": {
+"jpg": "n175-a-dancer-in-a-sequinned-dress-1600.b31d921fbe.jpg",
+"avif": "n175-a-dancer-in-a-sequinned-dress-1600.9b98d918b1.avif"
+}
+}
 ],
 "n208": [
 6048,
@@ -87,7 +213,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n208-an-older-woman-with-white-hair-640.d5fce8fa39.jpg",
+"avif": "n208-an-older-woman-with-white-hair-640.d279b7c352.avif"
+},
+"1200": {
+"jpg": "n208-an-older-woman-with-white-hair-1200.b7800095fa.jpg",
+"avif": "n208-an-older-woman-with-white-hair-1200.e4d58ca34c.avif"
+},
+"1600": {
+"jpg": "n208-an-older-woman-with-white-hair-1600.38e689f626.jpg",
+"avif": "n208-an-older-woman-with-white-hair-1600.a08b2702a1.avif"
+}
+}
 ],
 "n181": [
 6048,
@@ -96,7 +236,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n181-an-older-woman-smiles-behind-the-640.9a5efa7c5d.jpg",
+"avif": "n181-an-older-woman-smiles-behind-the-640.0a3f005aec.avif"
+},
+"1200": {
+"jpg": "n181-an-older-woman-smiles-behind-the-1200.1b9dedcb86.jpg",
+"avif": "n181-an-older-woman-smiles-behind-the-1200.adfda80d47.avif"
+},
+"1600": {
+"jpg": "n181-an-older-woman-smiles-behind-the-1600.445c33a610.jpg",
+"avif": "n181-an-older-woman-smiles-behind-the-1600.99418c48ee.avif"
+}
+}
 ],
 "n188": [
 3351,
@@ -105,7 +259,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n188-three-people-cross-a-street-at-640.a3659319b5.jpg",
+"avif": "n188-three-people-cross-a-street-at-640.2b9f72ec75.avif"
+},
+"1200": {
+"jpg": "n188-three-people-cross-a-street-at-1200.b6138a7b10.jpg",
+"avif": "n188-three-people-cross-a-street-at-1200.f195229d13.avif"
+},
+"1600": {
+"jpg": "n188-three-people-cross-a-street-at-1600.f4d6dcf837.jpg",
+"avif": "n188-three-people-cross-a-street-at-1600.9ac081d5e4.avif"
+}
+}
 ],
 "n203": [
 4941,
@@ -114,7 +282,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n203-a-full-tube-carriage-passengers-sitting-640.7820b11ba9.jpg",
+"avif": "n203-a-full-tube-carriage-passengers-sitting-640.9257b8f65b.avif"
+},
+"1200": {
+"jpg": "n203-a-full-tube-carriage-passengers-sitting-1200.9f0b1a6329.jpg",
+"avif": "n203-a-full-tube-carriage-passengers-sitting-1200.6b0d710ef7.avif"
+},
+"1600": {
+"jpg": "n203-a-full-tube-carriage-passengers-sitting-1600.19ae070ebf.jpg",
+"avif": "n203-a-full-tube-carriage-passengers-sitting-1600.9d4a5df5c1.avif"
+}
+}
 ],
 "n201": [
 3997,
@@ -123,7 +305,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n201-an-empty-tube-carriage-blue-seats-640.b7e41c6242.jpg",
+"avif": "n201-an-empty-tube-carriage-blue-seats-640.5e0c997371.avif"
+},
+"1200": {
+"jpg": "n201-an-empty-tube-carriage-blue-seats-1200.2aaa533a36.jpg",
+"avif": "n201-an-empty-tube-carriage-blue-seats-1200.1c958f2352.avif"
+},
+"1600": {
+"jpg": "n201-an-empty-tube-carriage-blue-seats-1600.0fb847cd67.jpg",
+"avif": "n201-an-empty-tube-carriage-blue-seats-1600.6c312c306e.avif"
+}
+}
 ],
 "n055": [
 3382,
@@ -132,7 +328,21 @@
 640,
 1200,
 2000
-]
+],
+{
+"640": {
+"jpg": "n055-an-older-woman-in-a-bright-640.44e4a36a06.jpg",
+"avif": "n055-an-older-woman-in-a-bright-640.650e6a509f.avif"
+},
+"1200": {
+"jpg": "n055-an-older-woman-in-a-bright-1200.e00d8436e1.jpg",
+"avif": "n055-an-older-woman-in-a-bright-1200.3ff27fe78c.avif"
+},
+"2000": {
+"jpg": "n055-an-older-woman-in-a-bright-2000.c3a7179fa8.jpg",
+"avif": "n055-an-older-woman-in-a-bright-2000.92b62ff55d.avif"
+}
+}
 ],
 "n056": [
 3429,
@@ -141,7 +351,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n056-a-woman-with-red-hair-in-640.a3dd03f37c.jpg",
+"avif": "n056-a-woman-with-red-hair-in-640.1e846565e5.avif"
+},
+"1200": {
+"jpg": "n056-a-woman-with-red-hair-in-1200.00a66b6b4a.jpg",
+"avif": "n056-a-woman-with-red-hair-in-1200.6a61bb33ce.avif"
+},
+"1600": {
+"jpg": "n056-a-woman-with-red-hair-in-1600.c2304f4f64.jpg",
+"avif": "n056-a-woman-with-red-hair-in-1600.4d866a8452.avif"
+}
+}
 ],
 "n057": [
 3963,
@@ -150,7 +374,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n057-people-stand-in-a-queue-on-640.72b6d429de.jpg",
+"avif": "n057-people-stand-in-a-queue-on-640.2f8565de46.avif"
+},
+"1200": {
+"jpg": "n057-people-stand-in-a-queue-on-1200.911266bacf.jpg",
+"avif": "n057-people-stand-in-a-queue-on-1200.2a40609f4c.avif"
+},
+"1600": {
+"jpg": "n057-people-stand-in-a-queue-on-1600.2cac94b855.jpg",
+"avif": "n057-people-stand-in-a-queue-on-1600.19410b4833.avif"
+}
+}
 ],
 "n215": [
 3032,
@@ -159,7 +397,21 @@
 640,
 1200,
 2000
-]
+],
+{
+"640": {
+"jpg": "n215-two-people-look-into-a-lit-640.95cd0a4d28.jpg",
+"avif": "n215-two-people-look-into-a-lit-640.9a138dc130.avif"
+},
+"1200": {
+"jpg": "n215-two-people-look-into-a-lit-1200.197d360cb8.jpg",
+"avif": "n215-two-people-look-into-a-lit-1200.ae3b46866d.avif"
+},
+"2000": {
+"jpg": "n215-two-people-look-into-a-lit-2000.2a01319a80.jpg",
+"avif": "n215-two-people-look-into-a-lit-2000.85eb2c0dba.avif"
+}
+}
 ],
 "n211": [
 6048,
@@ -168,7 +420,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n211-the-lit-front-of-beigel-bake-640.c67fd86fac.jpg",
+"avif": "n211-the-lit-front-of-beigel-bake-640.fde4fd6b9d.avif"
+},
+"1200": {
+"jpg": "n211-the-lit-front-of-beigel-bake-1200.4e28eab870.jpg",
+"avif": "n211-the-lit-front-of-beigel-bake-1200.91e831e9e2.avif"
+},
+"1600": {
+"jpg": "n211-the-lit-front-of-beigel-bake-1600.377dc001db.jpg",
+"avif": "n211-the-lit-front-of-beigel-bake-1600.fde18731e1.avif"
+}
+}
 ],
 "n040": [
 3055,
@@ -177,7 +443,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n040-a-young-man-with-a-green-640.ec820758a9.jpg",
+"avif": "n040-a-young-man-with-a-green-640.509dbc8820.avif"
+},
+"1200": {
+"jpg": "n040-a-young-man-with-a-green-1200.098dd6e2c0.jpg",
+"avif": "n040-a-young-man-with-a-green-1200.5a170c712f.avif"
+},
+"1600": {
+"jpg": "n040-a-young-man-with-a-green-1600.995788faae.jpg",
+"avif": "n040-a-young-man-with-a-green-1600.51bd898eb9.avif"
+}
+}
 ],
 "n212": [
 2020,
@@ -186,7 +466,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n212-a-woman-walks-down-the-curved-640.49ba0de446.jpg",
+"avif": "n212-a-woman-walks-down-the-curved-640.7c4268851f.avif"
+},
+"1200": {
+"jpg": "n212-a-woman-walks-down-the-curved-1200.f98308c648.jpg",
+"avif": "n212-a-woman-walks-down-the-curved-1200.a4c0173881.avif"
+},
+"1600": {
+"jpg": "n212-a-woman-walks-down-the-curved-1600.9e4f70e1e9.jpg",
+"avif": "n212-a-woman-walks-down-the-curved-1600.5bb70b4788.avif"
+}
+}
 ],
 "n053": [
 4024,
@@ -195,7 +489,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n053-two-figures-in-the-lit-doorway-640.2f889c242c.jpg",
+"avif": "n053-two-figures-in-the-lit-doorway-640.8a30aed386.avif"
+},
+"1200": {
+"jpg": "n053-two-figures-in-the-lit-doorway-1200.b7f3b5a33e.jpg",
+"avif": "n053-two-figures-in-the-lit-doorway-1200.6b6f1e154c.avif"
+},
+"1600": {
+"jpg": "n053-two-figures-in-the-lit-doorway-1600.290f598127.jpg",
+"avif": "n053-two-figures-in-the-lit-doorway-1600.72444d6f87.avif"
+}
+}
 ],
 "n038": [
 4024,
@@ -204,7 +512,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "n038-a-man-walks-alone-down-a-640.84db3857f3.jpg",
+"avif": "n038-a-man-walks-alone-down-a-640.c5883b7ce8.avif"
+},
+"1200": {
+"jpg": "n038-a-man-walks-alone-down-a-1200.b5d3b26422.jpg",
+"avif": "n038-a-man-walks-alone-down-a-1200.78e089b0f9.avif"
+},
+"1600": {
+"jpg": "n038-a-man-walks-alone-down-a-1600.b8c01a0838.jpg",
+"avif": "n038-a-man-walks-alone-down-a-1600.73b8ac54fe.avif"
+}
+}
 ],
 "s3706": [
 6064,
@@ -213,7 +535,21 @@
 640,
 1200,
 2000
-]
+],
+{
+"640": {
+"jpg": "s3706-owners-stand-around-a-vintage-open-640.bbfd193c53.jpg",
+"avif": "s3706-owners-stand-around-a-vintage-open-640.a195ba0a00.avif"
+},
+"1200": {
+"jpg": "s3706-owners-stand-around-a-vintage-open-1200.1ae3289bf3.jpg",
+"avif": "s3706-owners-stand-around-a-vintage-open-1200.34f1ba88b3.avif"
+},
+"2000": {
+"jpg": "s3706-owners-stand-around-a-vintage-open-2000.83d76f09ca.jpg",
+"avif": "s3706-owners-stand-around-a-vintage-open-2000.ef7c1cd8f2.avif"
+}
+}
 ],
 "s3575": [
 3032,
@@ -222,7 +558,21 @@
 640,
 1200,
 2000
-]
+],
+{
+"640": {
+"jpg": "s3575-a-red-hatchback-faces-the-camera-640.a038383a6e.jpg",
+"avif": "s3575-a-red-hatchback-faces-the-camera-640.0dc0c8f10b.avif"
+},
+"1200": {
+"jpg": "s3575-a-red-hatchback-faces-the-camera-1200.a2b6c2bb40.jpg",
+"avif": "s3575-a-red-hatchback-faces-the-camera-1200.c2fe741201.avif"
+},
+"2000": {
+"jpg": "s3575-a-red-hatchback-faces-the-camera-2000.36a36c0e30.jpg",
+"avif": "s3575-a-red-hatchback-faces-the-camera-2000.cae0944bdf.avif"
+}
+}
 ],
 "s3756": [
 2020,
@@ -231,7 +581,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s3756-the-cockpit-of-a-vintage-racing-640.a519500e94.jpg",
+"avif": "s3756-the-cockpit-of-a-vintage-racing-640.491581b99f.avif"
+},
+"1200": {
+"jpg": "s3756-the-cockpit-of-a-vintage-racing-1200.87b73cbdfe.jpg",
+"avif": "s3756-the-cockpit-of-a-vintage-racing-1200.307b21327a.avif"
+},
+"1600": {
+"jpg": "s3756-the-cockpit-of-a-vintage-racing-1600.6c3069cc57.jpg",
+"avif": "s3756-the-cockpit-of-a-vintage-racing-1600.b5827d1c4d.avif"
+}
+}
 ],
 "s3782": [
 2020,
@@ -240,7 +604,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s3782-two-men-in-winter-coats-lean-640.8b08c1fd34.jpg",
+"avif": "s3782-two-men-in-winter-coats-lean-640.d1b137c7b0.avif"
+},
+"1200": {
+"jpg": "s3782-two-men-in-winter-coats-lean-1200.7c8cbdfec4.jpg",
+"avif": "s3782-two-men-in-winter-coats-lean-1200.6749112cd7.avif"
+},
+"1600": {
+"jpg": "s3782-two-men-in-winter-coats-lean-1600.a3fb33c10c.jpg",
+"avif": "s3782-two-men-in-winter-coats-lean-1600.cc03e4bf5c.avif"
+}
+}
 ],
 "s4027": [
 6064,
@@ -249,7 +627,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s4027-people-and-cars-line-a-road-640.b9d3acb5de.jpg",
+"avif": "s4027-people-and-cars-line-a-road-640.eb45737519.avif"
+},
+"1200": {
+"jpg": "s4027-people-and-cars-line-a-road-1200.5b53b446a9.jpg",
+"avif": "s4027-people-and-cars-line-a-road-1200.3adab6f983.avif"
+},
+"1600": {
+"jpg": "s4027-people-and-cars-line-a-road-1600.efc77691f1.jpg",
+"avif": "s4027-people-and-cars-line-a-road-1600.aab19b56c9.avif"
+}
+}
 ],
 "s4098": [
 6064,
@@ -258,7 +650,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s4098-owners-gather-around-classic-cars-parked-640.ecb66c7e99.jpg",
+"avif": "s4098-owners-gather-around-classic-cars-parked-640.2a8a38b39e.avif"
+},
+"1200": {
+"jpg": "s4098-owners-gather-around-classic-cars-parked-1200.4fc4254c16.jpg",
+"avif": "s4098-owners-gather-around-classic-cars-parked-1200.370afced2f.avif"
+},
+"1600": {
+"jpg": "s4098-owners-gather-around-classic-cars-parked-1600.329e0d7209.jpg",
+"avif": "s4098-owners-gather-around-classic-cars-parked-1600.bcbefeb690.avif"
+}
+}
 ],
 "s4138": [
 2020,
@@ -267,7 +673,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s4138-four-polished-air-trumpets-on-the-640.4e9175a4bd.jpg",
+"avif": "s4138-four-polished-air-trumpets-on-the-640.9b6fd3bbf4.avif"
+},
+"1200": {
+"jpg": "s4138-four-polished-air-trumpets-on-the-1200.ed61ef25c8.jpg",
+"avif": "s4138-four-polished-air-trumpets-on-the-1200.30903dd8e3.avif"
+},
+"1600": {
+"jpg": "s4138-four-polished-air-trumpets-on-the-1600.adf58a4732.jpg",
+"avif": "s4138-four-polished-air-trumpets-on-the-1600.96a0fd21af.avif"
+}
+}
 ],
 "s4476": [
 3032,
@@ -276,7 +696,21 @@
 640,
 1200,
 2000
-]
+],
+{
+"640": {
+"jpg": "s4476-a-silver-grand-tourer-and-a-640.de3d625f1e.jpg",
+"avif": "s4476-a-silver-grand-tourer-and-a-640.5540b8a3f3.avif"
+},
+"1200": {
+"jpg": "s4476-a-silver-grand-tourer-and-a-1200.7fe122736e.jpg",
+"avif": "s4476-a-silver-grand-tourer-and-a-1200.631c6d16b4.avif"
+},
+"2000": {
+"jpg": "s4476-a-silver-grand-tourer-and-a-2000.a5dd289b72.jpg",
+"avif": "s4476-a-silver-grand-tourer-and-a-2000.576cfb8b1a.avif"
+}
+}
 ],
 "s5054": [
 3032,
@@ -285,7 +719,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s5054-a-pale-blue-alfa-romeo-convertible-640.675ef87fbc.jpg",
+"avif": "s5054-a-pale-blue-alfa-romeo-convertible-640.ef2b58cfba.avif"
+},
+"1200": {
+"jpg": "s5054-a-pale-blue-alfa-romeo-convertible-1200.f2b957b624.jpg",
+"avif": "s5054-a-pale-blue-alfa-romeo-convertible-1200.ef1dc5bb08.avif"
+},
+"1600": {
+"jpg": "s5054-a-pale-blue-alfa-romeo-convertible-1600.4def7f6765.jpg",
+"avif": "s5054-a-pale-blue-alfa-romeo-convertible-1600.044a17d181.avif"
+}
+}
 ],
 "s8831": [
 2020,
@@ -294,7 +742,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s8831-a-man-bends-to-look-closely-640.dfe2b5ef38.jpg",
+"avif": "s8831-a-man-bends-to-look-closely-640.a9ea789d92.avif"
+},
+"1200": {
+"jpg": "s8831-a-man-bends-to-look-closely-1200.418a9bbe6c.jpg",
+"avif": "s8831-a-man-bends-to-look-closely-1200.394a952ab1.avif"
+},
+"1600": {
+"jpg": "s8831-a-man-bends-to-look-closely-1600.e1851666df.jpg",
+"avif": "s8831-a-man-bends-to-look-closely-1600.65037b5a78.avif"
+}
+}
 ],
 "s2157": [
 6064,
@@ -303,7 +765,21 @@
 640,
 1200,
 2000
-]
+],
+{
+"640": {
+"jpg": "s2157-people-under-red-and-white-umbrellas-640.231de000dc.jpg",
+"avif": "s2157-people-under-red-and-white-umbrellas-640.a7727f3911.avif"
+},
+"1200": {
+"jpg": "s2157-people-under-red-and-white-umbrellas-1200.7a77894581.jpg",
+"avif": "s2157-people-under-red-and-white-umbrellas-1200.ee9212f88d.avif"
+},
+"2000": {
+"jpg": "s2157-people-under-red-and-white-umbrellas-2000.c0c8bd3900.jpg",
+"avif": "s2157-people-under-red-and-white-umbrellas-2000.14eab45c2a.avif"
+}
+}
 ],
 "s5190": [
 6064,
@@ -312,7 +788,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s5190-owners-talk-around-a-vintage-open-640.c978a76873.jpg",
+"avif": "s5190-owners-talk-around-a-vintage-open-640.c4aed7c5c6.avif"
+},
+"1200": {
+"jpg": "s5190-owners-talk-around-a-vintage-open-1200.eac09adea6.jpg",
+"avif": "s5190-owners-talk-around-a-vintage-open-1200.a49a25cf9a.avif"
+},
+"1600": {
+"jpg": "s5190-owners-talk-around-a-vintage-open-1600.943276b40e.jpg",
+"avif": "s5190-owners-talk-around-a-vintage-open-1600.02ca2ceb50.avif"
+}
+}
 ],
 "s5734": [
 2020,
@@ -321,7 +811,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s5734-two-men-talk-beside-a-classic-640.8254302062.jpg",
+"avif": "s5734-two-men-talk-beside-a-classic-640.0d67e8c4a3.avif"
+},
+"1200": {
+"jpg": "s5734-two-men-talk-beside-a-classic-1200.5daca2345c.jpg",
+"avif": "s5734-two-men-talk-beside-a-classic-1200.336d7c3b97.avif"
+},
+"1600": {
+"jpg": "s5734-two-men-talk-beside-a-classic-1600.16f7ab4068.jpg",
+"avif": "s5734-two-men-talk-beside-a-classic-1600.62d15a4180.avif"
+}
+}
 ],
 "s5951": [
 2020,
@@ -330,7 +834,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s5951-a-man-pushes-a-baby-in-640.a680a743f1.jpg",
+"avif": "s5951-a-man-pushes-a-baby-in-640.bb966fac0a.avif"
+},
+"1200": {
+"jpg": "s5951-a-man-pushes-a-baby-in-1200.34114db687.jpg",
+"avif": "s5951-a-man-pushes-a-baby-in-1200.730ef3a7aa.avif"
+},
+"1600": {
+"jpg": "s5951-a-man-pushes-a-baby-in-1600.64f9ba6245.jpg",
+"avif": "s5951-a-man-pushes-a-baby-in-1600.404d4e4471.avif"
+}
+}
 ],
 "s6239": [
 2020,
@@ -339,7 +857,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s6239-a-man-in-a-flat-cap-640.15f190c96b.jpg",
+"avif": "s6239-a-man-in-a-flat-cap-640.ea5cc6ca9c.avif"
+},
+"1200": {
+"jpg": "s6239-a-man-in-a-flat-cap-1200.ccbed39764.jpg",
+"avif": "s6239-a-man-in-a-flat-cap-1200.68fafa3b8b.avif"
+},
+"1600": {
+"jpg": "s6239-a-man-in-a-flat-cap-1600.07e8fb8690.jpg",
+"avif": "s6239-a-man-in-a-flat-cap-1600.f04e6eaeea.avif"
+}
+}
 ],
 "si2262": [
 4032,
@@ -348,7 +880,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "si2262-the-bonnet-and-headlight-of-a-640.7baf6df1a1.jpg",
+"avif": "si2262-the-bonnet-and-headlight-of-a-640.5642ee942e.avif"
+},
+"1200": {
+"jpg": "si2262-the-bonnet-and-headlight-of-a-1200.58b4e15446.jpg",
+"avif": "si2262-the-bonnet-and-headlight-of-a-1200.55e2731b97.avif"
+},
+"1600": {
+"jpg": "si2262-the-bonnet-and-headlight-of-a-1600.9c1a6013db.jpg",
+"avif": "si2262-the-bonnet-and-headlight-of-a-1600.1f9eca0fe5.avif"
+}
+}
 ],
 "s1254": [
 3032,
@@ -357,7 +903,21 @@
 640,
 1200,
 2000
-]
+],
+{
+"640": {
+"jpg": "s1254-a-crowd-gathers-around-sports-cars-640.cf9e2d310f.jpg",
+"avif": "s1254-a-crowd-gathers-around-sports-cars-640.8b86e7349a.avif"
+},
+"1200": {
+"jpg": "s1254-a-crowd-gathers-around-sports-cars-1200.eddd54b09a.jpg",
+"avif": "s1254-a-crowd-gathers-around-sports-cars-1200.1bd048d02a.avif"
+},
+"2000": {
+"jpg": "s1254-a-crowd-gathers-around-sports-cars-2000.5957970cbf.jpg",
+"avif": "s1254-a-crowd-gathers-around-sports-cars-2000.2337602a62.avif"
+}
+}
 ],
 "s2003": [
 6064,
@@ -366,7 +926,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "s2003-people-and-their-dogs-stand-around-640.24e54c5af6.jpg",
+"avif": "s2003-people-and-their-dogs-stand-around-640.43d8c0ff1a.avif"
+},
+"1200": {
+"jpg": "s2003-people-and-their-dogs-stand-around-1200.1288a8a0cf.jpg",
+"avif": "s2003-people-and-their-dogs-stand-around-1200.cc553b2fb4.avif"
+},
+"1600": {
+"jpg": "s2003-people-and-their-dogs-stand-around-1600.7bceb862c4.jpg",
+"avif": "s2003-people-and-their-dogs-stand-around-1600.6a831f37da.avif"
+}
+}
 ],
 "si3781": [
 3024,
@@ -375,7 +949,21 @@
 640,
 1200,
 1600
-]
+],
+{
+"640": {
+"jpg": "si3781-over-a-photographer-s-shoulder-a-640.2eaae95f18.jpg",
+"avif": "si3781-over-a-photographer-s-shoulder-a-640.27cb431bfc.avif"
+},
+"1200": {
+"jpg": "si3781-over-a-photographer-s-shoulder-a-1200.f4088eea32.jpg",
+"avif": "si3781-over-a-photographer-s-shoulder-a-1200.9801443876.avif"
+},
+"1600": {
+"jpg": "si3781-over-a-photographer-s-shoulder-a-1600.9895e59b06.jpg",
+"avif": "si3781-over-a-photographer-s-shoulder-a-1600.6fe0bfc808.avif"
+}
+}
 ],
 "s4196": [
 4032,
@@ -384,7 +972,21 @@
 640,
 1200,
 2000
-]
+],
+{
+"640": {
+"jpg": "s4196-two-men-talk-among-porsches-parked-640.ced3182b91.jpg",
+"avif": "s4196-two-men-talk-among-porsches-parked-640.2a7d63f3d6.avif"
+},
+"1200": {
+"jpg": "s4196-two-men-talk-among-porsches-parked-1200.97a33efc42.jpg",
+"avif": "s4196-two-men-talk-among-porsches-parked-1200.aa5bdd6c5f.avif"
+},
+"2000": {
+"jpg": "s4196-two-men-talk-among-porsches-parked-2000.960a7d31ff.jpg",
+"avif": "s4196-two-men-talk-among-porsches-parked-2000.fae732ce7a.avif"
+}
+}
 ],
 "s5291": [
 6064,
@@ -393,6 +995,61 @@
 640,
 1200,
 1600
-]
-]
+],
+{
+"640": {
+"jpg": "s5291-a-small-group-still-talking-in-640.ae9b12fc93.jpg",
+"avif": "s5291-a-small-group-still-talking-in-640.c0ffbfd14b.avif"
+},
+"1200": {
+"jpg": "s5291-a-small-group-still-talking-in-1200.22740bef23.jpg",
+"avif": "s5291-a-small-group-still-talking-in-1200.3ab8a4bde3.avif"
+},
+"1600": {
+"jpg": "s5291-a-small-group-still-talking-in-1600.949b3697aa.jpg",
+"avif": "s5291-a-small-group-still-talking-in-1600.b5a82f53de.avif"
+}
+}
+],
+"_portrait": "david-silva.6b78d1cc13.jpg",
+"_assets": {
+"book-cover": {
+"800": {
+"jpg": "book-cover-800.241076cce1.jpg",
+"avif": "book-cover-800.912e346167.avif"
+},
+"1600": {
+"jpg": "book-cover-1600.37eaf7bb57.jpg",
+"avif": "book-cover-1600.ffff110f47.avif"
+}
+},
+"book-spread-umbrellas": {
+"800": {
+"jpg": "book-spread-umbrellas-800.7727c11b00.jpg",
+"avif": "book-spread-umbrellas-800.7991424a1c.avif"
+},
+"1600": {
+"jpg": "book-spread-umbrellas-1600.4d631d9ead.jpg",
+"avif": "book-spread-umbrellas-1600.ccbbf6358a.avif"
+},
+"2000": {
+"jpg": "book-spread-umbrellas-2000.208ab910fa.jpg",
+"avif": "book-spread-umbrellas-2000.aaa65ed836.avif"
+}
+},
+"book-spread-show-and-tell": {
+"800": {
+"jpg": "book-spread-show-and-tell-800.2c88a3aa69.jpg",
+"avif": "book-spread-show-and-tell-800.e6885116df.avif"
+},
+"1600": {
+"jpg": "book-spread-show-and-tell-1600.98c6d543a3.jpg",
+"avif": "book-spread-show-and-tell-1600.68c0b35e44.avif"
+},
+"2000": {
+"jpg": "book-spread-show-and-tell-2000.a1c10c2d30.jpg",
+"avif": "book-spread-show-and-tell-2000.f899982f6c.avif"
+}
+}
+}
 }

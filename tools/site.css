@@ -100,3 +100,15 @@ footer nav { display: flex; gap: 18px; flex-wrap: wrap; width: 100%; }
 footer nav a { padding-block: 10px; }
 @media (max-width: 720px) { header.site { padding-top: 16px; } header.site nav { gap: 18px; } }
 header.site .name { display: inline-block; padding-block: 6px; }
+/* 2026 pass: fallback fonts sized to match, smooth page changes, skip work off-screen, onward link. */
+:root { --display: "Newsreader", "Newsreader Fallback", Georgia, serif; --label: "Public Sans", "Public Sans Fallback", Arial, sans-serif; }
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+main .block:nth-of-type(n+4) { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.next { display: grid; gap: 6px; max-width: 1040px; margin: clamp(80px, 14vh, 160px) auto 0; padding: 36px 0; border-top: 1px solid var(--hair); text-decoration: none; color: var(--ink); }
+.next .next-title { font: 300 clamp(32px, 4.4vw, 56px)/1.05 var(--display); }
+.next .next-title::after { content: " →"; }
+.next .next-sub { color: var(--soft); font: italic 300 19px var(--display); }
+.next:hover .next-title { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 1px; }
+.about, .more, .next, .book, footer { padding-inline: clamp(16px, 4vw, 48px); }
