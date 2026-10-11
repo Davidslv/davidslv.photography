@@ -23,7 +23,7 @@ OG_TOP = 0.3
 
 def ph(n, time, alt, **kw):
     return dict(src=N / f"DSC0{n}.JPG", alt=alt, cap=None, taken=f"2012-02-26T{time}", show_time=True,
-                grade="atlantic", **kw)
+                grade="cine", **kw)
 
 
 PHOTOS = {

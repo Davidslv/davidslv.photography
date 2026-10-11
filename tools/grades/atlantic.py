@@ -49,3 +49,38 @@ def grade(im, keep=0.8, ev=0.0, shadows=0.0, grain=0.007, seed=11):
         a = a + np.random.default_rng(seed).normal(0, grain, a.shape[:2])[..., None].astype(np.float32)
     out = Image.fromarray((np.clip(a, 0, 1) * 255 + .5).astype(np.uint8))
     return out.filter(ImageFilter.UnsharpMask(radius=1.2, percent=60, threshold=2))
+
+
+def cine(im, ev=0.0, shadows=0.0, seed=11):
+    """Cinematic variant: the Atlantic base, then teal shadows and water, warm skin and sand, deeper contrast,
+    a filmic highlight roll-off, lifted teal blacks, a light vignette and grain."""
+    base = grade(im, keep=0.9, ev=ev - 0.1, shadows=shadows, grain=0)
+    a = np.asarray(base, np.float32) / 255
+    h, s, v = _hue(a)
+    lum = (a * W).sum(-1, keepdims=True)
+    # skin and sand (orange 10-50 deg) keep colour; blues and cyans pulled toward teal and calmed
+    warm = (np.clip(np.minimum(h - 5, 55 - h) / 10, 0, 1) * np.clip(s / 0.15, 0, 1))[..., None]
+    cool = (np.clip(np.minimum(h - 165, 245 - h) / 20, 0, 1) * np.clip((s - 0.08) / 0.15, 0, 1)
+            * np.clip((0.85 - v) / 0.25, 0, 1))[..., None]
+    green = (np.clip(np.minimum(h - 70, 150 - h) / 12, 0, 1) * np.clip((s - 0.25) / 0.15, 0, 1))[..., None]
+    sat = 0.74 + 0.3 * warm + 0.45 * green
+    a = lum + (a - lum) * sat
+    teal = np.array([0.0, 0.47, 0.50], np.float32)
+    a = a * (1 - 0.14 * cool) + (lum * teal / 0.5 * 0.9) * 0.14 * cool
+    # filmic S: deeper mids, soft toe, rolled highlights
+    a = np.clip(a, 0, 1)
+    a = a + 0.3 * (a - 0.5) * (1 - np.abs(2 * a - 1))
+    a = 1 - (1 - a) ** 1.06
+    l2 = (a * W).sum(-1, keepdims=True)
+    sh = np.clip(1 - l2 / 0.4, 0, 1) * (1 - green)
+    hi = np.clip((l2 - 0.5) / 0.4, 0, 1) * np.clip((0.97 - l2) / 0.12, 0, 1)
+    a = a + sh * np.array([-0.022, 0.01, 0.024], np.float32) + hi * np.array([0.032, 0.014, -0.022], np.float32)
+    a = 0.03 + 0.96 * np.clip(a, 0, 1) + (1 - l2) * np.array([-0.008, 0.003, 0.009], np.float32)
+    # vignette
+    hh, ww = a.shape[:2]
+    y, x = np.ogrid[:hh, :ww]
+    r = np.sqrt(((x - ww / 2) / (ww / 2)) ** 2 + ((y - hh / 2) / (hh / 2)) ** 2) / np.sqrt(2)
+    a = a * (1 - 0.22 * np.clip(r - 0.35, 0, 1) ** 1.6)[..., None]
+    a = a + np.random.default_rng(seed).normal(0, 0.009, a.shape[:2])[..., None].astype(np.float32)
+    out = Image.fromarray((np.clip(a, 0, 1) * 255 + .5).astype(np.uint8))
+    return out.filter(ImageFilter.UnsharpMask(radius=1.2, percent=50, threshold=2))
