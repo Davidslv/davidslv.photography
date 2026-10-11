@@ -1535,29 +1535,6 @@
 }
 }
 ],
-"e8655": [
-4592,
-3056,
-[
-640,
-1200,
-1600
-],
-{
-"640": {
-"jpg": "e8655-a-skimboarder-walks-up-the-beach-640.8a69eca8e0.jpg",
-"avif": "e8655-a-skimboarder-walks-up-the-beach-640.61e856ab0c.avif"
-},
-"1200": {
-"jpg": "e8655-a-skimboarder-walks-up-the-beach-1200.5bbf77f83a.jpg",
-"avif": "e8655-a-skimboarder-walks-up-the-beach-1200.4d13befe1e.avif"
-},
-"1600": {
-"jpg": "e8655-a-skimboarder-walks-up-the-beach-1600.bc0623e77b.jpg",
-"avif": "e8655-a-skimboarder-walks-up-the-beach-1600.5d5b3bfc4d.avif"
-}
-}
-],
 "e8661": [
 4592,
 3056,
@@ -1831,6 +1808,29 @@
 "2000": {
 "jpg": "e8822-a-skimboarder-leans-into-a-turn-2000.f26d8f2184.jpg",
 "avif": "e8822-a-skimboarder-leans-into-a-turn-2000.c73bea2450.avif"
+}
+}
+],
+"e8655": [
+4592,
+3056,
+[
+640,
+1200,
+2000
+],
+{
+"640": {
+"jpg": "e8655-a-skimboarder-walks-up-the-beach-640.8a69eca8e0.jpg",
+"avif": "e8655-a-skimboarder-walks-up-the-beach-640.61e856ab0c.avif"
+},
+"1200": {
+"jpg": "e8655-a-skimboarder-walks-up-the-beach-1200.5bbf77f83a.jpg",
+"avif": "e8655-a-skimboarder-walks-up-the-beach-1200.4d13befe1e.avif"
+},
+"2000": {
+"jpg": "e8655-a-skimboarder-walks-up-the-beach-2000.4315ad86b1.jpg",
+"avif": "e8655-a-skimboarder-walks-up-the-beach-2000.09c029ab09.avif"
 }
 }
 ]
