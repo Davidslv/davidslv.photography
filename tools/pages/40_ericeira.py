@@ -2,7 +2,7 @@
 
 Sources are the 40 JPEGs sold on Gumroad (https://davidslv.gumroad.com/l/hSKX), straight from a Sony DSLR-A350
 with the 55-200 mm kit zoom. Graded for the site with tools/grades/atlantic.py (quiet colour, green boards kept). The Gumroad files are ungraded. Times are the camera's own, 17:05 to 17:29.
-Words are David's, from the Gumroad page.
+Words are David's: the Gumroad page and his own account of the day (11 Oct 2026). The camera was a friend's.
 """
 from pathlib import Path
 
@@ -12,8 +12,8 @@ PATH = "/ericeira/"
 NAV_NAME = "Ericeira"
 TITLE = "The first afternoon · Skimboarding at Ericeira, 2012, photographed by David Silva"
 OG_TITLE = "The first afternoon · David Silva"
-DESC = ("Ericeira, 26 February 2012: the first afternoon David Silva held a DSLR. Skimboarders running into the "
-        "white water below the cliffs, in the order it happened.")
+DESC = ("Ericeira, 26 February 2012: the first afternoon David Silva held a DSLR, a friend's camera. Skimboarders "
+        "running into the white water below the cliffs, in the order it happened.")
 HERO_LABEL = "Ericeira, Portugal · 26 February 2012"
 HERO_TITLE = "The first afternoon"
 GALLERY_NAME = "Skimboarding at Ericeira, 26 February 2012"
@@ -47,47 +47,35 @@ PHOTOS = {
 SEQUENCE = [
     ("hero", "e8537"),
     ("part", "Ericeira, 26 February 2012", "Off the rocks",
-     "I had a DSLR in my hands for the first time. I pointed it at people skimboarding off the rocks and I did not "
-     "really know what I was doing."),
+     "I went to the beach with a friend and he lent me his camera. It was the first time I had a DSLR in my hands. "
+     "I had never shot before, and I had nothing planned for that afternoon."),
     ("wide", "e8490"),
     ("pair", "e8529", "e8549"),
-    ("part", "17:14", "The run", "Run, drop the board, jump on. Again and again."),
+    ("part", "17:14", "The run", "They skipped across the water, went up the wave and came down again. I thought it was fascinating."),
     ("wide", "e8635"),
     ("wide", "e8655"),
     ("print", "e8661", "left"),
     ("print", "e8739", "right-small"),
-    ("part", "17:22", "White water", "The last minutes on the beach."),
+    ("part", "17:22", "White water", "They were doing their own thing. I was doing mine, trying a camera for the first time."),
     ("print", "e8773", "centre"),
     ("wide", "e8784"),
     ("wide", "e8822"),
     ("pair", "e8843", "e8849"),
     ("print", "e8853", "left"),
     ("wide", "e8863"),
-    ("line", "Twenty-three minutes, more than 3,000 frames. These are the ones I kept."),
+    ("line", "I didn't get them all right. These are the best photos I took that day."),
 ]
 
 GUMROAD = "https://davidslv.gumroad.com/l/hSKX"
-EMAIL, IG = "davidslv.london@gmail.com", "https://www.instagram.com/davidslv.photography/"
+
 
 
 def after(meta):
-    return f"""<section class="pitch" id="commission">
-<p class="lbl">For brands</p>
-<h2>Sport, told as a story.</h2>
-<p class="pitch-lede">One afternoon on one beach, in the order it happened: the walk down, the run, the board in the sand, the wave. The same way I would photograph a team, an event or a product in use.</p>
-<ul class="pitch-list">
-<li><span class="lbl">The story</span>A page like this one, from arrival to the last run.</li>
-<li><span class="lbl">The photographs</span>One graded set in one look. Here, only the green boards keep their full colour.</li>
-<li><span class="lbl">The details</span>Boards, wetsuits and kit, close up and in use.</li>
-</ul>
-<p><a class="btn" href="mailto:{EMAIL}?subject=Commission%20a%20story">Commission a story</a></p>
-<p class="pitch-note">{EMAIL} · <a href="{IG}" rel="me">@davidslv.photography</a></p>
-</section>
-<section class="pitch" id="first-sale">
+    return f"""<section class="pitch" id="first-sale">
 <p class="lbl">The first sale</p>
 <h2>It was also the first thing I ever sold online.</h2>
 <p class="pitch-lede">Forty photographs from that afternoon, straight from the camera. Someone paid for them, the first time anyone paid for a photograph of mine. I am leaving it up.</p>
 <p><a class="btn" href="{GUMROAD}">The 40 photos on Gumroad</a></p>
-<p class="pitch-small">Pay what you want, from €2. Photographed as a spectator on 26 February 2012 with a Sony DSLR-A350 and the 55–200 mm kit zoom, my first DSLR. Not a commission.</p>
+<p class="pitch-small">Pay what you want, from €2. Shot on 26 February 2012 with a Sony DSLR-A350 and a 55–200 mm zoom, lent to me by a friend.</p>
 </section>
 <a class="next" href="/"><span class="lbl">Next</span><span class="next-title">From last light to last train</span><span class="next-sub">One Saturday in London, and other nights</span></a>"""
