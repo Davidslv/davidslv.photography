@@ -55,6 +55,16 @@ PHOTOS = {k: v for p in PAGES for k, v in p.PHOTOS.items()}
 def load(key):
     ph = PHOTOS[key]
     im = ImageOps.exif_transpose(Image.open(ph["src"])).convert("RGB")
+    if ph.get("rotate"):  # degrees, counter-clockwise; small angles level a horizon, cropping to the same aspect
+        import math
+        w, h = im.size
+        t = math.radians(abs(ph["rotate"]) % 180)
+        c, sn = abs(math.cos(t)), abs(math.sin(t))
+        a = ph.get("aspect", w / h)  # a wider aspect keeps more width after levelling
+        hh = min(w / (a * c + sn), h / (a * sn + c))
+        im = im.rotate(ph["rotate"], resample=Image.BICUBIC)
+        cw, ch = round(hh * a), round(hh)
+        im = im.crop(((w - cw) // 2, (h - ch) // 2, (w - cw) // 2 + cw, (h - ch) // 2 + ch))
     if ph.get("crop"):  # fractions of width/height: (left, top, right, bottom)
         l, t, r, b = ph["crop"]
         im = im.crop((round(l * im.width), round(t * im.height), round(r * im.width), round(b * im.height)))

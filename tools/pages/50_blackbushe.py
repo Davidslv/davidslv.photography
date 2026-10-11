@@ -23,16 +23,15 @@ OG_IMAGE = "og-blackbushe.jpg"
 OG_TOP = 0.2
 
 
-def ph(file, time, alt, cap=None):
-    return dict(src=N / file, alt=alt, cap=cap, taken=f"2026-10-11T{time}", show_time=True)
+def ph(file, time, alt, cap=None, **kw):
+    return dict(src=N / file, alt=alt, cap=cap, taken=f"2026-10-11T{time}", show_time=True, **kw)
 
 
 PHOTOS = {
-    "b6723": ph("DSC_6723 KERBSIDE D01.jpg", "09:02:17", "Two race cars on trailers at a petrol station on the morning of the meet."),
     "b6833": ph("DSC_6833 KERBSIDE D01.jpg", "10:23:08", "A man walks past a yellow Porsche GT4 on the dirt car park."),
     "b7186": ph("DSC_7186 KERBSIDE D01.jpg", "11:00:59", "The headlamp and bonnet of a pale blue Porsche 911, close."),
     "b7215": ph("DSC_7215 KERBSIDE D01.jpg", "11:01:48", "The Porsche crest on pale blue paint."),
-    "b7404": ph("DSC_7404 KERBSIDE D01.jpg", "11:10:26", "The headlamp and vent of a yellow Porsche GT4, from above."),
+    "b7404": ph("DSC_7404 KERBSIDE D01.jpg", "11:10:26", "The headlamp and vent of a yellow Porsche GT4, from above.", rotate=180),
     "b7590": ph("DSC_7590 KERBSIDE D01.jpg", "11:16:49", "A red door mirror, the meet and the clubhouse beyond."),
     "b7779": ph("DSC_7779 KERBSIDE D01.jpg", "11:27:18", "Three owners talking and laughing between the parked cars."),
     "b6740": ph("DSC_6740 KERBSIDE D03.jpg", "10:16:24", "A silver Porsche 911 parked on the dirt car park, head-on."),
@@ -49,7 +48,7 @@ PHOTOS = {
     "b7262": ph("DSC_7262 Cinematic.jpg", "11:03:25", "A red Porsche Cayman, close to the camera.", cap="My Cayman, washed on the way"),
     "b7279": ph("DSC_7279 Cinematic.jpg", "11:04:25", "A red Porsche 911 head-on, another red Porsche behind."),
     "b7310": ph("DSC_7310 Cinematic.jpg", "11:06:01", "A red Porsche 911 side on, a man standing beside it."),
-    "b7422": ph("DSC_7422 Cinematic.jpg", "11:11:11", "A red Porsche 911 convertible with yellow brake calipers, side on."),
+    "b7422": ph("DSC_7422 Cinematic.jpg", "11:11:11", "A red Porsche 911 convertible with yellow brake calipers, side on.", rotate=3.2, aspect=2.6),
     "b7464": ph("DSC_7464 KERBSIDE O01.jpg", "11:12:55", "The rear of a red Porsche 911 Turbo S, its PORSCHE lettering above a wooden rail.",
                 cap="The rail covers the plate and keeps the spoiler, the badge and the exhausts"),
     "b7557": ph("DSC_7557 KERBSIDE D01.jpg", "11:15:44", "A Porsche Turbo centre-lock wheel with a yellow brake caliper."),
@@ -66,8 +65,7 @@ PHOTOS = {
 
 SEQUENCE = [
     ("hero", "b7708"),
-    ("part", "09:02", "Arrival", "I stopped a few miles away to wash the car, so it would look fresh for the meet."),
-    ("wide", "b6723"),
+    ("part", "10:16", "Arrival", "I stopped a few miles away to wash the car, so it would look fresh for the meet."),
     ("wide", "b6740"),
     ("pair", "b6800", "b6827"),
     ("pair", "b6833", "b6843"),
