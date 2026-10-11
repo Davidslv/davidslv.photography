@@ -1,6 +1,6 @@
 """Atlantic: a quiet editorial look for the Ericeira skimboard set (2012, Sony A350 JPEGs).
 
-Everything sits at about 70% saturation except the green boards, which keep their colour. Exposure is
+Everything sits at about 80% saturation except the green boards, which keep their colour. Exposure is
 normalised per frame (backlit sea frames come down, flat ones go up), highlights roll off softly so the
 white water keeps detail, blacks are lifted a touch, a small warm/cool split, light grain and sharpening.
 """
@@ -18,7 +18,7 @@ def _hue(a):
     return h, (mx - mn) / (mx + 1e-6), mx
 
 
-def grade(im, keep=0.7, ev=0.0, grain=0.007, seed=11):
+def grade(im, keep=0.8, ev=0.0, grain=0.007, seed=11):
     a = np.asarray(im.convert("RGB"), np.float32) / 255
     lin = np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4)
     # exposure: median luminance toward 0.18 linear, at most +-0.7 EV, plus a manual nudge
@@ -26,7 +26,7 @@ def grade(im, keep=0.7, ev=0.0, grain=0.007, seed=11):
     auto = np.clip(np.log2(0.16 / max(med, 1e-4)), -0.7, 0.7) * 0.6
     lin = lin * 2 ** (auto + ev)
     # soft shoulder in linear light
-    lin = np.where(lin < 0.6, lin, 0.6 + 0.4 * np.tanh((lin - 0.6) / 0.4))
+    lin = np.where(lin < 0.75, lin, 0.75 + 0.25 * np.tanh((lin - 0.75) / 0.25))
     a = np.where(lin <= 0.0031308, lin * 12.92, 1.055 * np.clip(lin, 0, 1) ** (1 / 2.4) - 0.055)
     h, s, v = _hue(a)
     green = np.clip(np.minimum(h - 70, 160 - h) / 12, 0, 1) * np.clip((s - 0.3) / 0.2, 0, 1) * np.clip((v - 0.15) / 0.15, 0, 1)
@@ -35,8 +35,8 @@ def grade(im, keep=0.7, ev=0.0, grain=0.007, seed=11):
     a = (lum + (a - lum) * keep) * (1 - m) + (lum + (a - lum) * 1.05) * m
     # gentle S, lifted blacks
     a = np.clip(a, 0, 1)
-    a = a + 0.10 * (a - 0.5) * (1 - np.abs(2 * a - 1))
-    a = 0.025 + 0.965 * a
+    a = a + 0.22 * (a - 0.5) * (1 - np.abs(2 * a - 1))
+    a = 0.018 + 0.98 * a
     l2 = (a * W).sum(-1, keepdims=True)
     sh = np.clip(1 - l2 / 0.4, 0, 1) * (1 - m)
     hi = np.clip((l2 - 0.55) / 0.45, 0, 1) * (1 - m)

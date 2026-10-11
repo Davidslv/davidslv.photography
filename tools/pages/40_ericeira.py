@@ -27,7 +27,7 @@ def ph(n, time, alt, **kw):
 
 
 PHOTOS = {
-    "e8868": ph(8868, "17:28:00", "A small figure rides along the face of a long green wave, white water in front.", crop=(0, 0.16, 1, 0.79)),
+    "e8868": ph(8868, "17:28:00", "A small figure rides along the face of a long green wave, white water in front.", crop=(0, 0.16, 1, 0.79), ev=0.35),
     "e8490": ph(8490, "17:05:52", "A skimboarder in a black wetsuit rides through white water, arms out for balance."),
     "e8529": ph(8529, "17:09:06", "A skimboarder holds a green board in front of the cliffs, looking out to sea."),
     "e8549": ph(8549, "17:09:40", "Three skimboarders on the sand at the foot of the rocks, a wave breaking behind them."),
@@ -35,16 +35,14 @@ PHOTOS = {
     "e8635": ph(8635, "17:14:48", "Backlit, a man sprints along the wet sand toward the water."),
     "e8655": ph(8655, "17:16:29", "A skimboarder walks up the beach with his board under one arm."),
     "e8661": ph(8661, "17:17:04", "Close up, the worn grip and stickers on a board standing in the sand."),
-    "e8687": ph(8687, "17:18:23", "Backlit, a man runs into the shallows holding his board ready to drop."),
     "e8739": ph(8739, "17:20:18", "A bare foot kicks up sand, the tail of a board in the corner."),
     "e8773": ph(8773, "17:22:28", "A skimboarder stands on the sand below the cliffs, board at his side."),
     "e8784": ph(8784, "17:22:59", "A man runs along the shore, board held out in front of him."),
-    "e8822": ph(8822, "17:25:17", "A skimboarder leans into a turn on a blue wave."),
+    "e8822": ph(8822, "17:25:17", "A skimboarder leans into a turn on a blue wave.", ev=0.3),
     "e8843": ph(8843, "17:26:44", "Mid-stride, a man about to drop his board on the wet sand."),
     "e8849": ph(8849, "17:26:49", "A rider on a green board turns at the top of a breaking wave."),
     "e8853": ph(8853, "17:27:10", "A skimboarder holds a green speckled board, another figure on the beach behind."),
     "e8863": ph(8863, "17:27:38", "A man wades out among the rocks and white water carrying a board."),
-    "e8892": ph(8892, "17:28:22", "A man runs out of the rocks with a bright green board, another skimboarder in the water behind."),
 }
 
 SEQUENCE = [
@@ -53,22 +51,21 @@ SEQUENCE = [
      "I had a DSLR in my hands for the first time. I pointed it at people skimboarding off the rocks and I did not "
      "really know what I was doing."),
     ("wide", "e8490"),
-    ("pair", "e8529", "e8549"),
+    ("print", "e8529", "left"),
     ("wide", "e8537"),
+    ("print", "e8549", "right-small"),
     ("part", "17:14", "The run", "Run, drop the board, jump on. Again and again."),
     ("wide", "e8635"),
     ("pair", "e8655", "e8661"),
-    ("print", "e8687", "left"),
     ("print", "e8739", "right-small"),
-    ("part", "17:22", "White water", "The light dropped, the sea came up, and they kept going."),
+    ("part", "17:22", "White water", "The last minutes on the beach."),
     ("print", "e8773", "centre"),
     ("wide", "e8784"),
     ("wide", "e8822"),
     ("pair", "e8843", "e8849"),
     ("print", "e8853", "left"),
     ("wide", "e8863"),
-    ("wide", "e8892"),
-    ("line", "Twenty-four minutes, more than 3,000 frames. These are the ones I kept."),
+    ("line", "Twenty-three minutes, more than 3,000 frames. These are the ones I kept."),
 ]
 
 GUMROAD = "https://davidslv.gumroad.com/l/hSKX"
