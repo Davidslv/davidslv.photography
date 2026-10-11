@@ -154,7 +154,7 @@ def after(meta):
 <figure class="spread">{s1}<figcaption class="lbl">From Winter: Umbrellas Up</figcaption></figure>
 <figure class="spread">{s2}<figcaption class="lbl">From Early spring: Show and Tell</figcaption></figure>
 </section>
-<a class="next" href="/"><span class="lbl">Next</span><span class="next-title">From last light to last train</span><span class="next-sub">One Saturday in London, and other nights</span></a>
+<a class="next" href="/mclaren/"><span class="lbl">Next</span><span class="next-title">Made to be used</span><span class="next-sub">A day at the McLaren Technology Centre</span></a>
 <section class="more" id="contact">
 <div><p class="lbl">More photographs</p><h3><a href="/">From last light to last train</a></h3><p>One Saturday in London, and other nights.</p></div>
 <div><p class="lbl">Presets</p><h3>KERBSIDE</h3><p>The looks this book was graded with. <a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE on Gumroad</a></p></div>

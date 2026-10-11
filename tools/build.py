@@ -34,7 +34,7 @@ PORTRAIT = Path.home() / "projects/davidslv.github.com/img/david-silva.jpg"
 WIDTHS = (640, 1200)  # plus the cap below
 CAP_COLUMN, CAP_WIDE = 1600, 2000  # David, 10 Oct 2026: keep web copies too small for a quality large print
 E = html.escape
-NAV = [("Work", "/#work"), ("Sunday", "/sunday/"), ("About", "/#about"), ("Contact", "/#contact")]
+NAV = [("Work", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("About", "/#about"), ("Contact", "/#contact")]
 
 
 def load_pages():
@@ -55,6 +55,13 @@ PHOTOS = {k: v for p in PAGES for k, v in p.PHOTOS.items()}
 def load(key):
     ph = PHOTOS[key]
     im = ImageOps.exif_transpose(Image.open(ph["src"])).convert("RGB")
+    if ph.get("crop"):  # fractions of width/height: (left, top, right, bottom)
+        l, t, r, b = ph["crop"]
+        im = im.crop((round(l * im.width), round(t * im.height), round(r * im.width), round(b * im.height)))
+    if ph.get("grade") == "papaya":
+        sys.path.insert(0, str(ROOT / "tools/grades"))
+        from papaya import grade
+        im = grade(im, keep=ph.get("keep", 0.45))
     if ph.get("lift"):
         a = np.asarray(im, np.float32) / 255
         lin = np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4) * 2 ** ph["lift"]

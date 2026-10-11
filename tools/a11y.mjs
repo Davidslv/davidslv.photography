@@ -4,7 +4,7 @@ const { chromium, webkit, devices } = require('playwright');
 const base = process.argv[2] || 'http://localhost:4012';
 const lum = c => { const [r, g, b] = c.match(/[\d.]+/g).slice(0, 3).map(Number).map(v => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }); return .2126 * r + .7152 * g + .0722 * b; };
 const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return ((x + .05) / (y + .05)).toFixed(2); };
-for (const path of ['/', '/sunday/']) {
+for (const path of ['/', '/sunday/', '/mclaren/']) {
   const b = await webkit.launch(); const p = await (await b.newContext(devices['iPhone 14 Pro'])).newPage();
   await p.goto(base + path, { waitUntil: 'networkidle' });
   const r = await p.evaluate(() => {

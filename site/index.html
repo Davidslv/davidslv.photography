@@ -149,6 +149,20 @@ main .block:nth-of-type(n+4) { content-visibility: auto; contain-intrinsic-size:
 .next .next-sub { color: var(--soft); font: italic 300 19px var(--display); }
 .next:hover .next-title { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 1px; }
 .about, .more, .next, .book, footer { padding-inline: clamp(16px, 4vw, 48px); }
+/* /mclaren/: the brand pitch. Papaya is used only as a rule, never as text (contrast). */
+.pitch { max-width: 1040px; margin: clamp(90px, 15vh, 180px) auto 0; padding-block: 48px 8px; border-top: 3px solid #ff8000; display: grid; gap: 18px; }
+.pitch h2 { font: 300 clamp(36px, 5vw, 62px)/1.04 var(--display); margin: 0; max-width: 18ch; text-wrap: balance; }
+.pitch-lede { font: italic 300 clamp(20px, 2.2vw, 24px)/1.45 var(--display); color: #3b3832; max-width: 46ch; margin: 0; }
+.pitch-list { list-style: none; margin: 12px 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 40px; }
+.pitch-list li { display: grid; gap: 4px; max-width: 42ch; color: #3b3832; }
+.pitch-note { margin: 0; color: var(--soft); }
+.pitch-small { margin: 18px 0 0; color: var(--soft); font-size: 13px; max-width: 70ch; }
+@media (max-width: 720px) { .pitch-list { grid-template-columns: 1fr; } }
+.pitch { padding-inline: clamp(16px, 4vw, 48px); }
+.pitch a { color: var(--ink); }
+.hero .words .lbl { display: inline-block; background: rgba(0,0,0,.28); padding: 4px 10px; border-radius: 2px; }
+.pitch-note a { display: inline-block; padding-block: 3px; }
+header.site nav { flex-wrap: wrap; column-gap: 16px; }
 </style>
 <script type="application/ld+json">{
  "@context": "https://schema.org",
@@ -201,7 +215,7 @@ main .block:nth-of-type(n+4) { content-visibility: auto; contain-intrinsic-size:
    "primaryImageOfPage": {
     "@id": "https://davidslv.photography/#photo-n147"
    },
-   "dateModified": "2026-10-10",
+   "dateModified": "2026-10-11",
    "mainEntity": {
     "@id": "https://davidslv.photography/#david"
    },
@@ -651,7 +665,7 @@ main .block:nth-of-type(n+4) { content-visibility: auto; contain-intrinsic-size:
 </head>
 <body>
 <a class="skip" href="#work">Skip to the photographs</a>
-<header class="site"><a class="name" href="/">David Silva</a><nav aria-label="Main"><a href="/#work">Work</a><a href="/sunday/">Sunday</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav></header>
+<header class="site"><a class="name" href="/">David Silva</a><nav aria-label="Main"><a href="/#work">Work</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav></header>
 <section class="hero"><picture><source type="image/avif" srcset="/images/n147-two-women-smile-into-a-phone-640.4ac9b0889b.avif 640w, /images/n147-two-women-smile-into-a-phone-1200.42e82f129b.avif 1200w, /images/n147-two-women-smile-into-a-phone-2000.5684648f91.avif 2000w" sizes="100vw"><img src="/images/n147-two-women-smile-into-a-phone-640.58e05d81f6.jpg" srcset="/images/n147-two-women-smile-into-a-phone-640.58e05d81f6.jpg 640w, /images/n147-two-women-smile-into-a-phone-1200.67e18cae3a.jpg 1200w, /images/n147-two-women-smile-into-a-phone-2000.ccf29d0501.jpg 2000w" sizes="100vw" width="6048" height="4024" alt="Two women smile into a phone held up for a photo in a crowded street." fetchpriority="high" decoding="async"></picture><div class="words"><p class="lbl">Human street moments · London</p><h1>From last light to last train</h1></div></section><main id="work">
 <section class="block part"><p class="lbl">Part one</p><h2>One Saturday</h2><p class="sub">19 October 2024, from 14:59 to 21:40. One camera, one 35mm lens.</p></section>
 <section class="block"><div class="print left"><figure><picture><source type="image/avif" srcset="/images/n108-a-young-woman-covers-her-mouth-640.13ddbc5b35.avif 640w, /images/n108-a-young-woman-covers-her-mouth-1200.d473eecc7c.avif 1200w, /images/n108-a-young-woman-covers-her-mouth-1600.09c95af60c.avif 1600w" sizes="(max-width:720px) 100vw, min(66vw, 900px)"><img src="/images/n108-a-young-woman-covers-her-mouth-640.eb4c821e5a.jpg" srcset="/images/n108-a-young-woman-covers-her-mouth-640.eb4c821e5a.jpg 640w, /images/n108-a-young-woman-covers-her-mouth-1200.3d05fca805.jpg 1200w, /images/n108-a-young-woman-covers-her-mouth-1600.a652210896.jpg 1600w" sizes="(max-width:720px) 100vw, min(66vw, 900px)" width="4024" height="3018" alt="A young woman covers her mouth and laughs at a table with a bunch of roses." loading="lazy" decoding="async"></picture><figcaption class="lbl"><time class="t" datetime="2024-10-19T14:59:53+01:00">14:59</time></figcaption></figure></div></section>
@@ -685,7 +699,7 @@ main .block:nth-of-type(n+4) { content-visibility: auto; contain-intrinsic-size:
 <div><p class="lbl">Presets</p><h3>LAST ROLL and KERBSIDE</h3><p>The Lightroom looks I grade with. <a href="https://davidslv.gumroad.com/l/last-roll">LAST ROLL</a> · <a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE</a></p></div>
 <div><p class="lbl">Contact</p><h3>Commissions, prints and licensing</h3><p><a href="mailto:davidslv.london@gmail.com">davidslv.london@gmail.com</a><br><a href="https://www.instagram.com/davidslv.photography/" rel="me">@davidslv.photography</a></p></div>
 </section>
-<footer><nav aria-label="Footer"><a href="/#work">Work</a><a href="/sunday/">Sunday</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav><span>David Silva · London</span><span>All photographs © David Silva. Please ask before using them.</span><a href="https://davidslv.uk/" rel="me">Writing and engineering: davidslv.uk</a></footer>
+<footer><nav aria-label="Footer"><a href="/#work">Work</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav><span>David Silva · London</span><span>All photographs © David Silva. Please ask before using them.</span><a href="https://davidslv.uk/" rel="me">Writing and engineering: davidslv.uk</a></footer>
 <script>// Photo pairs drift a little against each other as you scroll. Nothing else moves.
 (() => {
   const pairs = [...document.querySelectorAll(".pair")];

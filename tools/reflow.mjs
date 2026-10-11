@@ -2,7 +2,7 @@ import { createRequire } from 'module';
 const require = createRequire('/Users/davidslv/projects/dsl/lockstep/package.json');
 const { chromium } = require('playwright');
 const b = await chromium.launch();
-for (const path of ['/', '/sunday/']) {
+for (const path of ['/', '/sunday/', '/mclaren/']) {
   const p = await (await b.newContext({ viewport: { width: 320, height: 640 } })).newPage();
   await p.goto('http://localhost:4012' + path, { waitUntil: 'networkidle' });
   console.log(path, await p.evaluate(() => {

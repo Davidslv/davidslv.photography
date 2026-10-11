@@ -112,3 +112,17 @@ main .block:nth-of-type(n+4) { content-visibility: auto; contain-intrinsic-size:
 .next .next-sub { color: var(--soft); font: italic 300 19px var(--display); }
 .next:hover .next-title { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 1px; }
 .about, .more, .next, .book, footer { padding-inline: clamp(16px, 4vw, 48px); }
+/* /mclaren/: the brand pitch. Papaya is used only as a rule, never as text (contrast). */
+.pitch { max-width: 1040px; margin: clamp(90px, 15vh, 180px) auto 0; padding-block: 48px 8px; border-top: 3px solid #ff8000; display: grid; gap: 18px; }
+.pitch h2 { font: 300 clamp(36px, 5vw, 62px)/1.04 var(--display); margin: 0; max-width: 18ch; text-wrap: balance; }
+.pitch-lede { font: italic 300 clamp(20px, 2.2vw, 24px)/1.45 var(--display); color: #3b3832; max-width: 46ch; margin: 0; }
+.pitch-list { list-style: none; margin: 12px 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 40px; }
+.pitch-list li { display: grid; gap: 4px; max-width: 42ch; color: #3b3832; }
+.pitch-note { margin: 0; color: var(--soft); }
+.pitch-small { margin: 18px 0 0; color: var(--soft); font-size: 13px; max-width: 70ch; }
+@media (max-width: 720px) { .pitch-list { grid-template-columns: 1fr; } }
+.pitch { padding-inline: clamp(16px, 4vw, 48px); }
+.pitch a { color: var(--ink); }
+.hero .words .lbl { display: inline-block; background: rgba(0,0,0,.28); padding: 4px 10px; border-radius: 2px; }
+.pitch-note a { display: inline-block; padding-block: 3px; }
+header.site nav { flex-wrap: wrap; column-gap: 16px; }
