@@ -1,7 +1,7 @@
 """/ericeira/: skimboarding at Ericeira, 26 February 2012, the first afternoon with a DSLR (built 11 Oct 2026).
 
 Sources are the 40 JPEGs sold on Gumroad (https://davidslv.gumroad.com/l/hSKX), straight from a Sony DSLR-A350
-with the 55-200 mm kit zoom. Graded for the site with tools/grades/atlantic.py (quiet colour, green boards kept). The Gumroad files are ungraded. Times are the camera's own, 17:05 to 17:29.
+with the 55-200 mm kit zoom. Graded for the site with cine() in tools/grades/atlantic.py (teal shadows and water, warm skin and sand, green boards kept). The Gumroad files are ungraded. Times are the camera's own, 17:05 to 17:29.
 Words are David's: the Gumroad page and his own account of the day (11 Oct 2026). The camera was a friend's.
 """
 from pathlib import Path
