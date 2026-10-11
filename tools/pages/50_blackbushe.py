@@ -28,10 +28,10 @@ def ph(file, time, alt, cap=None, **kw):
 
 
 PHOTOS = {
-    "b6833": ph("DSC_6833 KERBSIDE D01.jpg", "10:23:08", "A man walks past a yellow Porsche GT4 on the dirt car park."),
+    "b6833": ph("DSC_6833 KERBSIDE D01.jpg", "10:23:08", "A man walks past a yellow Porsche on the dirt car park."),
     "b7186": ph("DSC_7186 KERBSIDE D01.jpg", "11:00:59", "The headlamp and bonnet of a pale blue Porsche 911, close."),
     "b7215": ph("DSC_7215 KERBSIDE D01.jpg", "11:01:48", "The Porsche crest on pale blue paint."),
-    "b7404": ph("DSC_7404 KERBSIDE D01.jpg", "11:10:26", "The headlamp and vent of a yellow Porsche GT4, from above.", rotate=180),
+    "b7404": ph("DSC_7404 KERBSIDE D01.jpg", "11:10:26", "The headlamp and vent of a yellow Porsche, from above.", rotate=180),
     "b7590": ph("DSC_7590 KERBSIDE D01.jpg", "11:16:49", "A red door mirror, the meet and the clubhouse beyond."),
     "b7779": ph("DSC_7779 KERBSIDE D01.jpg", "11:27:18", "Three owners talking and laughing between the parked cars."),
     "b6740": ph("DSC_6740 KERBSIDE D03.jpg", "10:16:24", "A silver Porsche 911 parked on the dirt car park, head-on."),
@@ -55,7 +55,7 @@ PHOTOS = {
     "b7603": ph("DSC_7603 KERBSIDE O01.jpg", "11:17:07", "A black Porsche 911 side on, people by the clubhouse behind."),
     "b7674": ph("DSC_7674 Cinematic.jpg", "11:19:24", "The rear wing of a yellow Porsche GT4, close up."),
     "b7708": ph("DSC_7708 Cinematic.jpg", "11:20:57", "The white classic 911 parked beside the pale blue 911."),
-    "b7862": ph("DSC_7862 KERBSIDE O01.jpg", "11:30:57", "A white Porsche Cayman side on, shot low across the gravel."),
+    "b7862": ph("DSC_7862 KERBSIDE O01.jpg", "11:30:57", "A white Porsche side on, shot low across the gravel."),
     "b7873": ph("DSC_7873 KERBSIDE D01.jpg", "11:31:27", "A blue Porsche 911 seen low across the ground."),
     "b7922": ph("DSC_7922 KERBSIDE D01.jpg", "11:34:02", "The white classic 911 head-on, owners talking around it."),
     "b7940": ph("DSC_7940 KERBSIDE O01.jpg", "11:34:34", "The white classic 911 seen low across the ground, the meet behind it."),
@@ -72,7 +72,7 @@ SEQUENCE = [
     ("wide", "b6943"),
     ("pair", "b6986", "b7010"),
     ("wide", "b7087"),
-    ("part", "10:57", "The white RS", "I kept coming back to it. The group was gathering around the car, and that put people in the photographs."),
+    ("part", "10:57", "The white 911", "I kept coming back to it. The group was gathering around the car, and that put people in the photographs."),
     ("wide", "b7156"),
     ("wide", "b7162"),
     ("pair", "b7186", "b7215"),
