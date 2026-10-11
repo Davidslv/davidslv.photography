@@ -34,7 +34,7 @@ PORTRAIT = Path.home() / "projects/davidslv.github.com/img/david-silva.jpg"
 WIDTHS = (640, 1200)  # plus the cap below
 CAP_COLUMN, CAP_WIDE = 1600, 2000  # David, 10 Oct 2026: keep web copies too small for a quality large print
 E = html.escape
-NAV = [("Work", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("About", "/#about"), ("Contact", "/#contact")]
+NAV = [("Work", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("About", "/#about"), ("Contact", "/#contact")]
 
 
 def load_pages():
@@ -62,6 +62,14 @@ def load(key):
         sys.path.insert(0, str(ROOT / "tools/grades"))
         from papaya import grade
         im = grade(im, keep=ph.get("keep", 0.45))
+    elif ph.get("grade") == "atlantic":
+        sys.path.insert(0, str(ROOT / "tools/grades"))
+        from atlantic import grade as atlantic
+        im = atlantic(im, ev=ph.get("ev", 0.0), shadows=ph.get("shadows", 0.0))
+    elif ph.get("grade") == "cine":
+        sys.path.insert(0, str(ROOT / "tools/grades"))
+        from atlantic import cine
+        im = cine(im, ev=ph.get("ev", 0.0), shadows=ph.get("shadows", 0.0))
     if ph.get("lift"):
         a = np.asarray(im, np.float32) / 255
         lin = np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4) * 2 ** ph["lift"]
