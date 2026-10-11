@@ -18,7 +18,7 @@ def _hue(a):
     return h, (mx - mn) / (mx + 1e-6), mx
 
 
-def grade(im, keep=0.8, ev=0.0, grain=0.007, seed=11):
+def grade(im, keep=0.8, ev=0.0, shadows=0.0, grain=0.007, seed=11):
     a = np.asarray(im.convert("RGB"), np.float32) / 255
     lin = np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4)
     # exposure: median luminance toward 0.18 linear, at most +-0.7 EV, plus a manual nudge
@@ -33,6 +33,10 @@ def grade(im, keep=0.8, ev=0.0, grain=0.007, seed=11):
     m = np.asarray(Image.fromarray((green * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(2)), np.float32)[..., None] / 255
     lum = (a * W).sum(-1, keepdims=True)
     a = (lum + (a - lum) * keep) * (1 - m) + (lum + (a - lum) * 1.05) * m
+    a = np.clip(a, 0, 1)
+    if shadows:  # lift dark tones (backlit figures) without touching the highlights
+        l0 = (a * W).sum(-1, keepdims=True)
+        a = a + shadows * 0.35 * (1 - l0) ** 3 * np.clip(l0 * 6, 0, 1) + shadows * 0.06 * (1 - l0) ** 4
     # gentle S, lifted blacks
     a = np.clip(a, 0, 1)
     a = a + 0.22 * (a - 0.5) * (1 - np.abs(2 * a - 1))

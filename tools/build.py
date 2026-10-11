@@ -65,7 +65,7 @@ def load(key):
     elif ph.get("grade") == "atlantic":
         sys.path.insert(0, str(ROOT / "tools/grades"))
         from atlantic import grade as atlantic
-        im = atlantic(im, ev=ph.get("ev", 0.0))
+        im = atlantic(im, ev=ph.get("ev", 0.0), shadows=ph.get("shadows", 0.0))
     if ph.get("lift"):
         a = np.asarray(im, np.float32) / 255
         lin = np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4) * 2 ** ph["lift"]
