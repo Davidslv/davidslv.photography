@@ -27,11 +27,10 @@ def ph(n, time, alt, **kw):
 
 
 PHOTOS = {
-    "e8868": ph(8868, "17:28:00", "A small figure rides along the face of a long green wave, white water in front.", crop=(0, 0.16, 1, 0.79), ev=0.35),
     "e8490": ph(8490, "17:05:52", "A skimboarder in a black wetsuit rides through white water, arms out for balance."),
     "e8529": ph(8529, "17:09:06", "A skimboarder holds a green board in front of the cliffs, looking out to sea."),
     "e8549": ph(8549, "17:09:40", "Three skimboarders on the sand at the foot of the rocks, a wave breaking behind them."),
-    "e8537": ph(8537, "17:09:16", "A skimboarder turns on the lip of a wave, one arm thrown up."),
+    "e8537": ph(8537, "17:09:16", "A skimboarder turns on the lip of a wave, one arm thrown up.", crop=(0.22, 0.1, 1, 0.833)),
     "e8635": ph(8635, "17:14:48", "Backlit, a man sprints along the wet sand toward the water."),
     "e8655": ph(8655, "17:16:29", "A skimboarder walks up the beach with his board under one arm."),
     "e8661": ph(8661, "17:17:04", "Close up, the worn grip and stickers on a board standing in the sand."),
@@ -46,14 +45,12 @@ PHOTOS = {
 }
 
 SEQUENCE = [
-    ("hero", "e8868"),
+    ("hero", "e8537"),
     ("part", "Ericeira, 26 February 2012", "Off the rocks",
      "I had a DSLR in my hands for the first time. I pointed it at people skimboarding off the rocks and I did not "
      "really know what I was doing."),
     ("wide", "e8490"),
-    ("print", "e8529", "left"),
-    ("wide", "e8537"),
-    ("print", "e8549", "right-small"),
+    ("pair", "e8529", "e8549"),
     ("part", "17:14", "The run", "Run, drop the board, jump on. Again and again."),
     ("wide", "e8635"),
     ("pair", "e8655", "e8661"),

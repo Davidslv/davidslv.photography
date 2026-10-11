@@ -1489,29 +1489,6 @@
 }
 }
 ],
-"e8868": [
-4592,
-1925,
-[
-640,
-1200,
-2000
-],
-{
-"640": {
-"jpg": "e8868-a-small-figure-rides-along-the-640.9a0f14790d.jpg",
-"avif": "e8868-a-small-figure-rides-along-the-640.4ff5e9584e.avif"
-},
-"1200": {
-"jpg": "e8868-a-small-figure-rides-along-the-1200.ac75753c08.jpg",
-"avif": "e8868-a-small-figure-rides-along-the-1200.0ad618c8a4.avif"
-},
-"2000": {
-"jpg": "e8868-a-small-figure-rides-along-the-2000.9813f890af.jpg",
-"avif": "e8868-a-small-figure-rides-along-the-2000.07cf69e368.avif"
-}
-}
-],
 "e8490": [
 4592,
 3056,
@@ -1578,29 +1555,6 @@
 "1600": {
 "jpg": "e8549-three-skimboarders-on-the-sand-at-1600.a17ad67a36.jpg",
 "avif": "e8549-three-skimboarders-on-the-sand-at-1600.8e51153740.avif"
-}
-}
-],
-"e8537": [
-4592,
-3056,
-[
-640,
-1200,
-2000
-],
-{
-"640": {
-"jpg": "e8537-a-skimboarder-turns-on-the-lip-640.b3028a3527.jpg",
-"avif": "e8537-a-skimboarder-turns-on-the-lip-640.76b0de65c2.avif"
-},
-"1200": {
-"jpg": "e8537-a-skimboarder-turns-on-the-lip-1200.00d690eb35.jpg",
-"avif": "e8537-a-skimboarder-turns-on-the-lip-1200.a449392942.avif"
-},
-"2000": {
-"jpg": "e8537-a-skimboarder-turns-on-the-lip-2000.a3c542a8ef.jpg",
-"avif": "e8537-a-skimboarder-turns-on-the-lip-2000.3a8d654b5d.avif"
 }
 }
 ],
@@ -1854,6 +1808,29 @@
 "2000": {
 "jpg": "e8863-a-man-wades-out-among-the-2000.fa08749103.jpg",
 "avif": "e8863-a-man-wades-out-among-the-2000.f23da8c355.avif"
+}
+}
+],
+"e8537": [
+3582,
+2240,
+[
+640,
+1200,
+2000
+],
+{
+"640": {
+"jpg": "e8537-a-skimboarder-turns-on-the-lip-640.f952611132.jpg",
+"avif": "e8537-a-skimboarder-turns-on-the-lip-640.bc8132d36c.avif"
+},
+"1200": {
+"jpg": "e8537-a-skimboarder-turns-on-the-lip-1200.dde9ba04b6.jpg",
+"avif": "e8537-a-skimboarder-turns-on-the-lip-1200.4dc2fe7ddf.avif"
+},
+"2000": {
+"jpg": "e8537-a-skimboarder-turns-on-the-lip-2000.17e91fb61f.jpg",
+"avif": "e8537-a-skimboarder-turns-on-the-lip-2000.ebe25d2052.avif"
 }
 }
 ]
