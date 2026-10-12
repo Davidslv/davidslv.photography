@@ -3489,5 +3489,51 @@
 "avif": "s8830c-two-men-in-the-shed-reading-2000.bf4756bb5d.avif"
 }
 }
+],
+"s8245g": [
+1996,
+3000,
+[
+640,
+1200,
+1600
+],
+{
+"640": {
+"jpg": "s8245g-red-vine-leaves-fallen-on-pale-640.095289dc8b.jpg",
+"avif": "s8245g-red-vine-leaves-fallen-on-pale-640.6e5f631583.avif"
+},
+"1200": {
+"jpg": "s8245g-red-vine-leaves-fallen-on-pale-1200.ddca4a80f4.jpg",
+"avif": "s8245g-red-vine-leaves-fallen-on-pale-1200.3a7f1a15f0.avif"
+},
+"1600": {
+"jpg": "s8245g-red-vine-leaves-fallen-on-pale-1600.414d061830.jpg",
+"avif": "s8245g-red-vine-leaves-fallen-on-pale-1600.482ca9e07a.avif"
+}
+}
+],
+"s8868l": [
+1996,
+3000,
+[
+640,
+1200,
+1600
+],
+{
+"640": {
+"jpg": "s8868l-stacked-blue-harvest-crates-printed-with-640.424c81fdaf.jpg",
+"avif": "s8868l-stacked-blue-harvest-crates-printed-with-640.e333fa89d1.avif"
+},
+"1200": {
+"jpg": "s8868l-stacked-blue-harvest-crates-printed-with-1200.deb64904fc.jpg",
+"avif": "s8868l-stacked-blue-harvest-crates-printed-with-1200.2c1850f5fa.avif"
+},
+"1600": {
+"jpg": "s8868l-stacked-blue-harvest-crates-printed-with-1600.94706f44a1.jpg",
+"avif": "s8868l-stacked-blue-harvest-crates-printed-with-1600.90b669f48e.avif"
+}
+}
 ]
 }
