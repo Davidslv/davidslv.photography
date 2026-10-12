@@ -34,7 +34,7 @@ PORTRAIT = Path.home() / "projects/davidslv.github.com/img/david-silva.jpg"
 WIDTHS = (640, 1200)  # plus the cap below
 CAP_COLUMN, CAP_WIDE = 1600, 2000  # David, 10 Oct 2026: keep web copies too small for a quality large print
 E = html.escape
-NAV = [("Work", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("About", "/#about"), ("Contact", "/#contact")]
+NAV = [("Work", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("Sicily", "/sicily/"), ("About", "/#about"), ("Contact", "/#contact")]
 
 
 def load_pages():
@@ -54,7 +54,12 @@ PHOTOS = {k: v for p in PAGES for k, v in p.PHOTOS.items()}
 # ---------- images ----------
 def load(key):
     ph = PHOTOS[key]
-    im = ImageOps.exif_transpose(Image.open(ph["src"])).convert("RGB")
+    if ph.get("grade") == "altore":  # Nikon NEF: start from the camera's own render inside the raw file
+        sys.path.insert(0, str(ROOT / "tools/grades"))
+        from altore import develop
+        im = Image.fromarray((np.clip(develop(ph["src"], 3000), 0, 1) * 255 + .5).astype(np.uint8))
+    else:
+        im = ImageOps.exif_transpose(Image.open(ph["src"])).convert("RGB")
     if ph.get("rotate"):  # degrees, counter-clockwise; small angles level a horizon, cropping to the same aspect
         import math
         w, h = im.size
@@ -76,6 +81,10 @@ def load(key):
         sys.path.insert(0, str(ROOT / "tools/grades"))
         from atlantic import grade as atlantic
         im = atlantic(im, ev=ph.get("ev", 0.0), shadows=ph.get("shadows", 0.0))
+    elif ph.get("grade") == "altore":
+        sys.path.insert(0, str(ROOT / "tools/grades"))
+        from altore import grade as altore
+        im = altore(np.asarray(im, np.float32) / 255, ph.get("look", "gentle"), ev=ph.get("ev", 0.0))
     elif ph.get("grade") == "cine":
         sys.path.insert(0, str(ROOT / "tools/grades"))
         from atlantic import cine
