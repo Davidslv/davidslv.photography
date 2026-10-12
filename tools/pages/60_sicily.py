@@ -59,7 +59,7 @@ PHOTOS = {
 SEQUENCE = [
     ("hero", "s8128"),
     ("part", "19 August 2025 · 06:34", "First light",
-     "I was there doing the harvest, and taking photographs for their Instagram account. "
+     "I was there doing the harvest, and taking photographs for the winery's Instagram account. "
      "At five in the morning you already have sunlight. By half past six the sun is coming up behind the trees."),
     ("wide", "s8099"),
     ("pair", "s8126", "s8143"),
