@@ -34,7 +34,7 @@ PORTRAIT = Path.home() / "projects/davidslv.github.com/img/david-silva.jpg"
 WIDTHS = (640, 1200)  # plus the cap below
 CAP_COLUMN, CAP_WIDE = 1600, 2000  # David, 10 Oct 2026: keep web copies too small for a quality large print
 E = html.escape
-NAV = [("London", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("Sicily", "/sicily/"), ("About", "/#about"), ("Contact", "/#contact")]
+NAV = [("London", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("Sicily", "/sicily/"), ("Cayman", "/cayman/"), ("About", "/#about"), ("Contact", "/#contact")]
 
 
 def load_pages():
@@ -54,7 +54,7 @@ PHOTOS = {k: v for p in PAGES for k, v in p.PHOTOS.items()}
 # ---------- images ----------
 def load(key):
     ph = PHOTOS[key]
-    if ph.get("grade") == "altore":  # Nikon NEF: start from the camera's own render inside the raw file
+    if ph.get("grade") == "altore" or str(ph["src"]).upper().endswith(".NEF"):  # NEF: the camera's own render inside the raw
         sys.path.insert(0, str(ROOT / "tools/grades"))
         from altore import develop
         im = Image.fromarray((np.clip(develop(ph["src"], 3000), 0, 1) * 255 + .5).astype(np.uint8))
@@ -194,7 +194,7 @@ def sequence_html(page, meta):
                        f'<div class="words"><p class="lbl">{E(page.HERO_LABEL)}</p><h1>{E(page.HERO_TITLE)}</h1></div></section>'
                        '<main id="work">')
         elif k == "part":
-            out.append(f'<section class="block part"><p class="lbl">{s[1]}</p><h2>{E(s[2])}</h2><p class="sub">{E(s[3])}</p></section>')
+            out.append(f'<section class="block part"><p class="lbl">{s[1]}</p><h2>{E(s[2])}</h2>{f'<p class="sub">{E(s[3])}</p>' if s[3] else ''}</section>')
         elif k == "line":
             out.append(f'<section class="block line"><p>{E(s[1])}</p></section>')
         elif k == "wide":
