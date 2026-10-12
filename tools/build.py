@@ -34,7 +34,7 @@ PORTRAIT = Path.home() / "projects/davidslv.github.com/img/david-silva.jpg"
 WIDTHS = (640, 1200)  # plus the cap below
 CAP_COLUMN, CAP_WIDE = 1600, 2000  # David, 10 Oct 2026: keep web copies too small for a quality large print
 E = html.escape
-NAV = [("Work", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("Sicily", "/sicily/"), ("About", "/#about"), ("Contact", "/#contact")]
+NAV = [("London", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("Sicily", "/sicily/"), ("About", "/#about"), ("Contact", "/#contact")]
 
 
 def load_pages():

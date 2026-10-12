@@ -5,7 +5,7 @@ P = Path("/Volumes/David Photography/Photography Projects")
 FULL = P / "Shutter Hub - City Series London (Nov 2026)/_tools/full"
 
 PATH = "/"
-NAV_NAME = "Work"
+NAV_NAME = "London"
 TITLE = "David Silva · Street photographer in London"
 OG_TITLE = "From last light to last train · David Silva"
 DESC = ("Candid street photographs of people in London's light, mostly late in the day and after dark. "
