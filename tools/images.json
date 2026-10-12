@@ -3535,5 +3535,28 @@
 "avif": "s8868l-stacked-blue-harvest-crates-printed-with-1600.90b669f48e.avif"
 }
 }
+],
+"s0392c": [
+3000,
+1253,
+[
+640,
+1200,
+2000
+],
+{
+"640": {
+"jpg": "s0392c-three-men-talk-beside-the-crates-640.b72e37f521.jpg",
+"avif": "s0392c-three-men-talk-beside-the-crates-640.ab7f9cad48.avif"
+},
+"1200": {
+"jpg": "s0392c-three-men-talk-beside-the-crates-1200.c5dee9ed6d.jpg",
+"avif": "s0392c-three-men-talk-beside-the-crates-1200.6c045ea35e.avif"
+},
+"2000": {
+"jpg": "s0392c-three-men-talk-beside-the-crates-2000.973148d6a2.jpg",
+"avif": "s0392c-three-men-talk-beside-the-crates-2000.79c4449182.avif"
+}
+}
 ]
 }

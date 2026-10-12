@@ -52,7 +52,8 @@ PHOTOS = {
     "s8840g": ph(A23, "8840", "08:28:26", G, "A red Massey Ferguson crawler tractor in the shed."),
     "s8868l": ph(A23, "8868", "08:30:44", G, "Stacked blue harvest crates printed with Tenuta Tremollito.", ev=0.45),
     "s0362": ph(S10, "0362", "07:24:12", G, "Empty crates at the end of a row of vines in autumn colour."),
-    "s0392g": ph(S10, "0392", "07:26:38", G, "Three men talk beside the crates and a blue tractor at the end of a row."),
+    "s0392c": ph(S10, "0392", "07:26:38", G, "Three men talk beside the crates and a blue tractor at the end of a row.",
+                 crop=(0, 0.06, 1, 0.688)),
     "s0377": ph(S10, "0377", "07:25:17", G, "A row of vines in autumn colour, a track running up the middle."),
 }
 
@@ -83,7 +84,7 @@ SEQUENCE = [
     ("print", "s8868l", "centre"),
     ("part", "10 September 2025 · 07:24", "Harvest", "By half past six the sun is coming up behind the trees."),
     ("wide", "s0362"),
-    ("wide", "s0392g"),
+    ("wide", "s0392c"),
     ("wide", "s0377"),
     ("line", "I was there to help with the harvest and to take photographs. I took a lot of joy in doing it."),
 ]
