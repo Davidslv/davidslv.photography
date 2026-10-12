@@ -3443,5 +3443,51 @@
 "avif": "s0392g-three-men-talk-beside-the-crates-1600.f7d2d9713b.avif"
 }
 }
+],
+"s8432": [
+3000,
+1118,
+[
+640,
+1200,
+2000
+],
+{
+"640": {
+"jpg": "s8432-a-man-in-a-blue-shirt-640.cfb40c4681.jpg",
+"avif": "s8432-a-man-in-a-blue-shirt-640.792984bd08.avif"
+},
+"1200": {
+"jpg": "s8432-a-man-in-a-blue-shirt-1200.192bb85a53.jpg",
+"avif": "s8432-a-man-in-a-blue-shirt-1200.1038106bb6.avif"
+},
+"2000": {
+"jpg": "s8432-a-man-in-a-blue-shirt-2000.8f86fc3399.jpg",
+"avif": "s8432-a-man-in-a-blue-shirt-2000.86fb374841.avif"
+}
+}
+],
+"s8830c": [
+2340,
+978,
+[
+640,
+1200,
+2000
+],
+{
+"640": {
+"jpg": "s8830c-two-men-in-the-shed-reading-640.fa1ecaf59e.jpg",
+"avif": "s8830c-two-men-in-the-shed-reading-640.64d236ebef.avif"
+},
+"1200": {
+"jpg": "s8830c-two-men-in-the-shed-reading-1200.ab5cc630c4.jpg",
+"avif": "s8830c-two-men-in-the-shed-reading-1200.89e639eedb.avif"
+},
+"2000": {
+"jpg": "s8830c-two-men-in-the-shed-reading-2000.dc7251c48c.jpg",
+"avif": "s8830c-two-men-in-the-shed-reading-2000.bf4756bb5d.avif"
+}
+}
 ]
 }
