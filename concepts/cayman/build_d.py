@@ -308,7 +308,7 @@ function setup(f){
     g.bindFramebuffer(g.FRAMEBUFFER,null);f.mi=0}
 }
 function init(f){
-  if(f.c||reduce)return;
+  if(f.c||(reduce&&!f.rain&&!f.sun))return;  // reduce motion: rain and sun still render, as a still frame
   const c=f.c=d.createElement('canvas');c.setAttribute('aria-hidden','true');
   const o={alpha:true,premultipliedAlpha:true,antialias:false,depth:false,stencil:false,powerPreference:'high-performance'};
   const g=f.gl=c.getContext('webgl2',o)||c.getContext('webgl',o);
@@ -340,13 +340,13 @@ function draw(f,r,now,dt,vh){
   const dpr=Math.min(devicePixelRatio||1,f.rain?1.5:1.25);
   const W=Math.max(1,Math.round(r.width*dpr)),H=Math.max(1,Math.round(r.height*dpr));
   if(f.c.width!==W||f.c.height!==H){f.c.width=W;f.c.height=H}
-  if(f.rain)maskStep(f,dt,now);
-  if(f.sun){let tx,ty;if(f.hover){tx=f.hover[0];ty=f.hover[1]}else{const q=clamp((vh-r.top)/(vh+r.height));tx=.74-.1*q;ty=.98-.3*q}
+  if(f.rain&&!reduce)maskStep(f,dt,now);
+  if(f.sun){let tx,ty;if(f.hover&&!reduce){tx=f.hover[0];ty=f.hover[1]}else{const q=clamp((vh-r.top)/(vh+r.height));tx=.74-.1*q;ty=.98-.3*q}
     f.sp=f.sp?[f.sp[0]+(tx-f.sp[0])*Math.min(1,dt*3),f.sp[1]+(ty-f.sp[1])*Math.min(1,dt*3)]:[tx,ty]}
   g.viewport(0,0,W,H);g.useProgram(M.p);
   g.activeTexture(g.TEXTURE0);g.bindTexture(g.TEXTURE_2D,f.t);g.uniform1i(M.u.uTex,0);
   if(f.rain){g.activeTexture(g.TEXTURE1);g.bindTexture(g.TEXTURE_2D,f.mt[f.mi]);g.uniform1i(M.u.uMask,1)}
-  g.uniform2f(M.u.uSize,r.width,r.height);g.uniform1f(M.u.uT,(now/1000)%1000);
+  g.uniform2f(M.u.uSize,r.width,r.height);g.uniform1f(M.u.uT,reduce?37:(now/1000)%1000);
   g.uniform1f(M.u.uBlur,f.shift?f.amt:0);g.uniform1f(M.u.uRain,f.rain?1:0);g.uniform1f(M.u.uSunOn,f.sun?1:0);
   if(f.sun)g.uniform2f(M.u.uSun,f.sp[0],f.sp[1]);
   g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);g.drawArrays(g.TRIANGLES,0,3);
@@ -365,21 +365,21 @@ d.querySelectorAll('[data-fx]').forEach(fig=>{
   }
 });
 const near=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const f=fxs.find(x=>x.fig===e.target);init(f);near.unobserve(e.target)}}),{rootMargin:'120% 0px'});
-if(!reduce)fxs.forEach(f=>near.observe(f.fig));
+fxs.forEach(f=>{if(!reduce||f.rain||f.sun)near.observe(f.fig)});
 
 /* ---- frame ---- */
 function frame(now){
   raf=0;const dt=last?Math.min(.05,(now-last)/1000):1/60;last=now;
   const vh=innerHeight;let g=0,p=0;
   for(let i=0;i<chs.length;i++){const r=chs[i].getBoundingClientRect();if(r.top<vh*.5){g=i+1;p=clamp((vh*.5-r.top)/r.height)}}
-  const rs=fxs.map(f=>f.ready&&!f.lost&&!f.dead&&!reduce?f.wrap.getBoundingClientRect():null);
+  const rs=fxs.map(f=>f.ready&&!f.lost&&!f.dead&&(!reduce||f.rain||f.sun)?f.wrap.getBoundingClientRect():null);
   if(g!==gear)shift(gear,g,now);
   let flare=0,live=false;
   fxs.forEach((f,i)=>{const r=rs[i];if(!r)return;
     const c=r.top+r.height/2;f.amt=reduce?0:clamp((c-vh/2)/(vh/2+r.height/2));const a=f.amt;f.amt=a*a*(3-2*a);
     if(f.ch===g&&f.amt>0&&f.amt<1)flare=Math.max(flare,Math.sin(Math.PI*f.amt));
     f.vis=r.bottom>0&&r.top<vh;
-    if(f.rain&&f.vis&&!f.wip&&Math.abs(vel)>1.5&&now-f.lastWipe>1800&&(Math.min(r.bottom,vh)-Math.max(r.top,0))/r.height>.35){f.wip={t0:now,a:-1.5};f.lastWipe=now}});
+    if(!reduce&&f.rain&&f.vis&&!f.wip&&Math.abs(vel)>1.5&&now-f.lastWipe>1800&&(Math.min(r.bottom,vh)-Math.max(r.top,0))/r.height>.35){f.wip={t0:now,a:-1.5};f.lastWipe=now}});
   const rT=g?1500+5300*Math.pow(p,.92)-650*flare:850;
   const sT=g?SPD[g-1]+(SPD[g]-SPD[g-1])*(1-Math.pow(1-p,1.6)):0;
   if(reduce){rpm=rT;rpmV=0;spd=sT;spdV=0}else{[rpm,rpmV]=spring(rpm,rpmV,rT,140,.72,dt);[spd,spdV]=spring(spd,spdV,sT,30,1,dt)}
@@ -389,14 +389,14 @@ function frame(now){
   if(Math.abs(rpm-rT)>2||Math.abs(rpmV)>2||Math.abs(spd-sT)>.05||Math.abs(spdV)>.05)live=true;
   vel*=Math.pow(.02,dt);
   fxs.forEach((f,i)=>{const r=rs[i];if(!r||!f.vis)return;
-    const anim=f.rain||f.sun;
-    if(anim||f.amt!==f.lastAmt){draw(f,r,now,dt,vh);f.lastAmt=f.amt}
+    const anim=(f.rain||f.sun)&&!reduce;
+    if(anim||f.amt!==f.lastAmt||(reduce&&!f.still)){draw(f,r,now,dt,vh);f.lastAmt=f.amt;if(reduce)f.still=true}
     if(anim)live=true});
   if(live)kick();else last=0;
 }
 addEventListener('scroll',()=>{const now=performance.now(),y=scrollY,dt=now-lastYT;if(dt>0){const v=(y-lastY)/dt;vel=vel*.6+v*.4}lastY=y;lastYT=now;kick()},{passive:true});
 addEventListener('resize',kick);
-RM.addEventListener('change',e=>{reduce=e.matches;fxs.forEach(f=>{if(f.c)f.c.hidden=reduce});if(!reduce)fxs.forEach(f=>{if(!f.c)near.observe(f.fig)});kick()});
+RM.addEventListener('change',e=>{reduce=e.matches;fxs.forEach(f=>{f.still=false;if(f.c)f.c.hidden=reduce&&!f.rain&&!f.sun;if(!f.c&&(!reduce||f.rain||f.sun))near.observe(f.fig)});kick()});
 kick();
 })();
 """
