@@ -139,7 +139,7 @@ def after(meta):
 <h2>Graded with KERBSIDE.</h2>
 <p class="pitch-lede">Every photograph on this page uses one of three KERBSIDE looks: D01, D03 and O01. They're Lightroom presets for car-meet light.</p>
 <figure class="spread">{before_after(meta)}<figcaption class="lbl">Left, straight from the camera · right, KERBSIDE O01</figcaption></figure>
-<p><a class="btn" href="{KERBSIDE}">KERBSIDE on Gumroad · £12.99</a></p>
+<p><a class="btn" href="{KERBSIDE}">KERBSIDE on Gumroad · £8.99</a></p>
 </section>
 <section class="pitch" id="book">
 <p class="lbl">In the book</p>
