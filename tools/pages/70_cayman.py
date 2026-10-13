@@ -57,7 +57,7 @@ PHOTOS = {
     "c2537": ph(M15, "2537", "17:57:29", "The headlamp and fog lamp of a red Cayman, wet with rain."),
     "c2655": ph(M15, "2655", "18:01:23", "The Porsche crest on a red bonnet covered in raindrops."),
     "c2672": ph(M15, "2672", "18:01:42", "A Cayman headlamp, close, beaded with rain."),
-    "c2680": ph(M15, "2680", "18:02:02", "A red door mirror covered in raindrops."),
+    "c2680": ph(M15, "2680", "18:02:02", "A red door mirror covered in raindrops.", lift=0.6),
     "c2690": ph(M15, "2690", "18:02:44", "The side air intake of a red Cayman."),
     "c2697": ph(M15, "2697", "18:03:26", "The rear lamp and wing of a red Cayman by a brick wall."),
     "c2709": ph(M15, "2709", "18:04:19", "The door and window of a red Cayman, seen past a gatepost."),
