@@ -26,8 +26,8 @@ LINES = {
             "whatsoever. I drove the road up and down, twice, because I loved it so much, and was home by 10:00.",
     "cabin": "\u201cIt puts a smile on my face every single time I open the door.\u201d",
 }
-DAY = [("03:00", "moor", "leave"), ("06:50", "april", ""), ("07:25", "moor", "Wales"), ("10:00", "moor", "home"),
-       ("17:21", "cabin", ""), ("18:56", "rain", "")]
+DAY = [("03:00", "moor", "leave"), ("06:14", "moor", "sunrise"), ("06:50", "april", ""), ("10:00", "moor", "home"),
+       ("17:21", "cabin", ""), ("17:56", "rain", "")]
 
 
 def dayline():
