@@ -32,7 +32,7 @@ HERO_LABEL = "Porsche Cayman · March and April 2026"
 HERO_TITLE = "Back to analogue"
 GALLERY_NAME = "Back to analogue: my Cayman, 2026"
 OG_IMAGE = "og-cayman.jpg"
-OG_TOP = 0.45
+OG_TOP = 0.3
 
 
 ME = Path("/Volumes/David Photography/Porsche & me")
@@ -117,7 +117,7 @@ def _story():
 
 # hero first (link preview and primary image), then every photo the page shows, in order
 _D = _story()
-SEQUENCE = [("hero", "c2817")] + [("wide", k) for ch in _D.CHAPTERS for b in ch[4] for k in b[1:] if k != "c2817"]
+SEQUENCE = [("hero", "c8784")] + [("wide", k) for ch in _D.CHAPTERS for b in ch[4] for k in b[1:] if k != "c8784"]
 
 
 def render_page(meta, site):
