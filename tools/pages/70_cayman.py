@@ -3,6 +3,8 @@
 Sources: Nikon Z 6II NEFs (15 and 21 March) and camera JPEGs (19 April) on the NAS, graded with Papaya
 (tools/grades/papaya.py): everything quiet except the red. Times are camera times.
 Words: none yet beyond "My Cayman" (David's caption on /blackbushe/). Part titles only say what is in the frames.
+13 October 2026: "Porsche & me", 19 camera JPEGs David took of himself at the wheel and of the cabin, on the NAS in
+/Volumes/David Photography/Porsche & me/ (added 13 Oct 2026). Near-duplicates left out: 8407, 8539, 8556, 8712, 8732, 8799-8805.
 Left out: 15 March DSC_2561-2607 (family and a child at the door). The dealer listing photos in
 2026/Porsche-987-Cayman-MX57DVO are not David's.
 """
@@ -21,6 +23,14 @@ HERO_TITLE = "My Cayman"
 GALLERY_NAME = "My Cayman, spring 2026"
 OG_IMAGE = "og-cayman.jpg"
 OG_TOP = 0.45
+
+
+ME = Path("/Volumes/David Photography/Porsche & me")
+
+
+def me(n, time, alt, **kw):
+    return dict(src=ME / f"DSC_{n}.JPG", alt=alt, cap=None, taken=f"2026-10-13T{time}", show_time=True,
+                grade="papaya", keep=0.6, **kw)
 
 
 def ph(day, n, time, alt, ext="NEF", **kw):
@@ -53,6 +63,17 @@ PHOTOS = {
     "c4838": ph(A19, "4838", "06:51:20", "The front wheel and wing of a red Cayman, low and close, in morning sun.", ext="JPG"),
     "c4843": ph(A19, "4843", "06:51:29", "A red Cayman three-quarter on in morning sun.", ext="JPG"),
     "c4846": ph(A19, "4846", "06:51:57", "A small red Cayman under a wide blue sky.", ext="JPG"),
+    "c8549": me("8549", "17:26:22", "The key in the ignition of a Cayman, the dashboard soft behind."),
+    "c8464": me("8464", "17:23:00", "David at the wheel of his Cayman, a brick house through the window."),
+    "c8404": me("8404", "17:21:43", "David in the driver's seat, seen from low down by the door."),
+    "c8554": me("8554", "17:26:43", "The Porsche crest on the steering wheel."),
+    "c8564": me("8564", "17:27:48", "The gear knob, close, the centre console behind."),
+    "c8548": me("8548", "17:26:04", "The light switch on the dashboard, the red door beyond."),
+    "c8715": me("8715", "17:31:58", "The speedometer and rev counter behind the wheel rim."),
+    "c8706": me("8706", "17:31:29", "David in profile in the driver's seat, looking ahead."),
+    "c8728": me("8728", "17:33:17", "David seen through the steering wheel, looking past the camera."),
+    "c8761": me("8761", "17:33:28", "David at the wheel in sunglasses."),
+    "c8784": me("8784", "17:33:38", "David looks straight at the camera over the steering wheel."),
 }
 
 SEQUENCE = [
@@ -77,6 +98,15 @@ SEQUENCE = [
     ("wide", "c4823"),
     ("pair", "c4838", "c4843"),
     ("print", "c4846", "centre"),
+    ("part", "13 October 2026 · 17:21", "Behind the wheel", ""),
+    ("print", "c8404", "left"),
+    ("wide", "c8464"),
+    ("pair", "c8548", "c8549"),
+    ("pair", "c8554", "c8564"),
+    ("wide", "c8706"),
+    ("print", "c8715", "right-small"),
+    ("pair", "c8728", "c8761"),
+    ("wide", "c8784"),
 ]
 
 
