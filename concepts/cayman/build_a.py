@@ -12,23 +12,24 @@ HERE = Path(__file__).resolve().parent
 P = {p["key"]: p for p in json.loads((HERE / "photos.json").read_text())}
 E = html.escape
 
+# one red, Guards Red at hue ~3 deg: #b3221d on light pages, #e5443d on dark (AA large text both, 13 Oct 2026)
 # light per session: background, ink, muted, accent (each pair AA for body text)
 LIGHTS = {
-    "rain": ("#29313b", "#edf0f2", "#a9b3bd", "#d23a3a"),
-    "moor": ("#ead7b2", "#241c12", "#6a5638", "#a8231c"),
+    "rain": ("#29313b", "#edf0f2", "#a9b3bd", "#e5443d"),
+    "moor": ("#ead7b2", "#241c12", "#6a5638", "#b3221d"),
     "april": ("#f4f2ec", "#1b1b1a", "#66645e", "#b3221d"),
-    "cabin": ("#17120e", "#f2e2c9", "#b39b7c", "#e0623a"),
+    "cabin": ("#17120e", "#f2e2c9", "#b39b7c", "#e5443d"),
 }
 CHAPTERS = [
     ("rain", "15 March 2026", "18:56", "Rain", [
         ("full", "c2530"), ("offset-r", "c2697"), ("pair", "c2680", "c2718"), ("full", "c2709")]),
     ("moor", "21 March 2026", "07:25", "The moor", [
-        ("full", "c2738"), ("full", "c2817"), ("offset-l", "c2775"), ("full", "c2783"), ("pair", "c2836", "c2848")]),
+        ("full", "c2738"), ("full", "c2817"), ("offset-l", "c2775"), ("full", "c2783"), ("offset-r", "c2848")]),
     ("april", "19 April 2026", "06:50", "Low sun", [
-        ("pair", "c4838", "c4843"), ("tall", "c4846")]),
+        ("offset-l", "c4838"), ("tall", "c4846")]),
     ("cabin", "13 October 2026", "17:21", "Behind the wheel", [
         ("offset-l", "c8404"), ("full", "c8464"), ("trio", "c8549", "c8564", "c8554"), ("full", "c8706"),
-        ("offset-r", "c8715"), ("pair", "c8728", "c8761"), ("end", "c8784")]),
+        ("offset-r", "c8715"), ("end", "c8784")]),
 ]
 
 

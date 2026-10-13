@@ -35,7 +35,7 @@ def dayline():
                     for t, c, w in DAY)
     hours = "".join(f'<li style="--x:{h / 24:.4f}">{h:02d}</li>' for h in (0, 6, 12, 18, 24))
     return f'<ol class="hours" aria-hidden="true">{hours}</ol><ol class="marks">{marks}</ol>'
-NEEDLE = {"rain": "#f0574f", "moor": "#a8231c", "april": "#b3221d", "cabin": "#e0623a"}
+NEEDLE = {"rain": "#e5443d", "moor": "#b3221d", "april": "#b3221d", "cabin": "#e5443d"}
 # first big photo of each chapter gets the gear-change blur; c2530 also gets rain, c4846 the low sun
 FX = {"c2530": "rain shift", "c2738": "shift", "c4846": "sun shift", "c8464": "shift"}
 CH_OF = {k: i + 1 for i, ch in enumerate(CHAPTERS) for b in ch[4] for k in b[1:]}

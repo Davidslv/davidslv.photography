@@ -28,9 +28,10 @@ OG_TOP = 0.45
 ME = Path("/Volumes/David Photography/Porsche & me")
 
 
-def me(n, time, alt, **kw):
+def me(n, time, alt, keep=0.6, **kw):
+    """keep=0.85 on the portraits: Papaya at 0.6 turns skin grey (David, 13 Oct 2026)."""
     return dict(src=ME / f"DSC_{n}.JPG", alt=alt, cap=None, taken=f"2026-10-13T{time}", show_time=True,
-                grade="papaya", keep=0.6, **kw)
+                grade="papaya", keep=keep, **kw)
 
 
 def ph(day, n, time, alt, ext="NEF", **kw):
@@ -63,16 +64,16 @@ PHOTOS = {
     "c4843": ph(A19, "4843", "06:51:29", "A red Cayman three-quarter on in morning sun.", ext="JPG"),
     "c4846": ph(A19, "4846", "06:51:57", "A small red Cayman under a wide blue sky.", ext="JPG"),
     "c8549": me("8549", "17:26:22", "The key in the ignition of a Cayman, the dashboard soft behind."),
-    "c8464": me("8464", "17:23:00", "David at the wheel of his Cayman, a brick house through the window."),
-    "c8404": me("8404", "17:21:43", "David in the driver's seat, seen from low down by the door."),
+    "c8464": me("8464", "17:23:00", "David at the wheel of his Cayman, a brick house through the window.", keep=0.85),
+    "c8404": me("8404", "17:21:43", "David in the driver's seat, seen from low down by the door.", keep=0.85),
     "c8554": me("8554", "17:26:43", "The Porsche crest on the steering wheel."),
     "c8564": me("8564", "17:27:48", "The gear knob, close, the centre console behind."),
     "c8548": me("8548", "17:26:04", "The light switch on the dashboard, the red door beyond."),
     "c8715": me("8715", "17:31:58", "The speedometer and rev counter behind the wheel rim."),
-    "c8706": me("8706", "17:31:29", "David in profile in the driver's seat, looking ahead."),
+    "c8706": me("8706", "17:31:29", "David in profile in the driver's seat, looking ahead.", keep=0.85),
     "c8728": me("8728", "17:33:17", "David seen through the steering wheel, looking past the camera."),
     "c8761": me("8761", "17:33:28", "David at the wheel in sunglasses."),
-    "c8784": me("8784", "17:33:38", "David looks straight at the camera over the steering wheel."),
+    "c8784": me("8784", "17:33:38", "David looks straight at the camera over the steering wheel.", keep=0.85),
 }
 
 SEQUENCE = [
