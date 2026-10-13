@@ -76,7 +76,7 @@ def load(key):
     if ph.get("grade") == "papaya":
         sys.path.insert(0, str(ROOT / "tools/grades"))
         from papaya import grade
-        im = grade(im, keep=ph.get("keep", 0.45))
+        im = grade(im, keep=ph.get("keep", 0.45), red=ph.get("red", 0))
     elif ph.get("grade") == "atlantic":
         sys.path.insert(0, str(ROOT / "tools/grades"))
         from atlantic import grade as atlantic

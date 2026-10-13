@@ -16,9 +16,24 @@ def rgb_to_hsv(a):
     return h, s, mx
 
 
-def grade(im, keep=0.6, boost=1.06, grain=0.006, seed=7):
+def hsv_to_rgb(h, s, v):
+    h = (h % 360) / 60
+    c = v * s
+    x = c * (1 - np.abs(h % 2 - 1))
+    z = np.zeros_like(c)
+    i = np.floor(h).astype(int) % 6
+    r = np.choose(i, [c, x, z, z, x, c]); g = np.choose(i, [x, c, c, x, z, z]); b = np.choose(i, [z, z, x, c, c, x])
+    return np.stack([r, g, b], -1) + (v - c)[..., None]
+
+
+def grade(im, keep=0.6, boost=1.06, grain=0.006, seed=7, red=0.0):
+    """red: degrees to turn orange-reds back towards red (low sun makes Guards Red read orange). 0 = off."""
     a = np.asarray(im.convert("RGB"), np.float32) / 255
     h, s, v = rgb_to_hsv(a)
+    if red:
+        w = np.clip(1 - np.abs(h - 14) / 18, 0, 1) * np.clip((s - 0.3) / 0.2, 0, 1)   # reds 0-32 deg with real colour
+        a = hsv_to_rgb(h - red * w, np.clip(s * (1 + 0.15 * w), 0, 1), v * (1 - 0.12 * w)).astype(np.float32)  # and deeper
+        h, s, v = rgb_to_hsv(a)
     # papaya/orange 12-45 deg, red 345-12 deg; soft edges in hue, needs some saturation and light
     def band(lo, hi, soft=8):
         return np.clip(np.minimum(h - (lo - soft), (hi + soft) - h) / soft, 0, 1)
