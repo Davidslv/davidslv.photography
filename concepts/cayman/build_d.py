@@ -17,7 +17,24 @@ import build_a as A  # noqa: E402  (reuse A's data, palette, pictures, captions,
 
 P, E = A.P, html.escape
 LIGHTS = A.LIGHTS
-CHAPTERS = A.CHAPTERS
+# chapter titles and lines from David's interview (notes/cayman-interview.md in the main checkout, 13 Oct 2026)
+TITLES = {"rain": "Ready", "moor": "Wales", "april": "Low sun", "cabin": "Behind the wheel"}
+CHAPTERS = [(c, d, t, TITLES[c], b) for c, d, t, _, b in A.CHAPTERS]
+LINES = {
+    "rain": "New tyres, new discs, new pads. Washed. Then it rained.",
+    "moor": "Up at 3:00 and on the road to Wales. I got there just as the sun was rising: a beautiful sunrise and no traffic "
+            "whatsoever. I drove the road up and down, twice, because I loved it so much, and was home by 10:00.",
+    "cabin": "\u201cIt puts a smile on my face every single time I open the door.\u201d",
+}
+DAY = [("03:00", "moor", "leave"), ("06:50", "april", ""), ("07:25", "moor", "Wales"), ("10:00", "moor", "home"),
+       ("17:21", "cabin", ""), ("18:56", "rain", "")]
+
+
+def dayline():
+    marks = "".join(f'<li style="--x:{(int(t[:2]) * 60 + int(t[3:])) / 1440:.4f}" data-light="{c}"><span>{t}{(" " + w) if w else ""}</span></li>'
+                    for t, c, w in DAY)
+    hours = "".join(f'<li style="--x:{h / 24:.4f}">{h:02d}</li>' for h in (0, 6, 12, 18, 24))
+    return f'<ol class="hours" aria-hidden="true">{hours}</ol><ol class="marks">{marks}</ol>'
 NEEDLE = {"rain": "#f0574f", "moor": "#a8231c", "april": "#b3221d", "cabin": "#e0623a"}
 # first big photo of each chapter gets the gear-change blur; c2530 also gets rain, c4846 the low sun
 FX = {"c2530": "rain shift", "c2738": "shift", "c4846": "sun shift", "c8464": "shift"}
@@ -108,6 +125,9 @@ def gate():
 
 
 CSS = A.CSS + """
+.hero h1{font-size:clamp(3.1rem,10.6vw,10.5rem);line-height:.9}
+.opener .line{max-width:34rem;margin-top:1.2rem;font:300 clamp(1.15rem,2vw,1.45rem)/1.45 News,serif;color:var(--ink);transition:color var(--fade)}
+.day .marks span{font-size:.62rem}
 @property --bg{syntax:'<color>';inherits:true;initial-value:#f4f2ec}
 @property --ink{syntax:'<color>';inherits:true;initial-value:#1b1b1a}
 @property --muted{syntax:'<color>';inherits:true;initial-value:#66645e}
@@ -408,15 +428,15 @@ def build():
         body = "".join(block(b) for b in blocks)
         chapters.append(f'<section class="chapter" id="{c}" aria-labelledby="{c}-h"><div class="opener">'
                         f'<p class="lbl" data-t="{P[blocks[0][1]]["taken"][:11]}{t}:00">{date}</p><p class="t" aria-hidden="true">{t}</p>'
-                        f'<h2 id="{c}-h">{title}<span class="sr"> · {t}</span></h2></div>{body}</section>')
+                        f'<h2 id="{c}-h">{title}<span class="sr"> · {t}</span></h2>{f"<p class=line>{LINES[c]}</p>" if c in LINES else ""}</div>{body}</section>')
     nav = "".join(f'<a href="#{c}">{title}</a>' for c, _, _, title, _ in CHAPTERS)
     ids = [c for c, *_ in CHAPTERS]
     js = JS.replace("__NEEDLE__", json.dumps(NEEDLE)).replace("__IDS__", json.dumps(ids))
     doc = f"""<!doctype html>
 <html lang="en-GB">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Cayman · David Silva</title>
-<meta name="description" content="David Silva's red Porsche Cayman in four kinds of light: rain at dusk, sunrise on the moor, low April sun, and behind the wheel.">
+<title>Back to analogue · My Cayman · David Silva</title>
+<meta name="description" content="Back to analogue: David Silva and his 2007 Porsche Cayman, a manual 987. New brakes and tyres, a 3:00 drive to Wales at sunrise, and the view from behind the wheel.">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
 <link rel="preload" href="/site/fonts/Newsreader-normal-300.woff2" as="font" type="font/woff2" crossorigin>
@@ -426,11 +446,11 @@ def build():
 <header class="top"><a href="/">David Silva</a><nav class="ch" aria-label="Chapters">{nav}</nav></header>
 <div class="inst"><div class="dials" aria-hidden="true">{dial("tach")}{dial("speed")}</div><nav class="gate" aria-label="Gears">{gate()}</nav></div>
 <main>
-<section class="hero" aria-labelledby="t"><p class="lbl">Porsche Cayman · 2026</p><h1 id="t">My Cayman</h1>
-<p>Four kinds of light. Rain at dusk, sunrise on the moor, low April sun, and the last of the day behind the wheel.</p>
-<div class="day" aria-label="When each set was taken, on a 24-hour line">{A.dayline()}</div></section>
+<section class="hero" aria-labelledby="t"><p class="lbl">My Cayman · Porsche 987 · 2007</p><h1 id="t">Back to analogue</h1>
+<p>I was looking for a manual car, something with visceral feedback. Nineteen years old, a 2.7-litre engine and a manual gearbox. You need to be switched on, though, and that\u2019s the whole point.</p>
+<div class="day" aria-label="The times in this story, on a 24-hour line">{dayline()}</div></section>
 {"".join(chapters)}
-<section class="sign" aria-label="End"><p>My Cayman</p><p class="lbl">Photographs by David Silva · Nikon Z 6II</p></section>
+<section class="sign" aria-label="End"><p>Back to analogue</p><p class="lbl">Photographs by David Silva · Nikon Z 6II</p></section>
 </main>
 <div class="clock" aria-hidden="true" hidden><b>00:00:00</b><span></span><i></i></div>
 <footer><a href="/">David Silva · London</a><span class="lbl">Prototype · concept D</span></footer>
