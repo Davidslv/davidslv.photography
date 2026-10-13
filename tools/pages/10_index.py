@@ -72,6 +72,6 @@ def after(meta):
 <a class="next" href="/sunday/"><span class="lbl">Next</span><span class="next-title">It Started on a Sunday</span><span class="next-sub">The car meets, and the book out 15 November</span></a>
 <section class="more" id="contact">
 <div><p class="lbl">The book</p><h3><a href="/sunday/"><em>It Started on a Sunday</em></a></h3><p>The car meets in and around London. Out 15 November 2026. <a href="/sunday/">See the photographs</a></p></div>
-<div><p class="lbl">Presets</p><h3>LAST ROLL and KERBSIDE</h3><p>The Lightroom looks I grade with. <a href="https://davidslv.gumroad.com/l/last-roll">LAST ROLL</a> · <a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE</a></p></div>
-<div><p class="lbl">Contact</p><h3>Commissions, prints and licensing</h3><p><a href="mailto:{EMAIL}">{EMAIL}</a><br><a href="{IG}" rel="me">@davidslv.photography</a></p></div>
+<div><p class="lbl">Presets</p><h3>LAST ROLL and KERBSIDE</h3><p>The Lightroom looks I grade with.<br><a href="https://davidslv.gumroad.com/l/last-roll">LAST ROLL · £3.99</a>: eight film looks for photos after dark.<br><a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE · £8.99</a>: 26 looks for car-meet light.</p></div>
+<div><p class="lbl">Contact</p><h3>Commissions, prints and licensing</h3><p>Ask for prices.<br><a href="mailto:{EMAIL}">{EMAIL}</a><br><a href="{IG}" rel="me">@davidslv.photography</a></p></div>
 </section>"""

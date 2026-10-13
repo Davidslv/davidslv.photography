@@ -95,8 +95,53 @@ SEQUENCE = [
 ]
 
 
+KERBSIDE = "https://davidslv.gumroad.com/l/kerbside-preset"
+BA_RAW = Path("/Volumes/David Photography/Photography/2026/2026-10-11/DSC_7940.NEF")
+BA_GRADED = N / "DSC_7940 KERBSIDE O01.jpg"
+
+
+def assets(img_dir):
+    """Before/after for KERBSIDE: the camera's own JPEG beside the KERBSIDE O01 grade, same frame (7940, not a book frame)."""
+    import io
+    import subprocess
+    from PIL import Image
+    raw = subprocess.run(["exiftool", "-b", "-JpgFromRaw", str(BA_RAW)], capture_output=True, check=True).stdout
+    a = Image.open(io.BytesIO(raw)).convert("RGB")
+    b = Image.open(BA_GRADED).convert("RGB").resize(a.size, Image.LANCZOS)
+    w, h = a.size
+    half = w // 2
+    im = Image.new("RGB", (w, h))
+    im.paste(a.crop((0, 0, half, h)), (0, 0)); im.paste(b.crop((half, 0, w, h)), (half, 0))
+    im.paste((255, 255, 255), (half - 4, 0, half + 4, h))
+    out = {"kerbside-before-after": {}}
+    for tw in (640, 1200, 2000):
+        v = im.resize((tw, round(h * tw / w)), Image.LANCZOS)
+        v.save(img_dir / f"kerbside-before-after-{tw}.jpg", quality=84, optimize=True, progressive=True)
+        v.save(img_dir / f"kerbside-before-after-{tw}.avif", quality=62, speed=6)
+        out["kerbside-before-after"][tw] = {"jpg": str(img_dir / f"kerbside-before-after-{tw}.jpg"),
+                                            "avif": str(img_dir / f"kerbside-before-after-{tw}.avif")}
+    return out
+
+
+def before_after(meta):
+    files = meta["_assets"]["kerbside-before-after"]
+    ws = sorted(files, key=int)
+    avif = ", ".join(f"/images/{files[w]['avif']} {w}w" for w in ws)
+    jpg = ", ".join(f"/images/{files[w]['jpg']} {w}w" for w in ws)
+    return (f'<picture><source type="image/avif" srcset="{avif}" sizes="(max-width:720px) 100vw, 1100px">'
+            f'<img src="/images/{files[ws[0]]["jpg"]}" srcset="{jpg}" sizes="(max-width:720px) 100vw, 1100px" width="2000" height="1333" '
+            f'alt="The white Carrera, shot low across the gravel: the camera\'s own colour on the left, the KERBSIDE O01 look on the right." loading="lazy" decoding="async"></picture>')
+
+
 def after(meta):
-    return """<section class="pitch" id="book">
+    return f"""<section class="pitch" id="kerbside">
+<p class="lbl">The look</p>
+<h2>Graded with KERBSIDE.</h2>
+<p class="pitch-lede">Every photograph on this page uses one of three KERBSIDE looks: D01, D03 and O01. They're Lightroom presets for car-meet light.</p>
+<figure class="spread">{before_after(meta)}<figcaption class="lbl">Left, straight from the camera · right, KERBSIDE O01</figcaption></figure>
+<p><a class="btn" href="{KERBSIDE}">KERBSIDE on Gumroad · £8.99</a></p>
+</section>
+<section class="pitch" id="book">
 <p class="lbl">In the book</p>
 <h2>Five more from this morning are in the book.</h2>
 <p class="pitch-lede">The people from Blackbushe close <i>It Started on a Sunday</i>, out on 15 November.</p>

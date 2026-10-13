@@ -149,7 +149,8 @@ def after(meta):
   <p class="sub">Cars and the people who love them.</p>
   <p>67 photographs from fourteen car meets, November 2024 to October 2026. Each one comes with its story, how it was shot, and the KERBSIDE look it was graded with. Five pages go behind the shot and show the frames either side of the one I kept.</p>
   <p>A4 landscape PDF. £17.99.</p>
-  <p><a class="btn" href="{IG}" rel="me">Follow @davidslv.photography for the launch</a></p></div>
+  <p><a class="btn" href="{GUMROAD}">Get the book on Gumroad · £17.99</a></p>
+  <p style="font-size:.9em"><a style="color:inherit" href="{IG}" rel="me">Follow @davidslv.photography for the launch</a></p></div>
 </div>
 <figure class="spread">{s1}<figcaption class="lbl">From Winter: Umbrellas Up</figcaption></figure>
 <figure class="spread">{s2}<figcaption class="lbl">From Early spring: Show and Tell</figcaption></figure>
@@ -157,8 +158,8 @@ def after(meta):
 <a class="next" href="/mclaren/"><span class="lbl">Next</span><span class="next-title">Made to be used</span><span class="next-sub">A day at the McLaren Technology Centre</span></a>
 <section class="more" id="contact">
 <div><p class="lbl">More photographs</p><h3><a href="/">From last light to last train</a></h3><p>One Saturday in London, and other nights.</p></div>
-<div><p class="lbl">Presets</p><h3>KERBSIDE</h3><p>The looks this book was graded with. <a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE on Gumroad</a></p></div>
-<div><p class="lbl">Contact</p><h3>Photographs of your meet</h3><p><a href="mailto:davidslv.london@gmail.com">davidslv.london@gmail.com</a><br><a href="{IG}" rel="me">@davidslv.photography</a></p></div>
+<div><p class="lbl">Presets</p><h3>KERBSIDE</h3><p>The looks this book was graded with. 26 Lightroom presets for car-meet light. <a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE on Gumroad · £8.99</a></p></div>
+<div><p class="lbl">Contact</p><h3>Photographs of your meet</h3><p>I photograph club meets and events. Email for rates.<br><a href="mailto:davidslv.london@gmail.com">davidslv.london@gmail.com</a><br><a href="{IG}" rel="me">@davidslv.photography</a></p></div>
 </section>"""
 
 
