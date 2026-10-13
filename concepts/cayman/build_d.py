@@ -110,9 +110,9 @@ def gate():
     s = ['<svg viewBox="0 0 76 76" aria-hidden="true" focusable="false">',
          '<path class="slot" d="M14 18V58M38 18V58M62 18V58M14 38H62"/>',
          '<path class="line" d="M14 18V58M38 18V58M62 18V58M14 38H62"/>']
-    for g in (5, 6):
+    for g, label in ((5, "5"), (6, "R")):   # David's 987 2.7 is a five-speed: reverse sits where a sixth would be
         x, y = GP[g]
-        s.append(f'<text class="off" x="{x}" y="{y - 11 if y < 38 else y + 12}">{g}</text>')
+        s.append(f'<text class="off" x="{x}" y="{y - 11 if y < 38 else y + 12}">{label}</text>')
     s.append('<circle class="knob" cx="0" cy="0" r="4.6" transform="translate(38 38)"/></svg>')
     links = []
     for i, (c, _, _, title, _) in enumerate(CHAPTERS, 1):
