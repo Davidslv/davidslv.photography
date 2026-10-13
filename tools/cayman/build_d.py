@@ -37,6 +37,7 @@ def dayline():
     return f'<ol class="hours" aria-hidden="true">{hours}</ol><ol class="marks">{marks}</ol>'
 NEEDLE = {"rain": "#e5443d", "moor": "#b3221d", "april": "#b3221d", "cabin": "#e5443d"}
 # first big photo of each chapter gets the gear-change blur; c2530 also gets rain, c4846 the low sun
+FIFTH = "c8706"   # 5th gear from this photo on
 FX = {"c2530": "rain shift", "c2738": "shift", "c4846": "sun shift", "i3056": "sun", "c8464": "shift"}
 SUN = {"i3056": (0.62, 0.575)}   # where the real sun is in the frame (x, y up, 0-1): the glare sits on it
 CH_OF = {k: i + 1 for i, ch in enumerate(CHAPTERS) for b in ch[4] for k in b[1:]}
@@ -51,6 +52,8 @@ def fig(k, sizes, cls=""):
         attrs = f' data-fx="{FX[k]}" data-tex="{tex}" data-ch="{CH_OF[k]}"'
         if k in SUN:
             attrs += f' data-sun="{SUN[k][0]},{SUN[k][1]}"'
+    if k == FIFTH:
+        attrs += ' data-gear="5"'
     return f'<figure class="ph {cls}" data-t="{P[k]["taken"]}"{attrs}>{pic}{A.cap(k)}</figure>'
 
 
@@ -115,7 +118,7 @@ def gate():
          '<path class="line" d="M14 18V58M38 18V58M62 18V58M14 38H62"/>']
     for g, label in ((5, "5"), (6, "R")):   # David's 987 2.7 is a five-speed: reverse sits where a sixth would be
         x, y = GP[g]
-        s.append(f'<text class="off" x="{x}" y="{y - 11 if y < 38 else y + 12}">{label}</text>')
+        s.append(f'<text class="{"off" if label == "R" else "off five"}" x="{x}" y="{y - 11 if y < 38 else y + 12}">{label}</text>')
     s.append('<circle class="knob" cx="0" cy="0" r="4.6" transform="translate(38 38)"/></svg>')
     links = []
     for i, (c, _, _, title, _) in enumerate(CHAPTERS, 1):
@@ -128,9 +131,19 @@ def gate():
 
 
 CSS = A.CSS + """
+footer{align-items:center}
+footer nav{display:flex;flex-wrap:wrap;gap:.2rem 1.1rem}
+footer a{display:inline-block;padding:.35rem 0;min-height:24px}
+footer .next{font:300 1.25rem News,serif;text-decoration:none}
+footer .next .lbl{margin-right:.6rem}
 .hero h1{font-size:clamp(3.1rem,10.6vw,10.5rem);line-height:.9}
 .opener .line{max-width:34rem;margin-top:1.2rem;font:300 clamp(1.15rem,2vw,1.45rem)/1.45 News,serif;color:var(--ink);transition:color var(--fade)}
 .day .marks span{font-size:.62rem}
+.day{margin-bottom:2.6rem}
+.day .marks li:nth-child(4n+1) span{bottom:1.1rem;top:auto}
+.day .marks li:nth-child(4n+2) span{bottom:auto;top:1.9rem}
+.day .marks li:nth-child(4n+3) span{bottom:2.1rem;top:auto}
+.day .marks li:nth-child(4n+4) span{bottom:auto;top:2.9rem}
 @property --bg{syntax:'<color>';inherits:true;initial-value:#f4f2ec}
 @property --ink{syntax:'<color>';inherits:true;initial-value:#1b1b1a}
 @property --muted{syntax:'<color>';inherits:true;initial-value:#66645e}
@@ -159,11 +172,12 @@ html{transition:--bg var(--fade) ease,--ink var(--fade) ease,--muted var(--fade)
 .needle path{fill:var(--needle)}
 .needle{filter:drop-shadow(0 0 1.5px color-mix(in srgb,var(--needle) 55%,transparent))}
 .hub{fill:var(--ink)}.cap{fill:var(--needle)}
-.gate{position:relative;width:76px;height:76px;margin-left:4px}
+.gate{position:relative;width:84px;height:84px;margin-left:10px}
 .gate svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .gate .slot{fill:none;stroke:var(--ink);stroke-opacity:.09;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
 .gate .line{fill:none;stroke:var(--ink);stroke-opacity:.45;stroke-width:1;stroke-linecap:round}
 .gate .off{fill:var(--muted);font:400 10.5px Sans,system-ui,sans-serif;text-anchor:middle;dominant-baseline:central;opacity:.75}
+.gate .five{fill:var(--ink);opacity:.9}
 .gate .knob{fill:var(--needle);stroke:var(--bg);stroke-width:1.5}
 .gate a{position:absolute;width:24px;height:34px;transform:translate(-50%,-50%);display:flex;justify-content:center;
  text-decoration:none;color:var(--ink);font:400 11px/1 Sans,system-ui,sans-serif;border-radius:7px}
@@ -183,11 +197,11 @@ footer{padding-bottom:10rem}
  .inst{right:12px;bottom:12px;padding:3px 4px 3px 3px;border-radius:14px}
  .dial{width:64px;height:64px}
  .dial .num:not(.m){display:none}.speed .num{font-size:20px}.dial .num{font-size:23px}.dial .unit{display:none}
- .gate{width:64px;height:64px;margin-left:2px}
+ .gate{width:80px;height:80px;margin-left:6px}
  .clock{left:12px;bottom:12px;padding:6px 9px 7px}
  .clock b{font-size:1.45rem}
 }
-@media (max-width:22rem){.dial{width:56px;height:56px}.gate{width:58px;height:58px}}
+@media (max-width:22rem){.dial{width:56px;height:56px}.gate{width:76px;height:76px}}
 """
 
 JS = r"""
@@ -195,11 +209,11 @@ JS = r"""
 const d=document,root=d.documentElement,RM=matchMedia('(prefers-reduced-motion: reduce)');
 let reduce=RM.matches;
 const NEEDLE=__NEEDLE__,IDS=__IDS__;
-const chs=[...d.querySelectorAll('.chapter')];
+const chs=[...d.querySelectorAll('.chapter')],G5=d.querySelector('[data-gear="5"]'),END=d.querySelector('.ph.end');
 const tachN=d.querySelector('.tach .needle'),spdN=d.querySelector('.speed .needle'),knob=d.querySelector('.knob');
 const gl8=[...d.querySelectorAll('.gate a')];
 const GP={0:[38,38],1:[14,18],2:[14,58],3:[38,18],4:[38,58],5:[62,18],6:[62,58]};
-const SPD=[0,38,74,112,150];
+const SPD=[0,30,60,90,120,150];
 const clamp=(v,a=0,b=1)=>v<a?a:v>b?b:v;
 let gear=-1,rpm=850,rpmV=0,spd=0,spdV=0,kn=null,kp=[38,38],last=0,raf=0;
 let lastY=scrollY,lastYT=performance.now(),vel=0;
@@ -209,7 +223,7 @@ const kick=()=>{if(!raf)raf=requestAnimationFrame(frame)};
 /* ---- gearbox ---- */
 function shift(from,to,now){
   gear=to;
-  root.style.setProperty('--needle',NEEDLE[IDS[to-1]]||NEEDLE[IDS[0]]);
+  root.style.setProperty('--needle',NEEDLE[IDS[Math.min(to||4,4)-1]]);
   gl8.forEach(a=>{if(+a.dataset.g===to)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')});
   const a=kp.slice(),b=GP[to]||GP[0],pts=[a];
   if(a[1]!==38)pts.push([a[0],38]);
@@ -388,13 +402,21 @@ d.querySelectorAll('[data-fx]').forEach(fig=>{
   }
 });
 const near=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const f=fxs.find(x=>x.fig===e.target);init(f);near.unobserve(e.target)}}),{rootMargin:'120% 0px'});
-fxs.forEach(f=>{if(!reduce||f.rain||f.sun)near.observe(f.fig)});
+// WebGL waits for the reader's first scroll, touch or key: nothing heavy runs while the page loads
+let armed=false;const arm=()=>{if(armed)return;armed=true;['scroll','pointerdown','touchstart','keydown','wheel'].forEach(t=>removeEventListener(t,arm));
+  fxs.forEach(f=>{if(!reduce||f.rain||f.sun)near.observe(f.fig)})};
+['scroll','pointerdown','touchstart','keydown','wheel'].forEach(t=>addEventListener(t,arm,{passive:true}));
+if(scrollY>0)arm();
 
 /* ---- frame ---- */
 function frame(now){
   raf=0;const dt=last?Math.min(.05,(now-last)/1000):1/60;last=now;
   const vh=innerHeight;let g=0,p=0;
   for(let i=0;i<chs.length;i++){const r=chs[i].getBoundingClientRect();if(r.top<vh*.5){g=i+1;p=clamp((vh*.5-r.top)/r.height)}}
+  // 4th through the cabin details, 5th once David is driving, neutral on the last photograph (David, 13 Oct 2026)
+  if(g===4&&G5){const a=chs[3].getBoundingClientRect().top,b=G5.getBoundingClientRect().top;p=clamp((vh*.5-a)/Math.max(1,b-a));
+    if(b<vh*.5){const e=END?END.getBoundingClientRect().top:b+vh;g=5;p=clamp((vh*.5-b)/Math.max(1,e-b))}}
+  if(END&&END.getBoundingClientRect().top<vh*.5)g=0;
   const rs=fxs.map(f=>f.ready&&!f.lost&&!f.dead&&(!reduce||f.rain||f.sun)?f.wrap.getBoundingClientRect():null);
   if(g!==gear)shift(gear,g,now);
   let flare=0,live=false;
@@ -419,13 +441,14 @@ function frame(now){
 }
 addEventListener('scroll',()=>{const now=performance.now(),y=scrollY,dt=now-lastYT;if(dt>0){const v=(y-lastY)/dt;vel=vel*.6+v*.4}lastY=y;lastYT=now;kick()},{passive:true});
 addEventListener('resize',kick);
-RM.addEventListener('change',e=>{reduce=e.matches;fxs.forEach(f=>{f.still=false;if(f.c)f.c.hidden=reduce&&!f.rain&&!f.sun;if(!f.c&&(!reduce||f.rain||f.sun))near.observe(f.fig)});kick()});
+RM.addEventListener('change',e=>{reduce=e.matches;fxs.forEach(f=>{f.still=false;if(f.c)f.c.hidden=reduce&&!f.rain&&!f.sun;if(armed&&!f.c&&(!reduce||f.rain||f.sun))near.observe(f.fig)});kick()});
 kick();
 })();
 """
 
 
-def build():
+def page_html(site=None):
+    """The page. site=None: the local preview (concepts/cayman/d/, noindex). site={head, nav, name}: the live /cayman/."""
     chapters = []
     for c, date, t, title, blocks in CHAPTERS:
         body = "".join(block(b) for b in blocks)
@@ -435,14 +458,22 @@ def build():
     nav = "".join(f'<a href="#{c}">{title}</a>' for c, _, _, title, _ in CHAPTERS)
     ids = [c for c, *_ in CHAPTERS]
     js = JS.replace("__NEEDLE__", json.dumps(NEEDLE)).replace("__IDS__", json.dumps(ids))
-    doc = f"""<!doctype html>
-<html lang="en-GB">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    if site:
+        headtags = (site["head"] + '\n<meta name="color-scheme" content="light">'
+                    '\n<link rel="preload" as="font" type="font/woff2" href="/fonts/Newsreader-italic-300.woff2" crossorigin>')
+        links = "".join(f'<a href="{h}"{" aria-current=page" if h == "/cayman/" else ""}>{n}</a>' for n, h in site["nav"])
+        foot = (f'<footer><a class="next" href="/"><span class="lbl">Next</span> From last light to last train</a>'
+                f'<nav aria-label="Site">{links}</nav><span>All photographs \u00a9 {site["name"]}. Please ask before using them.</span></footer>')
+    else:
+        headtags = """<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Back to analogue · My Cayman · David Silva</title>
-<meta name="description" content="Back to analogue: David Silva and his 2007 Porsche Cayman, a manual 987. New brakes and tyres, a 3:00 drive to Wales at sunrise, and the view from behind the wheel.">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light">
-<link rel="preload" href="/site/fonts/Newsreader-normal-300.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/site/fonts/Newsreader-normal-300.woff2" as="font" type="font/woff2" crossorigin>"""
+        foot = '<footer><a href="/">David Silva · London</a><span class="lbl">Preview</span></footer>'
+    doc = f"""<!doctype html>
+<html lang="en-GB">
+<head>{headtags}
 <style>{CSS}</style></head>
 <body>
 <a class="skip" href="#rain">Skip to the photographs</a>
@@ -456,14 +487,22 @@ def build():
 <section class="sign" aria-label="End"><p>Back to analogue</p><p class="lbl">Photographs by David Silva · Nikon Z 6II</p></section>
 </main>
 <div class="clock" aria-hidden="true" hidden><b>00:00:00</b><span></span><i></i></div>
-<footer><a href="/">David Silva · London</a><span class="lbl">Prototype · concept D</span></footer>
+{foot}
 <script>{A.JS.replace("__LIGHTS__", json.dumps(LIGHTS))}</script>
 <script>{js}</script>
 </body></html>
 """
-    (HERE / "d").mkdir(exist_ok=True)
-    (HERE / "d/index.html").write_text(doc)
-    print(HERE / "d/index.html", len(doc))
+    if site:
+        doc = doc.replace("/site/images/", "/images/").replace("/site/fonts/", "/fonts/")
+    return doc
+
+
+def build():
+    out = HERE.parents[1] / "concepts/cayman/d"
+    out.mkdir(parents=True, exist_ok=True)
+    doc = page_html()
+    (out / "index.html").write_text(doc)
+    print(out / "index.html", len(doc))
 
 
 if __name__ == "__main__":

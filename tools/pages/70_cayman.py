@@ -1,4 +1,10 @@
-"""/cayman/: David's red Porsche Cayman (987, 2007) on three days in spring 2026 (built 12 Oct 2026, not deployed).
+"""/cayman/: "Back to analogue". David's red Porsche Cayman (987, 2007): rain at home, a 3:00 drive to Wales at sunrise,
+low April sun, and David behind the wheel (built 12-13 Oct 2026).
+
+The page has its own design ("concept D", chosen by David 13 Oct 2026): the page takes the light of each set, a rev
+counter, speedometer and five-speed gate track the story, WebGL rain, gear-change blur and low-sun glare. It is
+rendered by tools/cayman/build_d.py through render_page() below; the site build still grades the photos, writes the
+head tags, JSON-LD, sitemap and link preview from PHOTOS and SEQUENCE. Words: notes/cayman-interview.md (main checkout).
 
 Sources: Nikon Z 6II NEFs (15 and 21 March) and camera JPEGs (19 April) on the NAS, graded with Papaya
 (tools/grades/papaya.py): everything quiet except the red. Times are camera times.
@@ -18,13 +24,13 @@ N = Path("/Volumes/David Photography/2026")
 
 PATH = "/cayman/"
 NAV_NAME = "Cayman"
-TITLE = "My Cayman · A red Porsche Cayman in spring 2026, photographed by David Silva"
-OG_TITLE = "My Cayman · David Silva"
-DESC = ("David Silva's red Porsche Cayman on three days in spring 2026: in the rain at home, at sunrise on the moor, "
-        "and in low April sun. Photographs by David Silva.")
+TITLE = "Back to analogue · My Porsche Cayman · David Silva"
+OG_TITLE = "Back to analogue · David Silva"
+DESC = ("Back to analogue: David Silva and his 2007 Porsche Cayman, a manual 987. New tyres and brakes, a 3:00 drive "
+        "to Wales for the sunrise, and the view from behind the wheel. Photographs by David Silva.")
 HERO_LABEL = "Porsche Cayman · March and April 2026"
-HERO_TITLE = "My Cayman"
-GALLERY_NAME = "My Cayman, spring 2026"
+HERO_TITLE = "Back to analogue"
+GALLERY_NAME = "Back to analogue: my Cayman, 2026"
 OG_IMAGE = "og-cayman.jpg"
 OG_TOP = 0.45
 
@@ -96,41 +102,30 @@ PHOTOS = {
     "c8784": me("8784", "17:33:38", "David looks straight at the camera over the steering wheel.", keep=0.85),
 }
 
-SEQUENCE = [
-    ("hero", "c2817"),
-    ("part", "15 March 2026 · 17:56", "Rain", ""),
-    ("wide", "c2530"),
-    ("pair", "c2655", "c2672"),
-    ("wide", "c2680"),
-    ("print", "c2690", "right-small"),
-    ("print", "c2697", "left"),
-    ("wide", "c2709"),
-    ("print", "c2718", "right-small"),
-    ("part", "21 March 2026 · 06:14", "Wales", ""),
-    ("print", "i3035", "left"),
-    ("pair", "i3038", "i3040"),
-    ("pair", "i3042", "i3044"),
-    ("pair", "i3048", "i3051"),
-    ("wide", "c2738"),
-    ("wide", "c2783"),
-    ("wide", "c2817"),
-    ("print", "i3056", "centre"),
-    ("wide", "c2848"),
-    ("part", "19 April 2026 · 06:50", "Low sun", ""),
-    ("wide", "c4823"),
-    ("pair", "c4838", "c4843"),
-    ("print", "c4846", "centre"),
-    ("part", "13 October 2026 · 17:21", "Behind the wheel", ""),
-    ("print", "c8404", "left"),
-    ("wide", "c8464"),
-    ("pair", "c8548", "c8549"),
-    ("pair", "c8554", "c8564"),
-    ("wide", "c8706"),
-    ("print", "c8715", "right-small"),
-    ("pair", "c8728", "c8761"),
-    ("wide", "c8784"),
-]
+
+
+def _story():
+    import importlib.util
+    import sys
+    d = Path(__file__).resolve().parents[1] / "cayman"
+    sys.path.insert(0, str(d))
+    spec = importlib.util.spec_from_file_location("cayman_build_d", d / "build_d.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+# hero first (link preview and primary image), then every photo the page shows, in order
+_D = _story()
+SEQUENCE = [("hero", "c2817")] + [("wide", k) for ch in _D.CHAPTERS for b in ch[4] for k in b[1:] if k != "c2817"]
+
+
+def render_page(meta, site):
+    for k, p in _D.P.items():  # point the story at the current graded files
+        if k in meta:
+            p["src"] = {w: {f: "/site/images/" + n for f, n in v.items()} for w, v in meta[k][3].items()}
+    return _D.page_html(site)
 
 
 def after(meta):
-    return """<a class="next" href="/blackbushe/"><span class="lbl">Next</span><span class="next-title">Something special</span><span class="next-sub">Porsche Club GB at Blackbushe</span></a>"""
+    return ""

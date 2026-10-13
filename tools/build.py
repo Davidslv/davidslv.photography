@@ -257,14 +257,10 @@ def jsonld(page, meta):
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, indent=1)
 
 
-def head(page, meta):
+def head_tags(page, meta):
+    """Everything in <head> a search engine or link preview reads: title, description, canonical, Open Graph, icons, JSON-LD."""
     hero = page.SEQUENCE[0][1]
-    hw = meta[hero][2]
-    css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
-    return f"""<!doctype html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8">
+    return f"""<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{E(page.TITLE)}</title>
 <meta name="description" content="{E(page.DESC)}">
@@ -289,10 +285,20 @@ def head(page, meta):
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preload" as="font" type="font/woff2" href="/fonts/Newsreader-normal-300.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/fonts/PublicSans-normal-400.woff2" crossorigin>
+<script type="application/ld+json">{jsonld(page, meta)}</script>
+<script type="speculationrules">{{"prerender": [{{"where": {{"and": [{{"href_matches": "/*"}}, {{"not": {{"href_matches": "/images/*"}}}}]}}, "eagerness": "moderate"}}]}}</script>"""
+
+
+def head(page, meta):
+    hero = page.SEQUENCE[0][1]
+    hw = meta[hero][2]
+    css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
+    return f"""<!doctype html>
+<html lang="en-GB">
+<head>
+{head_tags(page, meta)}
 <link rel="preload" as="image" type="image/avif" imagesrcset="{", ".join(f"{src(hero, meta, x, 'avif')} {x}w" for x in hw)}" imagesizes="100vw" fetchpriority="high">
 <style>{css}</style>
-<script type="application/ld+json">{jsonld(page, meta)}</script>
-<script type="speculationrules">{{"prerender": [{{"where": {{"and": [{{"href_matches": "/*"}}, {{"not": {{"href_matches": "/images/*"}}}}]}}, "eagerness": "moderate"}}]}}</script>
 </head>"""
 
 
@@ -311,6 +317,8 @@ def footer():
 
 
 def render(page, meta):
+    if hasattr(page, "render_page"):  # a page with its own design (e.g. /cayman/), still given the site's head tags and nav
+        return page.render_page(meta, {"head": head_tags(page, meta), "nav": NAV, "name": NAME})
     return "\n".join([head(page, meta), header(page), sequence_html(page, meta), page.after(meta), footer()])
 
 

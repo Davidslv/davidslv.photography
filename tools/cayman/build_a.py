@@ -190,9 +190,10 @@ def build():
 <script>{JS.replace("__LIGHTS__", lights)}</script>
 </body></html>
 """
-    (HERE / "a").mkdir(exist_ok=True)
-    (HERE / "a/index.html").write_text(doc)
-    print(HERE / "a/index.html")
+    out = HERE.parents[1] / "concepts/cayman/a"
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "index.html").write_text(doc)
+    print(out / "index.html")
 
 
 if __name__ == "__main__":
