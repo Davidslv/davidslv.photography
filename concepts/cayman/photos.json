@@ -319,35 +319,6 @@
   }
  },
  {
-  "key": "i3039",
-  "alt": "A hand on the wheel, the dials reading 19 mph.",
-  "taken": "2026-03-21T06:14:56",
-  "w": 6048,
-  "h": 8064,
-  "src": {
-   "640": {
-    "jpg": "/site/images/i3039-a-hand-on-the-wheel-the-640.a8465d85d5.jpg",
-    "avif": "/site/images/i3039-a-hand-on-the-wheel-the-640.7287ffdfb5.avif"
-   },
-   "1200": {
-    "jpg": "/site/images/i3039-a-hand-on-the-wheel-the-1200.0e1d6dca42.jpg",
-    "avif": "/site/images/i3039-a-hand-on-the-wheel-the-1200.83b86184be.avif"
-   },
-   "1600": {
-    "jpg": "/site/images/i3039-a-hand-on-the-wheel-the-1600.0605879e23.jpg",
-    "avif": "/site/images/i3039-a-hand-on-the-wheel-the-1600.41b2ed08c5.avif"
-   }
-  },
-  "exif": {
-   "f": 1.78,
-   "shutter": "1/60",
-   "iso": 125,
-   "focal": 24,
-   "lens": "iPhone 14 Pro Max back triple camera 6.86mm f/1.78",
-   "camera": "iPhone 14 Pro Max"
-  }
- },
- {
   "key": "i3042",
   "alt": "The empty road curving away across the moor, seen over the dashboard.",
   "taken": "2026-03-21T06:15:38",
@@ -1186,6 +1157,35 @@
    "focal": 35,
    "lens": "NIKKOR Z 35mm f/1.8 S",
    "camera": "NIKON Z 6_2"
+  }
+ },
+ {
+  "key": "i3040",
+  "alt": "A hand on the wheel, the dials reading 19 mph, the road ahead.",
+  "taken": "2026-03-21T06:14:58",
+  "w": 6048,
+  "h": 8064,
+  "src": {
+   "640": {
+    "jpg": "/site/images/i3040-a-hand-on-the-wheel-the-640.95a3fc1df8.jpg",
+    "avif": "/site/images/i3040-a-hand-on-the-wheel-the-640.18eb9e95d7.avif"
+   },
+   "1200": {
+    "jpg": "/site/images/i3040-a-hand-on-the-wheel-the-1200.0f6b82f92d.jpg",
+    "avif": "/site/images/i3040-a-hand-on-the-wheel-the-1200.aa347f749c.avif"
+   },
+   "1600": {
+    "jpg": "/site/images/i3040-a-hand-on-the-wheel-the-1600.9513da5d8b.jpg",
+    "avif": "/site/images/i3040-a-hand-on-the-wheel-the-1600.e485d64c84.avif"
+   }
+  },
+  "exif": {
+   "f": 1.78,
+   "shutter": "1/66",
+   "iso": 125,
+   "focal": 24,
+   "lens": "iPhone 14 Pro Max back triple camera 6.86mm f/1.78",
+   "camera": "iPhone 14 Pro Max"
   }
  }
 ]

@@ -24,7 +24,7 @@ CHAPTERS = [
     ("rain", "15 March 2026", "17:56", "Rain", [
         ("full", "c2530"), ("offset-r", "c2697"), ("pair", "c2680", "c2718"), ("full", "c2709")]),
     ("moor", "21 March 2026", "06:14", "The moor", [
-        ("trio", "i3038", "i3039", "i3042"), ("tall", "i3051"), ("full", "c2738"), ("full", "c2783"),
+        ("trio", "i3038", "i3040", "i3042"), ("tall", "i3051"), ("full", "c2738"), ("full", "c2783"),
         ("full", "c2817"), ("tall", "i3055"), ("offset-r", "c2848")]),
     ("april", "19 April 2026", "06:50", "Low sun", [
         ("offset-l", "c4838"), ("tall", "c4846")]),

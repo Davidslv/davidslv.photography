@@ -4515,5 +4515,28 @@
 "avif": "c2680-a-red-door-mirror-covered-in-2000.f7d778bf89.avif"
 }
 }
+],
+"i3040": [
+6048,
+8064,
+[
+640,
+1200,
+1600
+],
+{
+"640": {
+"jpg": "i3040-a-hand-on-the-wheel-the-640.95a3fc1df8.jpg",
+"avif": "i3040-a-hand-on-the-wheel-the-640.18eb9e95d7.avif"
+},
+"1200": {
+"jpg": "i3040-a-hand-on-the-wheel-the-1200.0f6b82f92d.jpg",
+"avif": "i3040-a-hand-on-the-wheel-the-1200.aa347f749c.avif"
+},
+"1600": {
+"jpg": "i3040-a-hand-on-the-wheel-the-1600.9513da5d8b.jpg",
+"avif": "i3040-a-hand-on-the-wheel-the-1600.e485d64c84.avif"
+}
+}
 ]
 }
