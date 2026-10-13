@@ -435,35 +435,6 @@
   }
  },
  {
-  "key": "i3055",
-  "alt": "The sun clearing the hill, seen past the door mirror, picnic benches below.",
-  "taken": "2026-03-21T06:35:11",
-  "w": 6048,
-  "h": 8064,
-  "src": {
-   "640": {
-    "jpg": "/site/images/i3055-the-sun-clearing-the-hill-seen-640.a3caf8c1d4.jpg",
-    "avif": "/site/images/i3055-the-sun-clearing-the-hill-seen-640.583fa877b1.avif"
-   },
-   "1200": {
-    "jpg": "/site/images/i3055-the-sun-clearing-the-hill-seen-1200.70043a6c93.jpg",
-    "avif": "/site/images/i3055-the-sun-clearing-the-hill-seen-1200.7db83ed3f6.avif"
-   },
-   "1600": {
-    "jpg": "/site/images/i3055-the-sun-clearing-the-hill-seen-1600.cdef27d49c.jpg",
-    "avif": "/site/images/i3055-the-sun-clearing-the-hill-seen-1600.2c8c70bddd.avif"
-   }
-  },
-  "exif": {
-   "f": 1.78,
-   "shutter": "1/2882",
-   "iso": 80,
-   "focal": 24,
-   "lens": "iPhone 14 Pro Max back triple camera 6.86mm f/1.78",
-   "camera": "iPhone 14 Pro Max"
-  }
- },
- {
   "key": "c2738",
   "alt": "A road curving across the moor, a sheep by the verge.",
   "taken": "2026-03-21T06:25:35",
@@ -1183,6 +1154,35 @@
    "f": 1.78,
    "shutter": "1/66",
    "iso": 125,
+   "focal": 24,
+   "lens": "iPhone 14 Pro Max back triple camera 6.86mm f/1.78",
+   "camera": "iPhone 14 Pro Max"
+  }
+ },
+ {
+  "key": "i3056",
+  "alt": "The sun clearing the hill, seen past the red door mirror, picnic benches below.",
+  "taken": "2026-03-21T06:35:16",
+  "w": 6048,
+  "h": 8064,
+  "src": {
+   "640": {
+    "jpg": "/site/images/i3056-the-sun-clearing-the-hill-seen-640.6c8931a1f7.jpg",
+    "avif": "/site/images/i3056-the-sun-clearing-the-hill-seen-640.6e38a24528.avif"
+   },
+   "1200": {
+    "jpg": "/site/images/i3056-the-sun-clearing-the-hill-seen-1200.18569318df.jpg",
+    "avif": "/site/images/i3056-the-sun-clearing-the-hill-seen-1200.1d75bd457c.avif"
+   },
+   "1600": {
+    "jpg": "/site/images/i3056-the-sun-clearing-the-hill-seen-1600.142ab871b2.jpg",
+    "avif": "/site/images/i3056-the-sun-clearing-the-hill-seen-1600.4911abc043.avif"
+   }
+  },
+  "exif": {
+   "f": 1.78,
+   "shutter": "1/3745",
+   "iso": 100,
    "focal": 24,
    "lens": "iPhone 14 Pro Max back triple camera 6.86mm f/1.78",
    "camera": "iPhone 14 Pro Max"

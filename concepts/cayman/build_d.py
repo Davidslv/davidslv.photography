@@ -37,7 +37,8 @@ def dayline():
     return f'<ol class="hours" aria-hidden="true">{hours}</ol><ol class="marks">{marks}</ol>'
 NEEDLE = {"rain": "#e5443d", "moor": "#b3221d", "april": "#b3221d", "cabin": "#e5443d"}
 # first big photo of each chapter gets the gear-change blur; c2530 also gets rain, c4846 the low sun
-FX = {"c2530": "rain shift", "c2738": "shift", "c4846": "sun shift", "c8464": "shift"}
+FX = {"c2530": "rain shift", "c2738": "shift", "c4846": "sun shift", "i3056": "sun", "c8464": "shift"}
+SUN = {"i3056": (0.62, 0.575)}   # where the real sun is in the frame (x, y up, 0-1): the glare sits on it
 CH_OF = {k: i + 1 for i, ch in enumerate(CHAPTERS) for b in ch[4] for k in b[1:]}
 
 
@@ -48,6 +49,8 @@ def fig(k, sizes, cls=""):
         tex = P[k]["src"]["1200"]["jpg"]
         pic = f'<div class="fxw">{pic}</div>'
         attrs = f' data-fx="{FX[k]}" data-tex="{tex}" data-ch="{CH_OF[k]}"'
+        if k in SUN:
+            attrs += f' data-sun="{SUN[k][0]},{SUN[k][1]}"'
     return f'<figure class="ph {cls}" data-t="{P[k]["taken"]}"{attrs}>{pic}{A.cap(k)}</figure>'
 
 
@@ -361,7 +364,7 @@ function draw(f,r,now,dt,vh){
   const W=Math.max(1,Math.round(r.width*dpr)),H=Math.max(1,Math.round(r.height*dpr));
   if(f.c.width!==W||f.c.height!==H){f.c.width=W;f.c.height=H}
   if(f.rain&&!reduce)maskStep(f,dt,now);
-  if(f.sun){let tx,ty;if(f.hover&&!reduce){tx=f.hover[0];ty=f.hover[1]}else{const q=clamp((vh-r.top)/(vh+r.height));tx=.74-.1*q;ty=.98-.3*q}
+  if(f.sun){let tx,ty;if(f.anchor){tx=f.anchor[0]+(f.hover&&!reduce?(f.hover[0]-f.anchor[0])*.06:0);ty=f.anchor[1]+(f.hover&&!reduce?(f.hover[1]-f.anchor[1])*.06:0)}else if(f.hover&&!reduce){tx=f.hover[0];ty=f.hover[1]}else{const q=clamp((vh-r.top)/(vh+r.height));tx=.74-.1*q;ty=.98-.3*q}
     f.sp=f.sp?[f.sp[0]+(tx-f.sp[0])*Math.min(1,dt*3),f.sp[1]+(ty-f.sp[1])*Math.min(1,dt*3)]:[tx,ty]}
   g.viewport(0,0,W,H);g.useProgram(M.p);
   g.activeTexture(g.TEXTURE0);g.bindTexture(g.TEXTURE_2D,f.t);g.uniform1i(M.u.uTex,0);
@@ -375,7 +378,7 @@ function draw(f,r,now,dt,vh){
 
 d.querySelectorAll('[data-fx]').forEach(fig=>{
   const k=fig.dataset.fx,img=fig.querySelector('img');
-  const f={fig,wrap:fig.querySelector('.fxw'),src:fig.dataset.tex,ch:+fig.dataset.ch,rain:k.includes('rain'),shift:k.includes('shift'),sun:k.includes('sun'),
+  const f={fig,wrap:fig.querySelector('.fxw'),anchor:fig.dataset.sun?fig.dataset.sun.split(',').map(Number):null,src:fig.dataset.tex,ch:+fig.dataset.ch,rain:k.includes('rain'),shift:k.includes('shift'),sun:k.includes('sun'),
     asp:+img.getAttribute('width')/+img.getAttribute('height'),amt:1,lastAmt:-1,lastWipe:-1e9};
   fxs.push(f);
   if(f.rain||f.sun){

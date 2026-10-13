@@ -4538,5 +4538,28 @@
 "avif": "i3040-a-hand-on-the-wheel-the-1600.e485d64c84.avif"
 }
 }
+],
+"i3056": [
+6048,
+8064,
+[
+640,
+1200,
+1600
+],
+{
+"640": {
+"jpg": "i3056-the-sun-clearing-the-hill-seen-640.6c8931a1f7.jpg",
+"avif": "i3056-the-sun-clearing-the-hill-seen-640.6e38a24528.avif"
+},
+"1200": {
+"jpg": "i3056-the-sun-clearing-the-hill-seen-1200.18569318df.jpg",
+"avif": "i3056-the-sun-clearing-the-hill-seen-1200.1d75bd457c.avif"
+},
+"1600": {
+"jpg": "i3056-the-sun-clearing-the-hill-seen-1600.142ab871b2.jpg",
+"avif": "i3056-the-sun-clearing-the-hill-seen-1600.4911abc043.avif"
+}
+}
 ]
 }
