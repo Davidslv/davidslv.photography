@@ -146,7 +146,7 @@ def after(meta):
     return f"""<section class="book" id="book">
 <div class="book-head">
   <div class="book-cover">{cover}</div>
-  <div class="book-text"><p class="lbl">The book · out 15 November 2026</p>
+  <div class="book-text"><p class="lbl">The book · hardcover available now</p>
   <h2><em>It Started on a Sunday</em></h2>
   <p class="sub">Cars and the people who love them.</p>
   <p>72 photographs from fourteen car meets, November 2024 to October 2026. Each one comes with its story, how it was shot, and the KERBSIDE look it was graded with. Five pages go behind the shot and show the frames either side of the one I kept.</p>
