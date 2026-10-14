@@ -131,6 +131,14 @@ def gate():
 
 
 CSS = A.CSS + """
+.hr{display:flex;align-items:center;gap:1.4rem}
+details.sm{position:relative}
+details.sm summary{list-style:none;cursor:pointer;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:.4rem 0}
+details.sm summary::-webkit-details-marker{display:none}
+details.sm[open] summary{color:var(--ink)}
+details.sm nav{position:absolute;right:0;top:calc(100% + .4rem);display:flex;flex-direction:column;min-width:12rem;padding:.4rem 1.1rem;background:var(--bg);border:1px solid color-mix(in srgb,var(--ink) 18%,transparent);border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+details.sm nav a{font:500 .72rem/1 system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);padding:.75rem 0}
+details.sm nav a[aria-current=page]{text-decoration:underline;text-underline-offset:.3em}
 footer{align-items:center}
 footer nav{display:flex;flex-wrap:wrap;gap:.2rem 1.1rem}
 footer a{display:inline-block;padding:.35rem 0;min-height:24px}
@@ -462,6 +470,7 @@ def page_html(site=None):
         headtags = (site["head"] + '\n<meta name="color-scheme" content="light">'
                     '\n<link rel="preload" as="font" type="font/woff2" href="/fonts/Newsreader-italic-300.woff2" crossorigin>')
         links = "".join(f'<a href="{h}"{" aria-current=page" if h == "/cayman/" else ""}>{n}</a>' for n, h in site["nav"])
+        sitemenu = f'<details class="sm"><summary>Menu</summary><nav aria-label="Site menu">{links}</nav></details>'   # the other pages (David, 14 Oct 2026)
         foot = (f'<footer><a class="next" href="/"><span class="lbl">Next</span> From last light to last train</a>'
                 f'<nav aria-label="Site">{links}</nav><span>All photographs \u00a9 {site["name"]}. Please ask before using them.</span></footer>')
     else:
@@ -471,13 +480,14 @@ def page_html(site=None):
 <meta name="color-scheme" content="light">
 <link rel="preload" href="/site/fonts/Newsreader-normal-300.woff2" as="font" type="font/woff2" crossorigin>"""
         foot = '<footer><a href="/">David Silva · London</a><span class="lbl">Preview</span></footer>'
+        sitemenu = ''
     doc = f"""<!doctype html>
 <html lang="en-GB">
 <head>{headtags}
 <style>{CSS}</style></head>
 <body>
 <a class="skip" href="#rain">Skip to the photographs</a>
-<header class="top"><a href="/">David Silva</a><nav class="ch" aria-label="Chapters">{nav}</nav></header>
+<header class="top"><a href="/">David Silva</a><div class="hr"><nav class="ch" aria-label="Chapters">{nav}</nav>{sitemenu}</div></header>
 <div class="inst"><div class="dials" aria-hidden="true">{dial("tach")}{dial("speed")}</div><nav class="gate" aria-label="Gears">{gate()}</nav></div>
 <main>
 <section class="hero" aria-labelledby="t"><p class="lbl">My Cayman · Porsche 987 · 2007</p><h1 id="t">Back to analogue</h1>
