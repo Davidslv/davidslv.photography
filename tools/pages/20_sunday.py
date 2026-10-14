@@ -158,7 +158,7 @@ def after(meta):
     <p><a class="btn" href="{GUMROAD}">Get the PDF · £17.99</a></p>
     <p class="note">Download it straight away and read it on an iPad, laptop or phone.</p></div>
   </div>
-  <p style="font-size:.9em"><a style="color:inherit" href="{IG}" rel="me">Follow @davidslv.photography for the launch</a></p></div>
+  <p style="font-size:.9em"><a style="color:inherit" href="{IG}" rel="me">Follow @davidslv.photography</a></p></div>
 </div>
 <figure class="spread">{s1}<figcaption class="lbl">From Winter: Umbrellas Up</figcaption></figure>
 <figure class="spread">{s2}<figcaption class="lbl">From Early spring: Show and Tell</figcaption></figure>
