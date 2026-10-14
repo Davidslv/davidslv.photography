@@ -259,6 +259,8 @@ def jsonld(page, meta):
 
 # Cloudflare Web Analytics (cookieless, no personal data, so no consent banner; 14 Oct 2026). The token is public by design.
 CF_BEACON = """<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5049d2f041d46859a41276d44ddba33"}'></script>"""
+# Our own anonymous reading stats (tools/track.js -> site-stats Worker -> D1 site-events), 14 Oct 2026.
+CF_BEACON += "<script>" + (ROOT / "tools/track.js").read_text() + "</script>"
 
 
 def head_tags(page, meta):

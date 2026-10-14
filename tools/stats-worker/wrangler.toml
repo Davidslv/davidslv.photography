@@ -1,0 +1,14 @@
+name = "site-stats"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "site-events"
+database_id = "1dde5fa2-989f-4ceb-a352-25e59a134de6"
+
+[vars]
+ALLOWED_ORIGINS = "https://davidslv.photography,http://localhost:8765"
+
+[observability]
+enabled = true
