@@ -323,6 +323,31 @@ def render(page, meta):
 
 
 # ---------- site files ----------
+def terms_page():
+    """/terms/: terms of sale for the hardcover (text page, no photographs). Body in tools/terms_body.html."""
+    css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
+    links = "".join(f'<a href="{h}">{n}</a>' for n, h in NAV)
+    out = SITE / "terms" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(f"""<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of sale · David Silva</title>
+<meta name="description" content="Terms of sale for the hardcover of It Started on a Sunday: price, delivery, cancelling, faulty items and your details.">
+<link rel="canonical" href="{URL}/terms/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>{css}</style>
+</head>
+<body class="plain">
+<header class="site"><a class="name" href="/">{NAME}</a><nav aria-label="Main">{links}</nav></header>
+{(ROOT / "tools/terms_body.html").read_text()}
+""" + footer())
+    print("built", out.relative_to(ROOT))
+    return f"<url><loc>{URL}/terms/</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
+
+
 def extras(meta):
     (SITE / "CNAME").write_text("davidslv.photography\n")
     (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {URL}/sitemap.xml\n")
@@ -331,6 +356,7 @@ def extras(meta):
         imgs = "".join(f"<image:image><image:loc>{URL}{src(k, meta, meta[k][2][-1], 'jpg')}</image:loc></image:image>"
                        for s in page.SEQUENCE for k in s[1:] if isinstance(k, str) and k in PHOTOS)
         urls.append(f"<url><loc>{URL}{page.PATH}</loc><lastmod>{date.today().isoformat()}</lastmod>{imgs}</url>")
+    urls.append(terms_page())
     (SITE / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
         'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + "\n".join(urls) + "\n</urlset>\n")

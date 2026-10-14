@@ -92,8 +92,8 @@ SEQUENCE = [
 
 IG = "https://www.instagram.com/davidslv.photography/"
 GUMROAD = "https://davidslv.gumroad.com/l/it-started-on-a-sunday"
-# Stripe Payment Link for the printed hardcover. TEST link (sandbox): swap for the live link at launch.
-HARDCOVER = "https://buy.stripe.com/test_7sY6oA1zLaWCc4Q0G0f7i00"
+# Stripe Payment Link for the printed hardcover (live, 14 Oct 2026).
+HARDCOVER = "https://buy.stripe.com/cNiaEQdKGgzY93LcjJb3q00"   # LIVE (test link: https://buy.stripe.com/test_7sY6oA1zLaWCc4Q0G0f7i00)
 WIDTHS = {"book-cover": (800, 1600), "book-spread-umbrellas": (800, 1600, 2000), "book-spread-show-and-tell": (800, 1600, 2000)}
 
 
@@ -149,11 +149,11 @@ def after(meta):
   <div class="book-text"><p class="lbl">The book · out 15 November 2026</p>
   <h2><em>It Started on a Sunday</em></h2>
   <p class="sub">Cars and the people who love them.</p>
-  <p>67 photographs from fourteen car meets, November 2024 to October 2026. Each one comes with its story, how it was shot, and the KERBSIDE look it was graded with. Five pages go behind the shot and show the frames either side of the one I kept.</p>
+  <p>72 photographs from fourteen car meets, November 2024 to October 2026. Each one comes with its story, how it was shot, and the KERBSIDE look it was graded with. Five pages go behind the shot and show the frames either side of the one I kept.</p>
   <div class="buy">
     <div><p class="lbl">Hardcover</p><p>A4 landscape, 164 pages, printed to order. £44.99 plus £6.99 UK delivery.</p>
     <p><a class="btn" href="{HARDCOVER}">Buy the hardcover · £44.99</a></p>
-    <p class="note">UK delivery only for now. Each copy is printed when you order and posted within 7 to 12 working days.</p></div>
+    <p class="note">UK delivery only for now. Each copy is printed when you order and posted within 7 to 12 working days. <a style="color:inherit" href="/terms/">Terms of sale</a></p></div>
     <div><p class="lbl">PDF</p><p>The same book as an A4 landscape PDF. £17.99.</p>
     <p><a class="btn" href="{GUMROAD}">Get the PDF · £17.99</a></p></div>
   </div>
@@ -165,7 +165,7 @@ def after(meta):
 <div><p class="lbl">Delivery</p><p>The hardcover is printed to order by my print partner, Prodigi, and posted from the UK. Delivery is £6.99 and takes 7 to 12 working days. UK addresses only for now.</p></div>
 <div><p class="lbl">Returns</p><p>If your copy arrives damaged or misprinted, email me a photo within 30 days and I'll send a new one. You can also cancel within 14 days of receiving it and send it back unused for a refund of the book price.</p></div>
 <div><p class="lbl">Your details</p><p>Payments are handled by Stripe. Your name, address, email and phone go to Prodigi only to print and post your book. I'll only send you news if you ticked yes at checkout.</p></div>
-<div><p class="lbl">Questions</p><p><a href="mailto:davidslv.london@gmail.com">davidslv.london@gmail.com</a></p></div>
+<div><p class="lbl">Questions</p><p><a href="mailto:davidslv.london@gmail.com">davidslv.london@gmail.com</a><br><a href="/terms/">Full terms of sale</a></p></div>
 </div>
 </section>
 <a class="next" href="/mclaren/"><span class="lbl">Next</span><span class="next-title">Made to be used</span><span class="next-sub">A day at the McLaren Technology Centre</span></a>

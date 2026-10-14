@@ -671,6 +671,16 @@ header.site nav { flex-wrap: wrap; column-gap: 16px; }
 .terms p { margin: 0 0 6px; color: #3b3832; }
 @media (max-width: 900px) { .terms { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 720px) { .buy, .terms { grid-template-columns: 1fr; } }
+/* /terms/: plain text page on the site's paper, readable measure, header made legible without a hero. */
+body.plain header.site { position: static; color: var(--ink); text-shadow: none; padding-inline: clamp(16px, 4vw, 48px); }
+body.plain header.site a { color: var(--ink); }
+.terms-page { max-width: 720px; margin: 0 auto; padding: clamp(40px, 8vh, 90px) clamp(16px, 4vw, 48px) 80px; }
+.terms-page h1 { font: 300 clamp(36px, 5vw, 56px)/1.05 var(--display); margin: 10px 0 18px; }
+.terms-page h2 { font: 400 26px/1.2 var(--display); margin: 40px 0 10px; }
+.terms-page p { color: #3b3832; margin: 0 0 14px; }
+.terms-page .lead { font-size: 1.08em; }
+.terms-page .form { border-left: 2px solid rgba(0,0,0,.2); padding-left: 16px; }
+.terms-page mark { background: #ffe58a; }
 </style>
 </head>
 <body>
