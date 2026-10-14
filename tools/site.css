@@ -128,14 +128,15 @@ main .block:nth-of-type(n+4) { content-visibility: auto; contain-intrinsic-size:
 header.site nav { flex-wrap: wrap; column-gap: 16px; }
 @media (max-width: 720px) { header.site nav { row-gap: 0; column-gap: 12px; } header.site nav a { letter-spacing: .1em; padding-block: 10px; } .hero .words .lbl { font-size: 11px; } }
 /* /sunday/ hardcover + PDF buy block and the delivery/returns notes (draft, 14 Oct 2026). */
-.buy { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; margin: 18px 0 8px; }
+.buy { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); column-gap: 28px; row-gap: 0; margin: 18px 0 8px; }
+.buy > div { display: grid; grid-row: span 4; grid-template-rows: subgrid; align-content: start; }   /* label, text, button, note line up across both columns */
 .buy p { margin: 0 0 8px; }
 .buy .btn { margin-top: 2px; }
 .buy .note { font-size: .9em; color: var(--soft); }
 .terms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 32px; border-top: 1px solid rgba(0,0,0,.12); padding-top: 28px; font-size: .95em; }
 .terms p { margin: 0 0 6px; color: #3b3832; }
 @media (max-width: 900px) { .terms { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 720px) { .buy, .terms { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .buy, .terms { grid-template-columns: 1fr; } .buy { grid-template-rows: none; row-gap: 22px; } .buy > div { grid-row: auto; grid-template-rows: none; } }
 /* /terms/: plain text page on the site's paper, readable measure, header made legible without a hero. */
 body.plain header.site { position: static; color: var(--ink); text-shadow: none; padding-inline: clamp(16px, 4vw, 48px); }
 body.plain header.site a { color: var(--ink); }

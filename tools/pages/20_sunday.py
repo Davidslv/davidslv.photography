@@ -155,7 +155,8 @@ def after(meta):
     <p><a class="btn" href="{HARDCOVER}">Buy the hardcover · £44.99</a></p>
     <p class="note">UK delivery only for now. Each copy is printed when you order and posted within 7 to 12 working days. <a style="color:inherit" href="/terms/">Terms of sale</a></p></div>
     <div><p class="lbl">PDF</p><p>The same book as an A4 landscape PDF. £17.99.</p>
-    <p><a class="btn" href="{GUMROAD}">Get the PDF · £17.99</a></p></div>
+    <p><a class="btn" href="{GUMROAD}">Get the PDF · £17.99</a></p>
+    <p class="note">Download it straight away and read it on an iPad, laptop or phone.</p></div>
   </div>
   <p style="font-size:.9em"><a style="color:inherit" href="{IG}" rel="me">Follow @davidslv.photography for the launch</a></p></div>
 </div>
