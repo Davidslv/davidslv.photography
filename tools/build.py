@@ -305,7 +305,12 @@ def head(page, meta):
 def header(page):
     links = "".join(f'<a href="{h}"{" aria-current=\"page\"" if h == page.PATH else ""}>{n}</a>' for n, h in NAV)
     return (f'<body>\n<a class="skip" href="#work">Skip to the photographs</a>\n'
-            f'<header class="site"><a class="name" href="/">{NAME}</a><nav aria-label="Main">{links}</nav></header>')
+            f'<header class="site"><a class="name" href="/">{NAME}</a><nav aria-label="Main">{links}</nav>{mobile_menu(links)}</header>')
+
+
+def mobile_menu(links):
+    """Phones: the full nav covers faces in the hero, so it folds into a 'Menu' button (no JS, <details>)."""
+    return f'<details class="menu"><summary>Menu</summary><nav aria-label="Main menu">{links}</nav></details>'
 
 
 def footer():
@@ -341,7 +346,7 @@ def terms_page():
 <style>{css}</style>
 </head>
 <body class="plain">
-<header class="site"><a class="name" href="/">{NAME}</a><nav aria-label="Main">{links}</nav></header>
+<header class="site"><a class="name" href="/">{NAME}</a><nav aria-label="Main">{links}</nav>{mobile_menu(links)}</header>
 {(ROOT / "tools/terms_body.html").read_text()}
 """ + footer())
     print("built", out.relative_to(ROOT))

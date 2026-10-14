@@ -545,11 +545,25 @@ body.plain header.site a { color: var(--ink); }
 .terms-page .lead { font-size: 1.08em; }
 .terms-page .form { border-left: 2px solid rgba(0,0,0,.2); padding: 4px 0 4px 16px; font: 15px/1.7 var(--label, inherit); white-space: pre-wrap; color: #3b3832; user-select: all; }
 .terms-page mark { background: #ffe58a; }
+/* Phones: fold the nav into a Menu button so it doesn't sit across faces in the hero (14 Oct 2026). */
+details.menu { display: none; }
+@media (max-width: 720px) {
+  header.site { flex-wrap: nowrap; align-items: center; }
+  header.site > nav { display: none; }
+  details.menu { display: block; position: relative; }
+  details.menu summary { list-style: none; cursor: pointer; font: 500 12px var(--label); letter-spacing: .16em; text-transform: uppercase; padding: 10px 0 10px 12px; }
+  details.menu summary::-webkit-details-marker { display: none; }
+  details.menu[open] summary { opacity: .75; }
+  details.menu nav { position: absolute; right: 0; top: 100%; display: flex; flex-direction: column; min-width: 200px; padding: 8px 18px;
+    background: rgba(24, 21, 17, .92); border-radius: 6px; box-shadow: 0 12px 30px rgba(0,0,0,.25); text-shadow: none; }
+  details.menu nav a { color: #f4f1ea; padding: 11px 0; letter-spacing: .14em; }
+  body.plain details.menu summary { color: var(--ink); }
+}
 </style>
 </head>
 <body>
 <a class="skip" href="#work">Skip to the photographs</a>
-<header class="site"><a class="name" href="/">David Silva</a><nav aria-label="Main"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/" aria-current="page">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav></header>
+<header class="site"><a class="name" href="/">David Silva</a><nav aria-label="Main"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/" aria-current="page">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav><details class="menu"><summary>Menu</summary><nav aria-label="Main menu"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/" aria-current="page">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav></details></header>
 <section class="hero"><picture><source type="image/avif" srcset="/images/e8537-a-skimboarder-turns-on-the-lip-640.477924f2bc.avif 640w, /images/e8537-a-skimboarder-turns-on-the-lip-1200.56c984f34b.avif 1200w, /images/e8537-a-skimboarder-turns-on-the-lip-2000.053fcb3526.avif 2000w" sizes="100vw"><img src="/images/e8537-a-skimboarder-turns-on-the-lip-640.b8c040ce13.jpg" srcset="/images/e8537-a-skimboarder-turns-on-the-lip-640.b8c040ce13.jpg 640w, /images/e8537-a-skimboarder-turns-on-the-lip-1200.3a57be70f1.jpg 1200w, /images/e8537-a-skimboarder-turns-on-the-lip-2000.2375df87e2.jpg 2000w" sizes="100vw" width="3582" height="2240" alt="A skimboarder turns on the lip of a wave, one arm thrown up." fetchpriority="high" decoding="async"></picture><div class="words"><p class="lbl">Ericeira, Portugal · 26 February 2012</p><h1>The first afternoon</h1></div></section><main id="work">
 <section class="block part"><p class="lbl">Ericeira, 26 February 2012</p><h2>Off the rocks</h2><p class="sub">I went to the beach with a friend and he lent me his camera. It was the first time I had a DSLR in my hands. I had never shot before, and I had nothing planned for that afternoon.</p></section>
 <section class="block wide"><figure><picture><source type="image/avif" srcset="/images/e8490-a-skimboarder-in-a-black-wetsuit-640.d38bab1e93.avif 640w, /images/e8490-a-skimboarder-in-a-black-wetsuit-1200.3044699ebf.avif 1200w, /images/e8490-a-skimboarder-in-a-black-wetsuit-2000.e2b28be6a0.avif 2000w" sizes="100vw"><img src="/images/e8490-a-skimboarder-in-a-black-wetsuit-640.e143d1449d.jpg" srcset="/images/e8490-a-skimboarder-in-a-black-wetsuit-640.e143d1449d.jpg 640w, /images/e8490-a-skimboarder-in-a-black-wetsuit-1200.4b4969fed3.jpg 1200w, /images/e8490-a-skimboarder-in-a-black-wetsuit-2000.4b69b89e46.jpg 2000w" sizes="100vw" width="4592" height="3056" alt="A skimboarder in a black wetsuit rides through white water, arms out for balance." loading="lazy" decoding="async"></picture><figcaption class="lbl"><time class="t" datetime="2012-02-26T17:05:52">17:05</time></figcaption></figure></section>
