@@ -74,7 +74,7 @@
    "primaryImageOfPage": {
     "@id": "https://davidslv.photography/sunday/#photo-s3706"
    },
-   "dateModified": "2026-10-13",
+   "dateModified": "2026-10-14",
    "mainEntity": {
     "@type": "ImageGallery",
     "name": "Sunday car meets, November 2024 to October 2026",
@@ -655,6 +655,15 @@ main .block:nth-of-type(n+4) { content-visibility: auto; contain-intrinsic-size:
 .pitch-note a { display: inline-block; padding-block: 3px; }
 header.site nav { flex-wrap: wrap; column-gap: 16px; }
 @media (max-width: 720px) { header.site nav { row-gap: 0; column-gap: 12px; } header.site nav a { letter-spacing: .1em; padding-block: 10px; } .hero .words .lbl { font-size: 11px; } }
+/* /sunday/ hardcover + PDF buy block and the delivery/returns notes (draft, 14 Oct 2026). */
+.buy { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; margin: 18px 0 8px; }
+.buy p { margin: 0 0 8px; }
+.buy .btn { margin-top: 2px; }
+.buy .note { font-size: .9em; color: var(--soft); }
+.terms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 32px; border-top: 1px solid rgba(0,0,0,.12); padding-top: 28px; font-size: .95em; }
+.terms p { margin: 0 0 6px; color: #3b3832; }
+@media (max-width: 900px) { .terms { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px) { .buy, .terms { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -691,12 +700,23 @@ header.site nav { flex-wrap: wrap; column-gap: 16px; }
   <h2><em>It Started on a Sunday</em></h2>
   <p class="sub">Cars and the people who love them.</p>
   <p>67 photographs from fourteen car meets, November 2024 to October 2026. Each one comes with its story, how it was shot, and the KERBSIDE look it was graded with. Five pages go behind the shot and show the frames either side of the one I kept.</p>
-  <p>A4 landscape PDF. £17.99.</p>
-  <p><a class="btn" href="https://davidslv.gumroad.com/l/it-started-on-a-sunday">Get the book on Gumroad · £17.99</a></p>
+  <div class="buy">
+    <div><p class="lbl">Hardcover</p><p>A4 landscape, 164 pages, printed to order. £44.99 plus £6.99 UK delivery.</p>
+    <p><a class="btn" href="https://buy.stripe.com/test_7sY6oA1zLaWCc4Q0G0f7i00">Buy the hardcover · £44.99</a></p>
+    <p class="note">UK delivery only for now. Each copy is printed when you order and posted within 7 to 12 working days.</p></div>
+    <div><p class="lbl">PDF</p><p>The same book as an A4 landscape PDF. £17.99.</p>
+    <p><a class="btn" href="https://davidslv.gumroad.com/l/it-started-on-a-sunday">Get the PDF · £17.99</a></p></div>
+  </div>
   <p style="font-size:.9em"><a style="color:inherit" href="https://www.instagram.com/davidslv.photography/" rel="me">Follow @davidslv.photography for the launch</a></p></div>
 </div>
 <figure class="spread"><picture><source type="image/avif" srcset="/images/book-spread-umbrellas-800.7991424a1c.avif 800w, /images/book-spread-umbrellas-1600.ccbbf6358a.avif 1600w, /images/book-spread-umbrellas-2000.aaa65ed836.avif 2000w" sizes="(max-width:720px) 100vw, 1100px"><img src="/images/book-spread-umbrellas-800.7727c11b00.jpg" srcset="/images/book-spread-umbrellas-800.7727c11b00.jpg 800w, /images/book-spread-umbrellas-1600.4d631d9ead.jpg 1600w, /images/book-spread-umbrellas-2000.208ab910fa.jpg 2000w" sizes="(max-width:720px) 100vw, 1100px" width="2000" height="707" alt="A spread from the book: people under umbrellas around a blue saloon on the left, the story and how it was shot on the right." loading="lazy" decoding="async"></picture><figcaption class="lbl">From Winter: Umbrellas Up</figcaption></figure>
 <figure class="spread"><picture><source type="image/avif" srcset="/images/book-spread-show-and-tell-800.e6885116df.avif 800w, /images/book-spread-show-and-tell-1600.68c0b35e44.avif 1600w, /images/book-spread-show-and-tell-2000.f899982f6c.avif 2000w" sizes="(max-width:720px) 100vw, 1100px"><img src="/images/book-spread-show-and-tell-800.2c88a3aa69.jpg" srcset="/images/book-spread-show-and-tell-800.2c88a3aa69.jpg 800w, /images/book-spread-show-and-tell-1600.98c6d543a3.jpg 1600w, /images/book-spread-show-and-tell-2000.a1c10c2d30.jpg 2000w" sizes="(max-width:720px) 100vw, 1100px" width="2000" height="707" alt="A spread from the book: two men at a vintage car on the left, the story of the photograph on the right." loading="lazy" decoding="async"></picture><figcaption class="lbl">From Early spring: Show and Tell</figcaption></figure>
+<div class="terms" id="hardcover-terms">
+<div><p class="lbl">Delivery</p><p>The hardcover is printed to order by my print partner, Prodigi, and posted from the UK. Delivery is £6.99 and takes 7 to 12 working days. UK addresses only for now.</p></div>
+<div><p class="lbl">Returns</p><p>If your copy arrives damaged or misprinted, email me a photo within 30 days and I'll send a new one. You can also cancel within 14 days of receiving it and send it back unused for a refund of the book price.</p></div>
+<div><p class="lbl">Your details</p><p>Payments are handled by Stripe. Your name, address, email and phone go to Prodigi only to print and post your book. I'll only send you news if you ticked yes at checkout.</p></div>
+<div><p class="lbl">Questions</p><p><a href="mailto:davidslv.london@gmail.com">davidslv.london@gmail.com</a></p></div>
+</div>
 </section>
 <a class="next" href="/mclaren/"><span class="lbl">Next</span><span class="next-title">Made to be used</span><span class="next-sub">A day at the McLaren Technology Centre</span></a>
 <section class="more" id="contact">
