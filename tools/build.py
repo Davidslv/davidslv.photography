@@ -257,6 +257,10 @@ def jsonld(page, meta):
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, indent=1)
 
 
+# Cloudflare Web Analytics (cookieless, no personal data, so no consent banner; 14 Oct 2026). The token is public by design.
+CF_BEACON = """<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5049d2f041d46859a41276d44ddba33"}'></script>"""
+
+
 def head_tags(page, meta):
     """Everything in <head> a search engine or link preview reads: title, description, canonical, Open Graph, icons, JSON-LD."""
     hero = page.SEQUENCE[0][1]
@@ -286,7 +290,8 @@ def head_tags(page, meta):
 <link rel="preload" as="font" type="font/woff2" href="/fonts/Newsreader-normal-300.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="/fonts/PublicSans-normal-400.woff2" crossorigin>
 <script type="application/ld+json">{jsonld(page, meta)}</script>
-<script type="speculationrules">{{"prerender": [{{"where": {{"and": [{{"href_matches": "/*"}}, {{"not": {{"href_matches": "/images/*"}}}}]}}, "eagerness": "moderate"}}]}}</script>"""
+<script type="speculationrules">{{"prerender": [{{"where": {{"and": [{{"href_matches": "/*"}}, {{"not": {{"href_matches": "/images/*"}}}}]}}, "eagerness": "moderate"}}]}}</script>{CF_BEACON}
+"""
 
 
 def head(page, meta):
@@ -343,6 +348,7 @@ def terms_page():
 <meta name="description" content="Terms of sale for the hardcover of It Started on a Sunday: price, delivery, cancelling, faulty items and your details.">
 <link rel="canonical" href="{URL}/terms/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{CF_BEACON}
 <style>{css}</style>
 </head>
 <body class="plain">
