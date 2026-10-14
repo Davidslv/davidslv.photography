@@ -75,7 +75,7 @@ SEQUENCE = [
     ("line", "At the end of the day, a car parked by the lake outside. That's where they belong."),
 ]
 
-EMAIL, IG = "davidslv.london@gmail.com", "https://www.instagram.com/davidslv.photography/"
+EMAIL, IG = "hello@davidslv.photography", "https://www.instagram.com/davidslv.photography/"
 
 
 def after(meta):

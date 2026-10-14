@@ -165,14 +165,14 @@ def after(meta):
 <div><p class="lbl">Delivery</p><p>The hardcover is printed to order by my print partner, Prodigi, and posted from the UK. Delivery is £6.99 and takes 7 to 12 working days. UK addresses only for now.</p></div>
 <div><p class="lbl">Returns</p><p>If your copy arrives damaged or misprinted, email me a photo within 30 days and I'll send a new one. You can also cancel within 14 days of receiving it and send it back unused for a refund of the book price.</p></div>
 <div><p class="lbl">Your details</p><p>Payments are handled by Stripe. Your name, address, email and phone go to Prodigi only to print and post your book. I'll only send you news if you ticked yes at checkout.</p></div>
-<div><p class="lbl">Questions</p><p><a href="mailto:davidslv.london@gmail.com">davidslv.london@gmail.com</a><br><a href="/terms/">Full terms of sale</a></p></div>
+<div><p class="lbl">Questions</p><p><a href="mailto:hello@davidslv.photography">hello@davidslv.photography</a><br><a href="/terms/">Full terms of sale</a></p></div>
 </div>
 </section>
 <a class="next" href="/mclaren/"><span class="lbl">Next</span><span class="next-title">Made to be used</span><span class="next-sub">A day at the McLaren Technology Centre</span></a>
 <section class="more" id="contact">
 <div><p class="lbl">More photographs</p><h3><a href="/">From last light to last train</a></h3><p>One Saturday in London, and other nights.</p></div>
 <div><p class="lbl">Presets</p><h3>KERBSIDE</h3><p>The looks this book was graded with. 26 Lightroom presets for car-meet light. <a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE on Gumroad · £8.99</a></p></div>
-<div><p class="lbl">Contact</p><h3>Photographs of your meet</h3><p>I photograph club meets and events. Email for rates.<br><a href="mailto:davidslv.london@gmail.com">davidslv.london@gmail.com</a><br><a href="{IG}" rel="me">@davidslv.photography</a></p></div>
+<div><p class="lbl">Contact</p><h3>Photographs of your meet</h3><p>I photograph club meets and events. Email for rates.<br><a href="mailto:hello@davidslv.photography">hello@davidslv.photography</a><br><a href="{IG}" rel="me">@davidslv.photography</a></p></div>
 </section>"""
 
 

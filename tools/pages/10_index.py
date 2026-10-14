@@ -60,7 +60,7 @@ SEQUENCE = [
     ("print", "n053", "right"), ("print", "n038", "centre-small"),
 ]
 
-EMAIL, IG = "davidslv.london@gmail.com", "https://www.instagram.com/davidslv.photography/"
+EMAIL, IG = "hello@davidslv.photography", "https://www.instagram.com/davidslv.photography/"
 
 
 def after(meta):
