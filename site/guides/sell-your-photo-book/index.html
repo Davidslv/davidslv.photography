@@ -298,7 +298,32 @@ details.menu { display: none; }
 .guide .sum { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 10px 16px; margin: 6px 0 16px; }
 .guide .sum p { display: flex; justify-content: space-between; gap: 16px; margin: 6px 0; }
 .guide .sum .tot { border-top: 1px solid rgba(0,0,0,.2); padding-top: 8px; font-weight: 600; }
-@media print { .guide .toc, header.site, footer, details.menu { display: none; } .guide { padding-top: 0; } .guide h2 { break-after: avoid; } .guide .shot { break-inside: avoid; } }
+.print-only { display: none; }
+@media print {
+  @page { size: A4; margin: 18mm 18mm 16mm; }
+  html, body.plain { background: #fff !important; color: #000; }
+  body.plain { font-size: 11pt; line-height: 1.5; }
+  header.site, footer, details.menu, .guide .pdfnote { display: none !important; }
+  .print-only { display: block; }
+  .terms-page.guide { max-width: none; padding: 0; }
+  .guide p, .guide li, .guide td, .guide th, .guide .tbl th { color: #000; }
+  .guide h1 { font-size: 30pt; margin-top: 4pt; }
+  .guide h2 { font-size: 18pt; margin: 22pt 0 6pt; break-after: avoid; }
+  .guide h3 { font-size: 12.5pt; margin: 14pt 0 4pt; break-after: avoid; }
+  #route-a, #route-b, #legal { break-before: page; }
+  .guide li, .guide .tbl tr, .guide .sum, .guide .note, .guide .shot { break-inside: avoid; }
+  .guide code { background: #eee; color: #000; font-size: 9.5pt; }
+  .guide .note { border-left: 2pt solid #000; }
+  .guide .toc, .guide .sum, .guide .shot { border-color: #999; }
+  .guide .tbl { display: table; }
+  .guide a { text-decoration: none; }
+  .guide p, .guide li { font-size: 11.5pt; }
+  .guide .tbl { font-size: 10pt; }
+  .guide .tbl td:first-child code { white-space: nowrap; }
+  .guide .note { font-size: 10.5pt; }
+  .guide a[href^="/"]::after { content: " (davidslv.photography" attr(href) ")"; font-size: 9pt; color: #444; }
+  .guide a[href^="mailto:"]::after { content: ""; }
+}
 .guide a { color: inherit; }
 </style>
 </head>
@@ -306,6 +331,7 @@ details.menu { display: none; }
 <header class="site"><a class="name" href="/">David Silva</a><nav aria-label="Main"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav><details class="menu"><summary>Menu</summary><nav aria-label="Main menu"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav></details></header>
 <main id="work" class="terms-page guide">
 <p class="lbl">Free guide · last checked October 2026</p>
+<p class="print-only">By David Silva · davidslv.photography/guides/sell-your-photo-book</p>
 <h1>Sell your photo book from your own website</h1>
 <p class="lead">This is how I sell <a href="/sunday/"><em>It Started on a Sunday</em></a>: a hardcover printed only when someone orders it and posted straight to them. No shop platform, no monthly fee, no stock at home. Everything I used is here, step by step, for people who have never written code.</p>
 
@@ -425,7 +451,7 @@ details.menu { display: none; }
 
 <h2 id="route-b">6. Route B: automatic orders</h2>
 <p>Same Payment Link as Route A. The difference: when someone pays, Stripe sends a message to a small program on Cloudflare, called a Worker. The Worker checks the message is real, asks Stripe for the address, and places the Prodigi order. You do nothing.</p>
-<p>You'll copy and paste one file of code. You don't need to understand it. It's about 150 lines and every part has a comment in plain English. <a href="worker-template.js" download>Download the Worker code</a>.</p>
+<p>You'll copy and paste one file of code. You don't need to understand it. It's about 150 lines and every part has a comment in plain English. <a href="/guides/sell-your-photo-book/worker-template.js" download>Download the Worker code</a>.</p>
 <p class="note">Do every step below in test mode first: Stripe's test mode and Prodigi's sandbox. Nothing gets printed or charged. Switch to live only at B8.</p>
 
 <h3>B1. Make a Prodigi sandbox key</h3>

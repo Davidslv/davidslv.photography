@@ -1,5 +1,6 @@
 <main id="work" class="terms-page guide">
 <p class="lbl">Free guide · last checked October 2026</p>
+<p class="print-only">By David Silva · davidslv.photography/guides/sell-your-photo-book</p>
 <h1>Sell your photo book from your own website</h1>
 <p class="lead">This is how I sell <a href="/sunday/"><em>It Started on a Sunday</em></a>: a hardcover printed only when someone orders it and posted straight to them. No shop platform, no monthly fee, no stock at home. Everything I used is here, step by step, for people who have never written code.</p>
 <p class="pdfnote">Want it offline or printed? The same guide is a PDF on Gumroad, <a href="GUMROAD_GUIDE_URL">pay what you like from £4.99</a>. The web page stays free.</p>
@@ -120,7 +121,7 @@
 
 <h2 id="route-b">6. Route B: automatic orders</h2>
 <p>Same Payment Link as Route A. The difference: when someone pays, Stripe sends a message to a small program on Cloudflare, called a Worker. The Worker checks the message is real, asks Stripe for the address, and places the Prodigi order. You do nothing.</p>
-<p>You'll copy and paste one file of code. You don't need to understand it. It's about 150 lines and every part has a comment in plain English. <a href="worker-template.js" download>Download the Worker code</a>.</p>
+<p>You'll copy and paste one file of code. You don't need to understand it. It's about 150 lines and every part has a comment in plain English. <a href="/guides/sell-your-photo-book/worker-template.js" download>Download the Worker code</a>.</p>
 <p class="note">Do every step below in test mode first: Stripe's test mode and Prodigi's sandbox. Nothing gets printed or charged. Switch to live only at B8.</p>
 
 <h3>B1. Make a Prodigi sandbox key</h3>
