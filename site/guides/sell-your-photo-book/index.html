@@ -298,6 +298,9 @@ details.menu { display: none; }
 .guide .sum { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 10px 16px; margin: 6px 0 16px; }
 .guide .sum p { display: flex; justify-content: space-between; gap: 16px; margin: 6px 0; }
 .guide .sum .tot { border-top: 1px solid rgba(0,0,0,.2); padding-top: 8px; font-weight: 600; }
+.guide .fig { margin: 8px 0 22px; }
+.guide .fig img { display: block; width: 100%; height: auto; border: 1px solid rgba(0,0,0,.15); border-radius: 6px; }
+.guide .fig figcaption { font-size: .88em; color: #6b665c; margin-top: 6px; }
 .print-only { display: none; }
 @media print {
   @page { size: A4; margin: 18mm 18mm 16mm; }
@@ -311,6 +314,8 @@ details.menu { display: none; }
   .guide h2 { font-size: 18pt; margin: 22pt 0 6pt; break-after: avoid; }
   .guide h3 { font-size: 12.5pt; margin: 14pt 0 4pt; break-after: avoid; }
   #route-a, #route-b, #legal { break-before: page; }
+  .guide .fig { break-inside: avoid; }
+  .guide .fig figcaption { color: #333; }
   .guide li, .guide .tbl tr, .guide .sum, .guide .note, .guide .shot { break-inside: avoid; }
   .guide code { background: #eee; color: #000; font-size: 9.5pt; }
   .guide .note { border-left: 2pt solid #000; }
@@ -415,12 +420,12 @@ details.menu { display: none; }
 <li>Save the book as a product (or save the order details) so you can reuse it for each order.</li>
 <li>Put in your own address and order this one as your proof.</li>
 </ol>
-<div class="shot">Screenshot: Prodigi dashboard, new photo book order</div>
+<figure class="fig"><img src="/images/guide/prodigi-order.png" width="1600" height="969" alt="A photo book order in the Prodigi dashboard, showing the product code BOOK-FE-A4-L-HARD-G and the spine text, font, size and colours." loading="lazy"><figcaption>My proof order in Prodigi: the product code (SKU) and the spine settings. Order number and name hidden.</figcaption></figure>
 
 <h3>A2. Make the Stripe Payment Link</h3>
 <ol class="steps">
 <li>In Stripe, go to <b>Product catalogue</b> and add a product: your book's name, a photo of the cover, a one-time price.</li>
-<li>Go to <b>Payment Links</b> and create a link for that product.</li>
+<li>Search the dashboard for <b>payment links</b>. It's under <b>Checkout</b>, <b>Payment links</b>. Click <b>Create payment link</b> and choose your product.</li>
 <li>Turn on <b>Collect customer addresses</b>, choose <b>Billing and shipping addresses</b>, and allow only the countries you deliver to.</li>
 <li>Add a <b>shipping rate</b> with your delivery price and the delivery time (Prodigi's time plus a few days).</li>
 <li>Turn on <b>Require customers to provide a phone number</b>. Couriers sometimes need it.</li>
@@ -428,7 +433,8 @@ details.menu { display: none; }
 <li>Optional: add a custom field, a dropdown asking "Send me news about new books?" with Yes and No. Only email people who said yes.</li>
 <li>Create the link. Copy it. That's your Buy button.</li>
 </ol>
-<div class="shot">Screenshot: Stripe Payment Link options</div>
+<figure class="fig"><img src="/images/guide/stripe-search.png" width="1200" height="284" alt="Stripe dashboard search for payment links, showing Checkout, Payment links." loading="lazy"><figcaption>Search the Stripe dashboard for "payment links".</figcaption></figure>
+<figure class="fig"><img src="/images/guide/stripe-payment-links.png" width="1600" height="454" alt="The Payment links tab in Stripe Checkout, with the Create payment link button top right." loading="lazy"><figcaption>Payment links live under Checkout. Click Create payment link, top right.</figcaption></figure>
 <p class="note">Stripe moves menus around now and then. If a name here doesn't match, search for it in the dashboard's search bar.</p>
 
 <h3>A3. Put the Buy button on your website</h3>
@@ -477,7 +483,7 @@ details.menu { display: none; }
 <li>Click <b>Edit code</b>. Delete everything in the editor. Paste the whole Worker file. Click <b>Deploy</b>.</li>
 <li>Note your Worker's address. It ends in <code>.workers.dev</code>.</li>
 </ol>
-<div class="shot">Screenshot: Cloudflare Worker code editor</div>
+<figure class="fig"><img src="/images/guide/worker-editor-illustration.png" width="1600" height="900" alt="An illustration of a Worker code editor with the Worker file pasted in and a Deploy button top right." loading="lazy"><figcaption>An illustration of the Worker editor with the code pasted in. Cloudflare's editor looks a little different.</figcaption></figure>
 
 <h3>B4. Connect the storage</h3>
 <ol class="steps">

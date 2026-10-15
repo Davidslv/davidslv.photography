@@ -802,6 +802,9 @@ details.menu { display: none; }
 .guide .sum { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 10px 16px; margin: 6px 0 16px; }
 .guide .sum p { display: flex; justify-content: space-between; gap: 16px; margin: 6px 0; }
 .guide .sum .tot { border-top: 1px solid rgba(0,0,0,.2); padding-top: 8px; font-weight: 600; }
+.guide .fig { margin: 8px 0 22px; }
+.guide .fig img { display: block; width: 100%; height: auto; border: 1px solid rgba(0,0,0,.15); border-radius: 6px; }
+.guide .fig figcaption { font-size: .88em; color: #6b665c; margin-top: 6px; }
 .print-only { display: none; }
 @media print {
   @page { size: A4; margin: 18mm 18mm 16mm; }
@@ -815,6 +818,8 @@ details.menu { display: none; }
   .guide h2 { font-size: 18pt; margin: 22pt 0 6pt; break-after: avoid; }
   .guide h3 { font-size: 12.5pt; margin: 14pt 0 4pt; break-after: avoid; }
   #route-a, #route-b, #legal { break-before: page; }
+  .guide .fig { break-inside: avoid; }
+  .guide .fig figcaption { color: #333; }
   .guide li, .guide .tbl tr, .guide .sum, .guide .note, .guide .shot { break-inside: avoid; }
   .guide code { background: #eee; color: #000; font-size: 9.5pt; }
   .guide .note { border-left: 2pt solid #000; }
