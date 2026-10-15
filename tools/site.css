@@ -167,7 +167,9 @@ details.menu { display: none; }
 .guide li { margin: 0 0 8px; }
 .guide code { font: 14px/1.4 ui-monospace, Menlo, monospace; background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
 .guide .note { border-left: 2px solid #b48a3c; padding: 2px 0 2px 14px; font-size: .95em; }
-.guide .pdfnote { font-size: .95em; }
+.guide .pdfnote { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; justify-content: space-between; border: 1px solid #b48a3c; background: rgba(180,138,60,.08); border-radius: 6px; padding: 14px 16px; margin: 18px 0 22px; font-size: .95em; color: #3b3832; }
+.guide .pdfnote span { flex: 1 1 260px; }
+.guide a.pdfbtn { background: #a5702a; color: #fffdf8; text-decoration: none; font-weight: 600; padding: 10px 16px; border-radius: 4px; white-space: nowrap; }
 .guide .toc { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 16px 20px 6px; margin: 24px 0 8px; }
 .guide .toc ol { margin: 6px 0 10px; }
 .guide .toc a { color: inherit; }
