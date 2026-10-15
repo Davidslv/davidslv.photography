@@ -35,7 +35,8 @@ PORTRAIT = Path.home() / "projects/davidslv.github.com/img/david-silva.jpg"
 WIDTHS = (640, 1200)  # plus the cap below
 CAP_COLUMN, CAP_WIDE = 1600, 2000  # David, 10 Oct 2026: keep web copies too small for a quality large print
 E = html.escape
-NAV = [("London", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("Sicily", "/sicily/"), ("Cayman", "/cayman/"), ("About", "/#about"), ("Contact", "/#contact")]
+SERIES = [("London", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("Sicily", "/sicily/"), ("Cayman", "/cayman/")]
+NAV = SERIES + [("Guides", "/guides/"), ("About", "/#about"), ("Contact", "/#contact")]   # flat list: footer and the Cayman page menu
 
 
 def load_pages():
@@ -311,14 +312,21 @@ def head(page, meta):
 
 
 def header(page):
-    links = "".join(f'<a href="{h}"{" aria-current=\"page\"" if h == page.PATH else ""}>{n}</a>' for n, h in NAV)
     return (f'<body>\n<a class="skip" href="#work">Skip to the photographs</a>\n'
-            f'<header class="site"><a class="name" href="/">{NAME}</a><nav aria-label="Main">{links}</nav>{mobile_menu(links)}</header>')
+            f'<header class="site"><a class="name" href="/">{NAME}</a>{main_nav(page.PATH)}</header>')
 
 
-def mobile_menu(links):
-    """Phones: the full nav covers faces in the hero, so it folds into a 'Menu' button (no JS, <details>)."""
-    return f'<details class="menu"><summary>Menu</summary><nav aria-label="Main menu">{links}</nav></details>'
+def main_nav(path):
+    """Same menu on phones and desktop (David, 15 Oct 2026): Work opens the series, then Book, Guides, About.
+    Four visible items, after NN/g's hidden-navigation study. No-JS <details>; site.js closes it on outside tap or Esc."""
+    cur = ' aria-current="page"'
+    series = "".join(f'<a href="{h}"{cur if h == path else ""}>{n}</a>' for n, h in SERIES)
+    in_work = any(h == path for _, h in SERIES) and path != "/sunday/"
+    return (f'<nav class="main" aria-label="Main"><details class="work"><summary{" class=cur" if in_work else ""}>Work</summary>'
+            f'<div class="panel">{series}</div></details>'
+            f'<a href="/sunday/"{cur if path == "/sunday/" else ""}>Book</a>'
+            f'<a href="/guides/"{cur if path.startswith("/guides/") else ""}>Guides</a>'
+            f'<a href="/#about">About</a></nav>')
 
 
 def footer():
@@ -339,7 +347,6 @@ def render(page, meta):
 def terms_page():
     """/terms/: terms of sale for the hardcover (text page, no photographs). Body in tools/terms_body.html."""
     css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
-    links = "".join(f'<a href="{h}">{n}</a>' for n, h in NAV)
     out = SITE / "terms" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(f"""<!doctype html>
@@ -355,7 +362,7 @@ def terms_page():
 <style>{css}</style>
 </head>
 <body class="plain">
-<header class="site"><a class="name" href="/">{NAME}</a><nav aria-label="Main">{links}</nav>{mobile_menu(links)}</header>
+<header class="site"><a class="name" href="/">{NAME}</a>{main_nav("/terms/")}</header>
 {(ROOT / "tools/terms_body.html").read_text()}
 """ + footer())
     print("built", out.relative_to(ROOT))
@@ -369,7 +376,6 @@ GUIDE_TEMPLATE = Path.home() / "Documents/cinematic/car-meet-book/shop/guide/wor
 def guide_page():
     """/guides/sell-your-photo-book/: free how-to (text page). Body in tools/guide_body.html."""
     css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
-    links = "".join(f'<a href="{h}">{n}</a>' for n, h in NAV)
     path = "/guides/sell-your-photo-book/"
     out = SITE / path.strip("/") / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -408,8 +414,58 @@ def guide_page():
 <style>{css}</style>
 </head>
 <body class="plain">
-<header class="site"><a class="name" href="/">{NAME}</a><nav aria-label="Main">{links}</nav>{mobile_menu(links)}</header>
+<header class="site"><a class="name" href="/">{NAME}</a>{main_nav(path)}</header>
 {body}
+""" + footer())
+    print("built", out.relative_to(ROOT))
+    return f"<url><loc>{URL}{path}</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
+
+
+def guides_index_page():
+    """/guides/: list of guides (text page). One card per guide."""
+    css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
+    path = "/guides/"
+    out = SITE / "guides" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    title = "Guides"
+    desc = "Free how-to guides from David Silva, a London photographer: what I learned making and selling my own photo book."
+    cards = f"""<a class="gcard" href="/guides/sell-your-photo-book/">
+<img src="/images/guide-og.jpg" width="1200" height="630" alt="The printed hardcover of It Started on a Sunday on a marble counter.">
+<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
+<span class="gtitle">Sell your photo book from your own website</span>
+<span class="gdesc">Print on demand with Stripe and Prodigi. No shop platform, no monthly fee, no stock at home. Two routes: no code, or automatic orders with the code ready to copy.</span>
+<span class="gmore">Read the guide</span></span></a>"""
+    ld = json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "description": desc,
+                     "url": URL + path, "inLanguage": "en-GB",
+                     "hasPart": [{"@type": "Article", "headline": "Sell your photo book from your own website",
+                                  "url": URL + "/guides/sell-your-photo-book/"}]})
+    out.write_text(f"""<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} · {NAME}</title>
+<meta name="description" content="{desc}">
+<link rel="canonical" href="{URL}{path}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{title} · {NAME}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{URL}{path}">
+<meta property="og:image" content="{URL}/images/guide-og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{ld}</script>
+{CF_BEACON}
+<style>{css}</style>
+</head>
+<body class="plain">
+<header class="site"><a class="name" href="/">{NAME}</a>{main_nav(path)}</header>
+<main id="work" class="terms-page guides">
+<p class="lbl">Guides</p>
+<h1>What I learned, written down</h1>
+<p class="lead">Free how-to guides for photographers, from making and selling my own book. Plain steps, no jargon, checked against the real thing.</p>
+{cards}
+</main>
 """ + footer())
     print("built", out.relative_to(ROOT))
     return f"<url><loc>{URL}{path}</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
@@ -425,6 +481,7 @@ def extras(meta):
         urls.append(f"<url><loc>{URL}{page.PATH}</loc><lastmod>{date.today().isoformat()}</lastmod>{imgs}</url>")
     urls.append(terms_page())
     urls.append(guide_page())
+    urls.append(guides_index_page())
     (SITE / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
         'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + "\n".join(urls) + "\n</urlset>\n")
