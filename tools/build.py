@@ -362,7 +362,7 @@ def terms_page():
     return f"<url><loc>{URL}/terms/</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
 
 
-GUIDE_PDF_URL = ""   # Gumroad link for the paid PDF of the guide; the PDF note is left out until it's set
+GUIDE_PDF_URL = "https://davidslv.gumroad.com/l/sell-your-photo-book"   # Gumroad link for the paid PDF of the guide; the PDF note is left out until it's set
 GUIDE_TEMPLATE = Path.home() / "Documents/cinematic/car-meet-book/shop/guide/worker-template.js"
 
 
