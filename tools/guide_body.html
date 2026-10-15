@@ -20,11 +20,11 @@
 </nav>
 
 <h2 id="how">1. How it works</h2>
-<p>Four parts, each run by a company that does one job well:</p>
+<p>Four parts:</p>
 <ol class="flow">
 <li><b>Website.</b> A page about your book with a Buy button. I host mine free on GitHub Pages. Any website works, and Route A works without one.</li>
 <li><b>Checkout.</b> A Stripe Payment Link: a checkout page Stripe hosts for you. It takes the card payment and the delivery address.</li>
-<li><b>The link between them.</b> Route A: you. Route B: a small Cloudflare Worker that hears about each payment and places the print order.</li>
+<li><b>The link between them.</b> Route A: you. Route B: a small Cloudflare Worker that is told about each payment and places the print order.</li>
 <li><b>Print on demand.</b> Prodigi prints the book and posts it to your buyer.</li>
 </ol>
 <p><b>Which route?</b> Start with Route A. It takes an afternoon and costs nothing up front. Move to Route B when copying addresses by hand gets tiring, or if you want orders placed while you sleep.</p>
@@ -36,7 +36,7 @@
 <ul>
 <li>Page 1 is the front cover. The last page is the back cover. Everything between is the inside of the book.</li>
 <li>Every page is the size of the book. For A4 landscape that's 297 × 210 mm. No bleed and no crop marks: Prodigi adds the bleed.</li>
-<li>An even number of pages, from 24 to 300 (covers included).</li>
+<li>An even number of pages. Prodigi's product page shows the smallest and largest page count for your book.</li>
 <li>Keep text and faces at least 10 mm from every edge.</li>
 <li>Photos at 300 ppi at the size they print. RGB is fine. Fonts embedded.</li>
 </ul>
@@ -61,16 +61,16 @@
 <p><span>What you want to keep</span><b>K</b></p>
 <p class="tot"><span>Book price + delivery charge you set</span><b>P + D + F + K</b></p>
 </div>
-<p><b>Example with made-up numbers:</b> printing £30.00, delivery £6.00, and you want to keep £8.00. That's £44.00 before the fee. Price £46.00 with free delivery, or £40.00 + £6.00 delivery. The fee on £46.00 is about 89p, so you keep about £8.11.</p>
+<p><b>Example with made-up numbers:</b> printing £30.00, delivery £6.00, and you want to keep £8.00. That's £44.00 before the fee. Price £45.00 with free delivery, or £39.00 + £6.00 delivery. The fee on £45.00 is about 88p, so you keep about £8.12.</p>
 <ul>
-<li>Get real numbers. In Prodigi, set up your book (step 5) and look at the price it shows for your page count and your buyer's country.</li>
-<li>Cards from outside the UK cost more in Stripe fees. Check Stripe's pricing page.</li>
+<li>Get real numbers. In Prodigi, set up your book (section 5, A1) and look at the price it shows for your page count and your buyer's country.</li>
+<li>Premium UK cards (many reward and business cards) cost 2.8% + 20p, and cards from outside the UK cost more. Leave room for that, and check Stripe's pricing page.</li>
 <li>If you're not VAT registered, don't add VAT. You only need to register when your turnover goes over the VAT threshold.</li>
 <li>Delivery to other countries costs more, and some countries charge import tax. Start with your own country.</li>
 </ul>
 
 <h2 id="proof">4. Order a proof copy</h2>
-<p>Order one copy for yourself before you sell anything. Screens lie about colour, dark photos print darker, and text near the edge can get cut. Order it the same way your buyers' copies will be made (step 5 below), check every page, fix the file, and order another proof if you changed a lot.</p>
+<p>Order one copy for yourself before you sell anything. Prints look darker than your screen, and text near the edge can get cut. Order it the same way your buyers' copies will be made (section 5, A1), check every page, fix the file, and order another proof if you changed a lot.</p>
 
 <h2 id="route-a">5. Route A: no code, you place each order</h2>
 <p>Buyer pays on Stripe. Stripe emails you. You copy their address into Prodigi and order the book. About five minutes per order.</p>
@@ -81,7 +81,8 @@
 <li>Start a new order and choose the photo book you want (size, hardcover or softcover, paper).</li>
 <li>Upload your PDF. Prodigi checks the page count and size.</li>
 <li>Type the spine text, and pick its colour and the spine colour.</li>
-<li>Note the price it shows. Use it in your price sum (step 3).</li>
+<li>Note the price it shows. Use it in your price sum (section 3).</li>
+<li>Save the book as a product (or save the order details) so you can reuse it for each order.</li>
 <li>Put in your own address and order this one as your proof.</li>
 </ol>
 <div class="shot">Screenshot: Prodigi dashboard, new photo book order</div>
@@ -90,7 +91,7 @@
 <ol class="steps">
 <li>In Stripe, go to <b>Product catalogue</b> and add a product: your book's name, a photo of the cover, a one-time price.</li>
 <li>Go to <b>Payment Links</b> and create a link for that product.</li>
-<li>Turn on <b>Collect customers' addresses</b>, choose <b>Shipping addresses</b>, and allow only the countries you deliver to.</li>
+<li>Turn on <b>Collect customer addresses</b>, choose <b>Billing and shipping addresses</b>, and allow only the countries you deliver to.</li>
 <li>Add a <b>shipping rate</b> with your delivery price and the delivery time (Prodigi's time plus a few days).</li>
 <li>Turn on <b>Require customers to provide a phone number</b>. Couriers sometimes need it.</li>
 <li>Turn on <b>Require customers to accept your terms of service</b>. Stripe asks for your terms page link in your public business details first (see section 7).</li>
@@ -121,12 +122,12 @@
 
 <h2 id="route-b">6. Route B: automatic orders</h2>
 <p>Same Payment Link as Route A. The difference: when someone pays, Stripe sends a message to a small program on Cloudflare, called a Worker. The Worker checks the message is real, asks Stripe for the address, and places the Prodigi order. You do nothing.</p>
-<p>You'll copy and paste one file of code. You don't need to understand it. It's about 150 lines and every part has a comment in plain English. <a href="/guides/sell-your-photo-book/worker-template.js" download>Download the Worker code</a>.</p>
+<p>You'll copy and paste one file of code. You don't need to understand it. It's about 150 lines and most parts have a comment in plain English. <a href="/guides/sell-your-photo-book/worker-template.js" download>Download the Worker code</a>.</p>
 <p class="note">Do every step below in test mode first: Stripe's test mode and Prodigi's sandbox. Nothing gets printed or charged. Switch to live only at B8.</p>
 
 <h3>B1. Make a Prodigi sandbox key</h3>
 <ol class="steps">
-<li>Prodigi has a separate sandbox dashboard for testing. The link is in Prodigi's API documentation (prodigi.com, Developers). Sign up there too.</li>
+<li>Prodigi has a separate sandbox dashboard for testing: <code>sandbox-beta-dashboard.pwinty.com</code>. Signing up on Prodigi's normal dashboard sets up both. If you can't log in to the sandbox, ask Prodigi's support.</li>
 <li>In the sandbox dashboard, find the API key in the settings (look for <b>API</b> or <b>Integrations</b>). Copy it into a password manager.</li>
 <li>Note the product code (SKU) for your book. It's on the product's page in Prodigi, and looks like <code>BOOK-FE-A4-L-HARD-G</code>.</li>
 </ol>
@@ -138,7 +139,7 @@
 <li>Upload your book PDF. Give it a simple name with no spaces, like <code>book.pdf</code>.</li>
 <li>Optional: a spine file. If you leave it out, the spine is plain. If you want text on it, make a PDF exactly the spine's width (Prodigi shows it for your page count) by 210 mm tall, and upload it as <code>spine.pdf</code>.</li>
 </ol>
-<p class="note">The dashboard upload takes files up to 300 MB. A 160-page A4 book at 300 ppi is usually around 200 MB.</p>
+<p class="note">A 160-page A4 book at 300 ppi is usually around 200 MB, and the dashboard upload took mine. If the upload fails for a bigger file, export the PDF again with a lower JPEG quality.</p>
 
 <h3>B3. Create the Worker</h3>
 <ol class="steps">
@@ -158,12 +159,13 @@
 <p>Still in Stripe's test mode:</p>
 <ol class="steps">
 <li>Go to <b>Developers</b>, <b>API keys</b>, <b>Create restricted key</b>. Give it two permissions only: <b>Checkout Sessions: Read</b> and <b>PaymentIntents: Write</b>. Everything else stays None. Copy the key (starts <code>rk_test_</code>).</li>
-<li>Go to <b>Developers</b>, <b>Webhooks</b>, and add a destination (an endpoint). URL: your Worker address followed by <code>/stripe-webhook</code>, for example <code>https://book-shop.yourname.workers.dev/stripe-webhook</code>.</li>
-<li>Choose two events: <code>checkout.session.completed</code> and <code>checkout.session.async_payment_succeeded</code>.</li>
+<li>Go to <b>Webhooks</b> and click <b>Create an event destination</b>. Choose <b>Your account</b>, then the <b>Snapshot</b> payload. Not Thin, even though Stripe marks Thin as recommended: the Worker only understands Snapshot.</li>
+<li>Tick two events: <code>checkout.session.completed</code> and <code>checkout.session.async_payment_succeeded</code>.</li>
+<li>Choose <b>Webhook endpoint</b>. URL: your Worker address followed by <code>/stripe-webhook</code>, for example <code>https://book-shop.yourname.workers.dev/stripe-webhook</code>.</li>
 <li>Save, then reveal the <b>signing secret</b> (starts <code>whsec_</code>) and copy it.</li>
 <li>Open your test Payment Link in the Stripe dashboard and copy its ID from the address bar (starts <code>plink_</code>).</li>
 </ol>
-<p class="note">A restricted key can only do what you ticked. If it ever leaks, nobody can use it to refund or move money. Never paste any key into the code itself, a website or a chat.</p>
+<p class="note">A restricted key can only do what you ticked. If it leaks, it can't issue refunds or payouts, but it can read your buyers' names and addresses. Delete it in Stripe straight away and make a new one. Never paste any key into the code itself, a website or a chat.</p>
 
 <h3>B6. Fill in the Worker's settings</h3>
 <p>In the Worker, open <b>Settings</b>, <b>Variables and Secrets</b>. Add each one below. Choose <b>Secret</b> for the first four, so they're stored encrypted and hidden even from you.</p>
@@ -178,7 +180,8 @@
 <tr><td><code>PAGE_COUNT</code></td><td>Text</td><td>pages in your PDF, covers included</td></tr>
 <tr><td><code>BOOK_FILE</code></td><td>Text</td><td><code>book.pdf</code> (the name in R2)</td></tr>
 <tr><td><code>SPINE_FILE</code></td><td>Text</td><td>optional: <code>spine.pdf</code></td></tr>
-<tr><td><code>PAYMENT_LINK_ID</code></td><td>Text</td><td>optional: the <code>plink_</code> ID, so other Stripe sales don't print a book</td></tr>
+<tr><td><code>PAYMENT_LINK_ID</code></td><td>Text</td><td>the <code>plink_</code> ID from B5. Required: without it, no order prints, so a sale of anything else on your Stripe account can never print a book.</td></tr>
+<tr><td><code>SHIPPING_METHOD</code></td><td>Text</td><td>optional: <code>Budget</code>, <code>Standard</code>, <code>StandardPlus</code>, <code>Express</code> or <code>Overnight</code>. Default <code>Standard</code>.</td></tr>
 </table>
 <p>Deploy again after saving, if the dashboard asks.</p>
 
@@ -186,7 +189,7 @@
 <ol class="steps">
 <li>Open your <b>test</b> Payment Link and buy with <code>4242 4242 4242 4242</code>. Use a real-looking address in your delivery country.</li>
 <li>In Stripe, open <b>Developers</b>, <b>Webhooks</b>, your endpoint. The delivery should show <b>200</b>.</li>
-<li>In Prodigi's sandbox dashboard, the order should be there with the buyer's address.</li>
+<li>In Prodigi's sandbox dashboard, the order should be there with the buyer's address and no issues.</li>
 <li>Back in Stripe, the payment should show <code>prodigi_order</code> in its metadata.</li>
 <li>From the webhook page, resend the same event. Prodigi should still have one order, not two.</li>
 </ol>
@@ -195,26 +198,29 @@
 <li><b>400 bad signature</b>: the <code>whsec_</code> secret is wrong, or it's from a different endpoint or mode.</li>
 <li><b>500</b>: open the Worker's <b>Logs</b> in Cloudflare. The line starting <code>FAILED</code> says why. Usual causes: a key from the wrong mode, a wrong SKU or page count, or the R2 binding not named <code>BOOK</code>.</li>
 <li><b>200 "not the book"</b>: <code>PAYMENT_LINK_ID</code> doesn't match the link you bought from.</li>
+<li><b>200 "ignored"</b>: the webhook sends the wrong events, or uses the Thin payload. Make a new destination with Snapshot (B5).</li>
+<li><b>200 "waiting for payment"</b>: the payment hasn't cleared yet (some bank payments take a few days). The order is placed when it does.</li>
 </ul>
 
 <h3>B8. Go live</h3>
 <ol class="steps">
 <li>Switch Stripe to live mode. Make the live product, Payment Link, restricted key (<code>rk_live_</code>) and webhook exactly as in test mode.</li>
 <li>Get your live Prodigi API key from the normal dashboard (not the sandbox), with your card added.</li>
-<li>In the Worker, replace the four secrets with the live ones. Change <code>PRODIGI_BASE</code> to <code>https://api.prodigi.com/v4.0</code> and <code>PAYMENT_LINK_ID</code> to the live link.</li>
+<li>In the Worker, replace three secrets with the live ones: <code>STRIPE_SECRET_KEY</code>, <code>STRIPE_WEBHOOK_SECRET</code> and <code>PRODIGI_API_KEY</code>. <code>FILE_SECRET</code> stays the same. Change <code>PRODIGI_BASE</code> to <code>https://api.prodigi.com/v4.0</code> and <code>PAYMENT_LINK_ID</code> to the live link.</li>
 <li>Put the live Payment Link on your website.</li>
 <li>Buy one copy yourself with a real card. That's your final test and your proof copy in one.</li>
 </ol>
-<p class="note">If the Worker or Prodigi is down when someone pays, the payment still goes through. Stripe resends the message for up to 3 days and emails you if it keeps failing. The order can't be printed twice.</p>
+<p class="note">If the Worker or Prodigi is down when someone pays, the payment still goes through. In live mode Stripe resends the message for up to 3 days and emails you if it keeps failing (in test mode it only tries a few times). The order can't be printed twice.</p>
+<p class="note">Prodigi downloads your files after it accepts an order. If a download fails, the order shows an issue in Prodigi's dashboard rather than in Stripe. Keep Prodigi's emails switched on and look at new orders now and then.</p>
 
 <h2 id="legal">7. The legal minimum (UK)</h2>
 <p class="note">This is what I did, not legal advice. Check gov.uk for your own case.</p>
 <ul>
-<li><b>A terms page.</b> Before someone buys, they must see who you are, a geographical address, an email, the total price with delivery, delivery times and their right to cancel. Mine is at <a href="/terms/">davidslv.photography/terms</a>; read it as an example.</li>
-<li><b>14 days to cancel.</b> Buyers of a printed book can cancel within 14 days of delivery for any reason, and you refund within 14 days of getting it back.</li>
+<li><b>A terms page.</b> Before someone buys, they must see who you are, a geographical address (a business or virtual office address is fine if you'd rather not publish your home), an email, the total price with delivery, delivery times and their right to cancel. Mine is at <a href="/terms/">davidslv.photography/terms</a>; read it as an example.</li>
+<li><b>14 days to cancel.</b> Buyers of a printed book can cancel for any reason within 14 days, starting the day after delivery. You refund the book and the standard delivery within 14 days of getting it back, or of proof they've sent it.</li>
 <li><b>Faulty items.</b> A damaged or misprinted book gets a refund or replacement. Ask Prodigi's support about misprints and damage in transit, with photos and the order number.</li>
-<li><b>Tax.</b> Tell HMRC you're self-employed if your trading income goes over £1,000 in a tax year. VAT only after your turnover passes the VAT threshold.</li>
-<li><b>Customer data.</b> Use buyers' details to deliver their order. Email them news only if they said yes. The ICO's website has a quick check on whether you need to pay its data protection fee.</li>
+<li><b>Tax.</b> Tell HMRC you're self-employed if your sales, before costs, go over £1,000 in a tax year. VAT only after your turnover passes the VAT threshold.</li>
+<li><b>Customer data.</b> Use buyers' details to deliver their order. Say on your terms page what you collect and that the printer gets the delivery address. Email them news only if they said yes. The ICO's website has a quick check on whether you need to pay its data protection fee.</li>
 </ul>
 
 <h2 id="wrong">8. When something goes wrong</h2>

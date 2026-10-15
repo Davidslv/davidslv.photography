@@ -20,8 +20,8 @@
 //              PAGE_COUNT             pages in your book PDF, covers included, for example 164
 //              BOOK_FILE              file name of the book PDF in R2, for example book.pdf
 //              SPINE_FILE             optional: file name of a spine PDF in R2. Leave it out for a plain spine.
-//              PAYMENT_LINK_ID        optional: starts with plink_. Only orders from this link get printed.
-//              SHIPPING_METHOD        optional: Budget, Standard, Express or Overnight. Default Standard.
+//              PAYMENT_LINK_ID        starts with plink_. Only orders from this link get printed.
+//              SHIPPING_METHOD        optional: Budget, Standard, StandardPlus, Express or Overnight. Default Standard.
 //   Binding:   R2 bucket, variable name BOOK
 
 async function hmac(secret, msg) {
@@ -31,6 +31,7 @@ async function hmac(secret, msg) {
   return [...new Uint8Array(sig)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
+// Compares two strings in constant time, so timing gives nothing away.
 function safeEqual(a, b) {
   if (a.length !== b.length) return false;
   let diff = 0;
@@ -54,6 +55,7 @@ async function verifyStripe(request, body, secret, toleranceSeconds = 300) {
   return sigs.some(s => safeEqual(s, expected));
 }
 
+// Calls the Stripe API with the restricted key. With form it changes something, without it only reads.
 async function stripe(env, path, form) {
   const r = await fetch(`https://api.stripe.com/v1/${path}`, {
     method: form ? "POST" : "GET",
@@ -94,11 +96,14 @@ async function placeProdigiOrder(env, origin, session) {
     body: JSON.stringify(body),
   });
   const data = await r.json().catch(() => ({}));
-  if (!r.ok || !["Created", "CreatedWithIssues", "AlreadyExists"].includes(data.outcome))
+  // CreatedWithIssues: the order exists but Prodigi found a problem (often the files). Check Prodigi's dashboard.
+  // OnHold: your Prodigi account holds new orders for a while before printing.
+  if (!r.ok || !["Created", "CreatedWithIssues", "OnHold", "AlreadyExists"].includes(data.outcome))
     throw new Error(`Prodigi: ${r.status} ${JSON.stringify(data).slice(0, 500)}`);
   return data;
 }
 
+// The webhook: check the signature, re-read the order from Stripe, print only paid orders from your link.
 async function handleStripe(request, env, origin) {
   const body = await request.text();
   if (!await verifyStripe(request, body, env.STRIPE_WEBHOOK_SECRET)) return new Response("bad signature", { status: 400 });
@@ -107,8 +112,10 @@ async function handleStripe(request, env, origin) {
     return new Response("ignored", { status: 200 });
   // Ask Stripe again rather than trusting the message alone.
   const session = await stripe(env, `checkout/sessions/${event.data.object.id}?expand[]=line_items`);
-  if (env.PAYMENT_LINK_ID && session.payment_link !== env.PAYMENT_LINK_ID) return new Response("not the book", { status: 200 });
-  if (session.payment_status !== "paid") return new Response("waiting for payment", { status: 200 });
+  if (!env.PAYMENT_LINK_ID) throw new Error("PAYMENT_LINK_ID is not set");   // otherwise every sale on the account would print a book
+  if (session.payment_link !== env.PAYMENT_LINK_ID) return new Response("not the book", { status: 200 });
+  // "no_payment_required": a 100% discount code. Still print it.
+  if (!["paid", "no_payment_required"].includes(session.payment_status)) return new Response("waiting for payment", { status: 200 });
   const result = await placeProdigiOrder(env, origin, session);
   const orderId = result.order?.id;
   console.log(JSON.stringify({ session: session.id, prodigi: orderId, outcome: result.outcome }));
