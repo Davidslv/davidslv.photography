@@ -16,6 +16,7 @@ import hashlib
 import html
 import importlib.util
 import json
+import re
 import subprocess
 import sys
 from concurrent.futures import ProcessPoolExecutor
@@ -361,6 +362,59 @@ def terms_page():
     return f"<url><loc>{URL}/terms/</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
 
 
+GUIDE_PDF_URL = ""   # Gumroad link for the paid PDF of the guide; the PDF note is left out until it's set
+GUIDE_TEMPLATE = Path.home() / "Documents/cinematic/car-meet-book/shop/guide/worker-template.js"
+
+
+def guide_page():
+    """/guides/sell-your-photo-book/: free how-to (text page). Body in tools/guide_body.html."""
+    css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
+    links = "".join(f'<a href="{h}">{n}</a>' for n, h in NAV)
+    path = "/guides/sell-your-photo-book/"
+    out = SITE / path.strip("/") / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    if GUIDE_TEMPLATE.exists():   # the Worker code readers download; kept in the shop repo
+        (out.parent / "worker-template.js").write_text(GUIDE_TEMPLATE.read_text())
+    body = (ROOT / "tools/guide_body.html").read_text()
+    if GUIDE_PDF_URL:
+        body = body.replace("GUMROAD_GUIDE_URL", GUIDE_PDF_URL)
+    else:
+        body = re.sub(r'<p class="pdfnote">.*?</p>\n', "", body, flags=re.S)
+    title = "Sell your photo book from your own website"
+    desc = ("A free step-by-step guide to selling a print-on-demand photo book from your own website with "
+            "Stripe and Prodigi, with no shop platform and no monthly fee. Two routes: no code, or automatic orders.")
+    img = f"{URL}/images/guide-og.jpg"
+    ld = json.dumps({"@context": "https://schema.org", "@type": "Article", "headline": title, "description": desc,
+                     "image": img, "url": URL + path, "inLanguage": "en-GB", "dateModified": date.today().isoformat(),
+                     "author": {"@type": "Person", "name": NAME, "url": URL + "/"},
+                     "publisher": {"@type": "Person", "name": NAME, "url": URL + "/"}})
+    out.write_text(f"""<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} · {NAME}</title>
+<meta name="description" content="{desc}">
+<link rel="canonical" href="{URL}{path}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{URL}{path}">
+<meta property="og:image" content="{img}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{ld}</script>
+{CF_BEACON}
+<style>{css}</style>
+</head>
+<body class="plain">
+<header class="site"><a class="name" href="/">{NAME}</a><nav aria-label="Main">{links}</nav>{mobile_menu(links)}</header>
+{body}
+""" + footer())
+    print("built", out.relative_to(ROOT))
+    return f"<url><loc>{URL}{path}</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
+
+
 def extras(meta):
     (SITE / "CNAME").write_text("davidslv.photography\n")
     (SITE / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {URL}/sitemap.xml\n")
@@ -370,6 +424,7 @@ def extras(meta):
                        for s in page.SEQUENCE for k in s[1:] if isinstance(k, str) and k in PHOTOS)
         urls.append(f"<url><loc>{URL}{page.PATH}</loc><lastmod>{date.today().isoformat()}</lastmod>{imgs}</url>")
     urls.append(terms_page())
+    urls.append(guide_page())
     (SITE / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
         'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + "\n".join(urls) + "\n</urlset>\n")

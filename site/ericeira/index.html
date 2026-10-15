@@ -74,7 +74,7 @@
    "primaryImageOfPage": {
     "@id": "https://davidslv.photography/ericeira/#photo-e8537"
    },
-   "dateModified": "2026-10-14",
+   "dateModified": "2026-10-15",
    "mainEntity": {
     "@type": "ImageGallery",
     "name": "Skimboarding at Ericeira, 26 February 2012",
@@ -655,6 +655,25 @@ details.menu { display: none; }
   details.menu nav a { color: #f4f1ea; padding: 11px 0; letter-spacing: .14em; }
   body.plain details.menu summary { color: var(--ink); }
 }
+/* /guides/: how-to pages */
+.guide h3 { font: 600 17px/1.3 var(--label, inherit); margin: 28px 0 8px; }
+.guide ul, .guide ol { color: #3b3832; padding-left: 22px; margin: 0 0 16px; }
+.guide li { margin: 0 0 8px; }
+.guide code { font: 14px/1.4 ui-monospace, Menlo, monospace; background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.guide .note { border-left: 2px solid #b48a3c; padding: 2px 0 2px 14px; font-size: .95em; }
+.guide .pdfnote { font-size: .95em; }
+.guide .toc { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 16px 20px 6px; margin: 24px 0 8px; }
+.guide .toc ol { margin: 6px 0 10px; }
+.guide .toc a { color: inherit; }
+.guide .shot { border: 1px dashed rgba(0,0,0,.3); border-radius: 6px; padding: 28px 16px; text-align: center; color: #8a857a; font-size: .9em; margin: 4px 0 18px; }
+.guide .tbl { width: 100%; border-collapse: collapse; font-size: .92em; margin: 6px 0 18px; display: block; overflow-x: auto; }
+.guide .tbl th, .guide .tbl td { text-align: left; padding: 8px 10px 8px 0; border-bottom: 1px solid rgba(0,0,0,.1); vertical-align: top; color: #3b3832; }
+.guide .tbl th { font-size: .82em; text-transform: uppercase; letter-spacing: .05em; color: #6b665c; }
+.guide .sum { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 10px 16px; margin: 6px 0 16px; }
+.guide .sum p { display: flex; justify-content: space-between; gap: 16px; margin: 6px 0; }
+.guide .sum .tot { border-top: 1px solid rgba(0,0,0,.2); padding-top: 8px; font-weight: 600; }
+@media print { .guide .toc, header.site, footer, details.menu { display: none; } .guide { padding-top: 0; } .guide h2 { break-after: avoid; } .guide .shot { break-inside: avoid; } }
+.guide a { color: inherit; }
 </style>
 </head>
 <body>

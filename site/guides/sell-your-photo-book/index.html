@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sell your photo book from your own website · David Silva</title>
+<meta name="description" content="A free step-by-step guide to selling a print-on-demand photo book from your own website with Stripe and Prodigi, with no shop platform and no monthly fee. Two routes: no code, or automatic orders.">
+<link rel="canonical" href="https://davidslv.photography/guides/sell-your-photo-book/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sell your photo book from your own website">
+<meta property="og:description" content="A free step-by-step guide to selling a print-on-demand photo book from your own website with Stripe and Prodigi, with no shop platform and no monthly fee. Two routes: no code, or automatic orders.">
+<meta property="og:url" content="https://davidslv.photography/guides/sell-your-photo-book/">
+<meta property="og:image" content="https://davidslv.photography/images/guide-og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Sell your photo book from your own website", "description": "A free step-by-step guide to selling a print-on-demand photo book from your own website with Stripe and Prodigi, with no shop platform and no monthly fee. Two routes: no code, or automatic orders.", "image": "https://davidslv.photography/images/guide-og.jpg", "url": "https://davidslv.photography/guides/sell-your-photo-book/", "inLanguage": "en-GB", "dateModified": "2026-10-15", "author": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}, "publisher": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}}</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5049d2f041d46859a41276d44ddba33"}'></script><script>/* Anonymous reading stats for this site (site-stats Worker). No cookies, nothing stored on the device,
+   no IP kept. Skipped for browsers sending Global Privacy Control or Do Not Track, and for automation. */
+(() => {
+  try {
+    if (navigator.webdriver || navigator.globalPrivacyControl || navigator.doNotTrack === "1") return;
+    const END = "https://site-stats.davidslv-london.workers.dev/e";
+    const pv = (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36))
+      .replace(/-/g, "").slice(0, 32);
+    const w = innerWidth, coarse = matchMedia("(pointer: coarse)").matches;
+    const device = w < 720 ? "phone" : coarse ? "tablet" : "desktop";
+    const q = new URLSearchParams(location.search);
+    let ref = q.get("utm_source") || "";
+    if (!ref && document.referrer) {
+      try { const h = new URL(document.referrer).hostname.replace(/^www\./, ""); if (h !== location.hostname) ref = h; } catch (e) {}
+    }
+    let seq = 0, maxScroll = 0, ended = 0, visMs = 0, last = null;
+    let visSince = document.visibilityState === "visible" ? performance.now() : null;
+    const photos = {}, clicks = {}, onScreen = new Map();
+    const now = () => performance.now();
+
+    const pid = img => {
+      const f = (img.currentSrc || img.src || "").split("/").pop() || "";
+      const m = f.match(/^([a-z]{1,3}\d{2,6}[a-z]?)[-.]/i);
+      return m ? m[1] : (img.alt || "photo").slice(0, 40);
+    };
+    const stopPhoto = id => {
+      const t = onScreen.get(id);
+      if (t != null) { photos[id] = (photos[id] || 0) + (now() - t) / 1000; onScreen.delete(id); }
+    };
+    const io = new IntersectionObserver(entries => {
+      for (const en of entries) {
+        const id = pid(en.target);
+        if (en.intersectionRatio >= 0.5 && document.visibilityState === "visible") {
+          if (!onScreen.has(id)) onScreen.set(id, now());
+          last = id;
+        } else stopPhoto(id);
+      }
+    }, { threshold: [0, 0.5] });
+    const watch = () => document.querySelectorAll("main img, section img, figure img").forEach(i => io.observe(i));
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(() => {
+        const d = document.documentElement;
+        const p = Math.min(100, Math.round((scrollY + innerHeight) / Math.max(1, d.scrollHeight) * 100));
+        if (p > maxScroll) maxScroll = p;
+        if (p >= 97) ended = 1;
+        ticking = false;
+      });
+    };
+
+    const send = () => {
+      const t = now();
+      const running = [...onScreen.keys()];
+      running.forEach(stopPhoto);                       // bank time so far, then restart the timers
+      if (document.visibilityState === "visible") running.forEach(id => onScreen.set(id, t));
+      const secs = Math.round((visMs + (visSince != null ? t - visSince : 0)) / 1000);
+      const ph = {};
+      for (const [k, v] of Object.entries(photos)) if (v >= 0.5) ph[k] = Math.round(v);
+      const body = JSON.stringify({ pv, seq: ++seq, path: location.pathname, ref, device, vw: w,
+        scroll: maxScroll, ended, secs, last_photo: last, photos: ph, clicks });
+      try { navigator.sendBeacon(END, new Blob([body], { type: "text/plain" })); } catch (e) {}
+    };
+
+    document.addEventListener("click", ev => {
+      const a = ev.target.closest && ev.target.closest("a, summary");
+      if (!a) return;
+      let k = null;
+      if (a.tagName === "SUMMARY") k = "menu";
+      else {
+        const h = a.getAttribute("href") || "";
+        if (/buy\.stripe\.com/.test(h)) k = "buy_hardcover";
+        else if (/gumroad\.com/.test(h)) k = "get_pdf";
+        else if (/instagram\.com/.test(h)) k = "instagram";
+        else if (h.startsWith("mailto:")) k = "email";
+        else if (h.startsWith("#")) k = "jump:" + h.slice(1);
+        else { try { const u = new URL(h, location.href); k = u.hostname === location.hostname ? "page:" + u.pathname : "out:" + u.hostname; } catch (e) {} }
+      }
+      if (k) { clicks[k] = (clicks[k] || 0) + 1; if (k === "buy_hardcover" || k === "get_pdf") send(); }
+    }, true);
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        if (visSince != null) { visMs += now() - visSince; visSince = null; }
+        send();
+        [...onScreen.keys()].forEach(stopPhoto);
+      } else visSince = now();
+    });
+    addEventListener("pagehide", send);
+    addEventListener("scroll", onScroll, { passive: true });
+    const start = () => { watch(); onScroll(); setTimeout(send, 15000); };   // one early summary for very short visits
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+  } catch (e) {}
+})();
+</script>
+<style>@font-face {   font-family: 'Newsreader';   font-style: italic;   font-weight: 300;   font-display: swap;   src: url(/fonts/Newsreader-italic-300.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {   font-family: 'Newsreader';   font-style: normal;   font-weight: 300;   font-display: swap;   src: url(/fonts/Newsreader-normal-300.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {   font-family: 'Newsreader';   font-style: normal;   font-weight: 400;   font-display: swap;   src: url(/fonts/Newsreader-normal-300.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {   font-family: 'Public Sans';   font-style: normal;   font-weight: 400;   font-display: swap;   src: url(/fonts/PublicSans-normal-400.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {   font-family: 'Public Sans';   font-style: normal;   font-weight: 500;   font-display: swap;   src: url(/fonts/PublicSans-normal-400.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {   font-family: 'Public Sans';   font-style: normal;   font-weight: 600;   font-display: swap;   src: url(/fonts/PublicSans-normal-400.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Newsreader Fallback"; src: local("Georgia"); size-adjust: 92.6%; ascent-override: 79.3%; descent-override: 28.6%; line-gap-override: 0.0%; }
+@font-face { font-family: "Public Sans Fallback"; src: local("Arial"); size-adjust: 104.5%; ascent-override: 90.9%; descent-override: 21.5%; line-gap-override: 0.0%; }
+/* Layout: a photo book on paper. Large prints, lots of space, small tracked labels; pairs drift a little. Single paper look by choice. */
+:root {
+  --paper: #efece6; --ink: #1b1916; --soft: #6b665c; --hair: #d9d4ca; --accent: #9c4a26;
+    --display: "Newsreader", Georgia, serif; --label: "Public Sans", system-ui, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); }
+body { font: 400 16px/1.65 var(--label); }
+img { display: block; width: 100%; height: auto; max-width: 100%; }
+figure { margin: 0; position: relative; }
+.lbl { font: 500 11px/1.4 var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--soft); }
+figcaption { margin-top: 12px; display: flex; gap: 14px; }
+figcaption .t { font-variant-numeric: tabular-nums; color: var(--ink); }
+
+header.site { position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; justify-content: space-between; align-items: baseline; padding: 26px clamp(16px, 4vw, 48px); color: #f4f1ea; }
+header.site .name { font: 400 22px var(--display); letter-spacing: .02em; color: inherit; text-decoration: none; }
+header.site nav { display: flex; gap: 22px; }
+header.site nav a { color: inherit; text-decoration: none; font: 500 11px var(--label); letter-spacing: .16em; text-transform: uppercase; }
+
+.hero { position: relative; height: min(100svh, 62vw); min-height: 520px; overflow: hidden; }
+.hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,0) 30%, rgba(0,0,0,0) 55%, rgba(0,0,0,.5)); }
+.hero .words { position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(28px, 7vh, 72px); text-align: center; color: #f6f3ec; padding-inline: 16px; }
+.hero h1 { font: 300 clamp(38px, 6vw, 80px)/1.02 var(--display); margin: 10px 0 0; text-wrap: balance; }
+.hero .lbl { color: rgba(246,243,236,.85); }
+
+main { padding-inline: clamp(16px, 4vw, 48px); }
+.block { max-width: 1240px; margin: 0 auto; padding-block: clamp(56px, 11vh, 140px) 0; position: relative; }
+.part { text-align: center; padding-block: clamp(90px, 16vh, 200px) clamp(10px, 4vh, 40px); }
+.part h2 { font: 300 clamp(40px, 6vw, 76px)/1 var(--display); margin: 14px 0 12px; }
+.part p { margin: 0 auto; max-width: 46ch; color: var(--soft); font: italic 300 20px/1.45 var(--display); }
+.line p { font: 300 clamp(26px, 3.4vw, 42px)/1.25 var(--display); max-width: 24ch; margin: 0 auto; text-align: center; text-wrap: balance; }
+
+.print.left { width: min(72%, 900px); margin-right: auto; }
+.print.right { width: min(56%, 720px); margin-left: auto; }
+.print.right-small { width: min(40%, 480px); margin-left: auto; margin-right: 8%; }
+.print.centre { width: min(52%, 640px); margin-inline: auto; }
+.print.centre-large { width: min(66%, 820px); margin-inline: auto; }
+.print.centre-small { width: min(34%, 420px); margin-inline: auto; }
+.wide { max-width: none; margin-inline: calc(-1 * clamp(16px, 4vw, 48px)); }
+.wide figcaption { padding-inline: clamp(16px, 4vw, 48px); }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 4vw, 64px); align-items: start; }
+.pair figure:first-child { transform: translateY(calc(var(--d, 0) * 1px)); }
+.pair figure:last-child { margin-top: 18vh; transform: translateY(calc(var(--d, 0) * -1px)); }
+.pair.landscape figure:last-child { margin-top: 12vh; }
+.rise { transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
+.rise.wait { transform: translateY(28px); }
+
+.about { max-width: 1040px; margin: 0 auto; padding-block: clamp(110px, 18vh, 220px) 40px; display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(24px, 5vw, 72px); align-items: end; }
+.about h2 { font: 300 clamp(34px, 4vw, 52px)/1.05 var(--display); margin: 0 0 18px; }
+.about p { margin: 0 0 16px; max-width: 52ch; color: #3b3832; font-size: 17px; }
+.about .ph { aspect-ratio: 1; background: #ddd8ce; display: grid; place-items: center; color: var(--soft); font-size: 13px; }
+.more { max-width: 1040px; margin: 0 auto; padding-block: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; border-top: 1px solid var(--hair); }
+.more h3 { font: 400 22px var(--display); margin: 8px 0 6px; }
+.more p { margin: 0; color: var(--soft); font-size: 15px; }
+.more a { color: var(--ink); }
+footer { max-width: 1040px; margin: 0 auto; padding-block: 28px 140px; border-top: 1px solid var(--hair); color: var(--soft); font-size: 13px; display: flex; gap: 18px; flex-wrap: wrap; }
+
+@media (max-width: 720px) {
+  .print.left, .print.right, .print.right-small, .print.centre, .print.centre-large, .print.centre-small { width: 100%; margin-inline: 0; }
+  .print.right-small, .print.centre-small { width: 78%; margin-left: auto; }
+  .pair { gap: 12px; }
+  .pair figure:last-child { margin-top: 10vh; }
+  .about { grid-template-columns: 1fr; }
+  .more { grid-template-columns: 1fr; }
+  header.site nav { gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .rise { transition: none; } .rise.wait { transform: none; } }
+
+.skip { position: absolute; left: -999px; top: 8px; z-index: 20; background: #fff; color: var(--ink); padding: 8px 12px; }
+.skip:focus { left: 8px; }
+.hero picture, .hero picture img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero img { object-fit: cover; object-position: 50% 22%; }
+.part .sub { margin: 0 auto; max-width: 46ch; color: var(--soft); font: italic 300 20px/1.45 var(--display); }
+.about img { width: 100%; height: auto; }
+footer a { color: inherit; }
+.more a { text-underline-offset: 3px; }
+.part p.lbl { font: 500 11px/1.4 var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--soft); font-style: normal; max-width: none; }
+.book { max-width: 1240px; margin: 0 auto; padding-block: clamp(110px, 18vh, 220px) 20px; display: grid; gap: clamp(48px, 9vh, 110px); }
+.book-head { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(24px, 5vw, 72px); align-items: center; }
+.book-cover img { box-shadow: 0 24px 60px rgba(40, 30, 15, .22); }
+.book-text h2 { font: 300 clamp(36px, 4.4vw, 58px)/1.02 var(--display); margin: 10px 0 6px; }
+.book-text .sub { font: italic 300 22px/1.4 var(--display); color: var(--soft); margin: 0 0 22px; }
+.book-text p { max-width: 46ch; margin: 0 0 14px; color: #3b3832; }
+.btn { display: inline-block; margin-top: 10px; padding: 13px 20px; border: 1px solid var(--ink); color: var(--ink); text-decoration: none; font: 600 14px var(--label); letter-spacing: .02em; }
+.btn:hover { background: var(--ink); color: var(--paper); }
+.spread img { box-shadow: 0 12px 40px rgba(40, 30, 15, .16); }
+nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; }
+@media (max-width: 720px) { .book-head { grid-template-columns: 1fr; } }
+/* Accessibility pass (10 Oct 2026): readable menu over any hero, real tap targets, visible focus, larger labels. */
+header.site { flex-wrap: wrap; gap: 4px 24px; text-shadow: 0 1px 10px rgba(0,0,0,.55), 0 0 2px rgba(0,0,0,.35); }
+header.site nav a { font-size: 12px; padding: 12px 0; display: inline-block; }
+.hero::after { background: linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,0) 32%, rgba(0,0,0,0) 52%, rgba(0,0,0,.55)); }
+.hero .words { text-shadow: 0 1px 14px rgba(0,0,0,.45); }
+.lbl, figcaption { font-size: 12px; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.more a, footer a, .book-text a { display: inline-block; padding-block: 3px; }
+footer nav { display: flex; gap: 18px; flex-wrap: wrap; width: 100%; }
+footer nav a { padding-block: 10px; }
+@media (max-width: 720px) { header.site { padding-top: 16px; } header.site nav { gap: 18px; } }
+header.site .name { display: inline-block; padding-block: 6px; }
+/* 2026 pass: fallback fonts sized to match, smooth page changes, skip work off-screen, onward link. */
+:root { --display: "Newsreader", "Newsreader Fallback", Georgia, serif; --label: "Public Sans", "Public Sans Fallback", Arial, sans-serif; }
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+main .block:nth-of-type(n+4) { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.next { display: grid; gap: 6px; max-width: 1040px; margin: clamp(80px, 14vh, 160px) auto 0; padding: 36px 0; border-top: 1px solid var(--hair); text-decoration: none; color: var(--ink); }
+.next .next-title { font: 300 clamp(32px, 4.4vw, 56px)/1.05 var(--display); }
+.next .next-title::after { content: " →"; }
+.next .next-sub { color: var(--soft); font: italic 300 19px var(--display); }
+.next:hover .next-title { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 1px; }
+.about, .more, .next, .book, footer { padding-inline: clamp(16px, 4vw, 48px); }
+/* /mclaren/: the brand pitch. Papaya is used only as a rule, never as text (contrast). */
+.pitch { max-width: 1040px; margin: clamp(90px, 15vh, 180px) auto 0; padding-block: 48px 8px; border-top: 3px solid #ff8000; display: grid; gap: 18px; }
+.pitch h2 { font: 300 clamp(36px, 5vw, 62px)/1.04 var(--display); margin: 0; max-width: 18ch; text-wrap: balance; }
+.pitch-lede { font: italic 300 clamp(20px, 2.2vw, 24px)/1.45 var(--display); color: #3b3832; max-width: 46ch; margin: 0; }
+.pitch-list { list-style: none; margin: 12px 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 40px; }
+.pitch-list li { display: grid; gap: 4px; max-width: 42ch; color: #3b3832; }
+.pitch-note { margin: 0; color: var(--soft); }
+.pitch-small { margin: 18px 0 0; color: var(--soft); font-size: 13px; max-width: 70ch; }
+@media (max-width: 720px) { .pitch-list { grid-template-columns: 1fr; } }
+.pitch { padding-inline: clamp(16px, 4vw, 48px); }
+.pitch a { color: var(--ink); }
+.hero .words .lbl { display: inline-block; background: rgba(0,0,0,.28); padding: 4px 10px; border-radius: 2px; }
+.pitch-note a { display: inline-block; padding-block: 3px; }
+header.site nav { flex-wrap: wrap; column-gap: 16px; }
+@media (max-width: 720px) { header.site nav { row-gap: 0; column-gap: 12px; } header.site nav a { letter-spacing: .1em; padding-block: 10px; } .hero .words .lbl { font-size: 11px; } }
+/* /sunday/ hardcover + PDF buy block and the delivery/returns notes (draft, 14 Oct 2026). */
+.buy { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); column-gap: 28px; row-gap: 0; margin: 18px 0 8px; }
+.buy > div { display: grid; grid-row: span 4; grid-template-rows: subgrid; align-content: start; }   /* label, text, button, note line up across both columns */
+.buy p { margin: 0 0 8px; }
+.buy .btn { margin-top: 2px; }
+.buy .note { font-size: .9em; color: var(--soft); }
+.terms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 32px; border-top: 1px solid rgba(0,0,0,.12); padding-top: 28px; font-size: .95em; }
+.terms p { margin: 0 0 6px; color: #3b3832; }
+@media (max-width: 900px) { .terms { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px) { .buy, .terms { grid-template-columns: 1fr; } .buy { grid-template-rows: none; row-gap: 22px; } .buy > div { grid-row: auto; grid-template-rows: none; } }
+/* /terms/: plain text page on the site's paper, readable measure, header made legible without a hero. */
+body.plain header.site { position: static; color: var(--ink); text-shadow: none; padding-inline: clamp(16px, 4vw, 48px); }
+body.plain header.site a { color: var(--ink); }
+.terms-page { max-width: 720px; margin: 0 auto; padding: clamp(40px, 8vh, 90px) clamp(16px, 4vw, 48px) 80px; }
+.terms-page h1 { font: 300 clamp(36px, 5vw, 56px)/1.05 var(--display); margin: 10px 0 18px; }
+.terms-page h2 { font: 400 26px/1.2 var(--display); margin: 40px 0 10px; }
+.terms-page p { color: #3b3832; margin: 0 0 14px; }
+.terms-page .lead { font-size: 1.08em; }
+.terms-page .form { border-left: 2px solid rgba(0,0,0,.2); padding: 4px 0 4px 16px; font: 15px/1.7 var(--label, inherit); white-space: pre-wrap; color: #3b3832; user-select: all; }
+.terms-page mark { background: #ffe58a; }
+/* Phones: fold the nav into a Menu button so it doesn't sit across faces in the hero (14 Oct 2026). */
+details.menu { display: none; }
+@media (max-width: 720px) {
+  header.site { flex-wrap: nowrap; align-items: center; }
+  header.site > nav { display: none; }
+  details.menu { display: block; position: relative; }
+  details.menu summary { list-style: none; cursor: pointer; font: 500 12px var(--label); letter-spacing: .16em; text-transform: uppercase; padding: 10px 0 10px 12px; }
+  details.menu summary::-webkit-details-marker { display: none; }
+  details.menu[open] summary { opacity: .75; }
+  details.menu nav { position: absolute; right: 0; top: 100%; display: flex; flex-direction: column; min-width: 200px; padding: 8px 18px;
+    background: rgba(24, 21, 17, .92); border-radius: 6px; box-shadow: 0 12px 30px rgba(0,0,0,.25); text-shadow: none; }
+  details.menu nav a { color: #f4f1ea; padding: 11px 0; letter-spacing: .14em; }
+  body.plain details.menu summary { color: var(--ink); }
+}
+/* /guides/: how-to pages */
+.guide h3 { font: 600 17px/1.3 var(--label, inherit); margin: 28px 0 8px; }
+.guide ul, .guide ol { color: #3b3832; padding-left: 22px; margin: 0 0 16px; }
+.guide li { margin: 0 0 8px; }
+.guide code { font: 14px/1.4 ui-monospace, Menlo, monospace; background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.guide .note { border-left: 2px solid #b48a3c; padding: 2px 0 2px 14px; font-size: .95em; }
+.guide .pdfnote { font-size: .95em; }
+.guide .toc { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 16px 20px 6px; margin: 24px 0 8px; }
+.guide .toc ol { margin: 6px 0 10px; }
+.guide .toc a { color: inherit; }
+.guide .shot { border: 1px dashed rgba(0,0,0,.3); border-radius: 6px; padding: 28px 16px; text-align: center; color: #8a857a; font-size: .9em; margin: 4px 0 18px; }
+.guide .tbl { width: 100%; border-collapse: collapse; font-size: .92em; margin: 6px 0 18px; display: block; overflow-x: auto; }
+.guide .tbl th, .guide .tbl td { text-align: left; padding: 8px 10px 8px 0; border-bottom: 1px solid rgba(0,0,0,.1); vertical-align: top; color: #3b3832; }
+.guide .tbl th { font-size: .82em; text-transform: uppercase; letter-spacing: .05em; color: #6b665c; }
+.guide .sum { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 10px 16px; margin: 6px 0 16px; }
+.guide .sum p { display: flex; justify-content: space-between; gap: 16px; margin: 6px 0; }
+.guide .sum .tot { border-top: 1px solid rgba(0,0,0,.2); padding-top: 8px; font-weight: 600; }
+@media print { .guide .toc, header.site, footer, details.menu { display: none; } .guide { padding-top: 0; } .guide h2 { break-after: avoid; } .guide .shot { break-inside: avoid; } }
+.guide a { color: inherit; }
+</style>
+</head>
+<body class="plain">
+<header class="site"><a class="name" href="/">David Silva</a><nav aria-label="Main"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav><details class="menu"><summary>Menu</summary><nav aria-label="Main menu"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav></details></header>
+<main id="work" class="terms-page guide">
+<p class="lbl">Free guide · last checked October 2026</p>
+<h1>Sell your photo book from your own website</h1>
+<p class="lead">This is how I sell <a href="/sunday/"><em>It Started on a Sunday</em></a>: a hardcover printed only when someone orders it and posted straight to them. No shop platform, no monthly fee, no stock at home. Everything I used is here, step by step, for people who have never written code.</p>
+
+<nav class="toc" aria-label="Contents">
+<p class="lbl">Contents</p>
+<ol>
+<li><a href="#how">How it works</a></li>
+<li><a href="#before">Before you start</a></li>
+<li><a href="#price">Set your price</a></li>
+<li><a href="#proof">Order a proof copy</a></li>
+<li><a href="#route-a">Route A: no code, you place each order</a></li>
+<li><a href="#route-b">Route B: automatic orders</a></li>
+<li><a href="#legal">The legal minimum (UK)</a></li>
+<li><a href="#wrong">When something goes wrong</a></li>
+</ol>
+</nav>
+
+<h2 id="how">1. How it works</h2>
+<p>Four parts, each run by a company that does one job well:</p>
+<ol class="flow">
+<li><b>Website.</b> A page about your book with a Buy button. I host mine free on GitHub Pages. Any website works, and Route A works without one.</li>
+<li><b>Checkout.</b> A Stripe Payment Link: a checkout page Stripe hosts for you. It takes the card payment and the delivery address.</li>
+<li><b>The link between them.</b> Route A: you. Route B: a small Cloudflare Worker that hears about each payment and places the print order.</li>
+<li><b>Print on demand.</b> Prodigi prints the book and posts it to your buyer.</li>
+</ol>
+<p><b>Which route?</b> Start with Route A. It takes an afternoon and costs nothing up front. Move to Route B when copying addresses by hand gets tiring, or if you want orders placed while you sleep.</p>
+<p class="note">Other print companies (Blurb, Lulu, Peecho and others) work too. I chose Prodigi for A4 landscape hardcovers with a good paper. The steps here use Prodigi and Stripe because those are the ones I've tested.</p>
+
+<h2 id="before">2. Before you start</h2>
+<h3>Your book file</h3>
+<p>Prodigi's rules for a photo book, as one PDF:</p>
+<ul>
+<li>Page 1 is the front cover. The last page is the back cover. Everything between is the inside of the book.</li>
+<li>Every page is the size of the book. For A4 landscape that's 297 × 210 mm. No bleed and no crop marks: Prodigi adds the bleed.</li>
+<li>An even number of pages, from 24 to 300 (covers included).</li>
+<li>Keep text and faces at least 10 mm from every edge.</li>
+<li>Photos at 300 ppi at the size they print. RGB is fine. Fonts embedded.</li>
+</ul>
+<p>InDesign, Affinity Publisher, Lightroom's Book module (exported as PDF) and Canva can all make this. Check the current specs on the product's page in Prodigi before you export, in case they've changed.</p>
+
+<h3>Accounts</h3>
+<table class="tbl">
+<tr><th>Account</th><th>Route A</th><th>Route B</th><th>Cost</th></tr>
+<tr><td>Stripe (stripe.com)</td><td>yes</td><td>yes</td><td>Free. A fee per sale.</td></tr>
+<tr><td>Prodigi (prodigi.com) with a card added</td><td>yes</td><td>yes</td><td>Free. You pay per book printed.</td></tr>
+<tr><td>Cloudflare (cloudflare.com)</td><td></td><td>yes</td><td>Free plan. R2 storage asks for a card, but 10 GB is free.</td></tr>
+<tr><td>A website</td><td>optional</td><td>optional</td><td>GitHub Pages is free. A domain is about £10 a year.</td></tr>
+</table>
+<p>Stripe asks for ID and your bank details before it pays you out. In the UK you can sign up as an individual (sole trader). Allow a day for checks.</p>
+
+<h2 id="price">3. Set your price</h2>
+<p>Work it out once, on paper, before anything else:</p>
+<div class="sum">
+<p><span>Printing (Prodigi's price for your page count)</span><b>P</b></p>
+<p><span>Prodigi's delivery to your buyer</span><b>D</b></p>
+<p><span>Stripe fee: 1.5% + 20p for a standard UK card</span><b>F</b></p>
+<p><span>What you want to keep</span><b>K</b></p>
+<p class="tot"><span>Book price + delivery charge you set</span><b>P + D + F + K</b></p>
+</div>
+<p><b>Example with made-up numbers:</b> printing £30.00, delivery £6.00, and you want to keep £8.00. That's £44.00 before the fee. Price £46.00 with free delivery, or £40.00 + £6.00 delivery. The fee on £46.00 is about 89p, so you keep about £8.11.</p>
+<ul>
+<li>Get real numbers. In Prodigi, set up your book (step 5) and look at the price it shows for your page count and your buyer's country.</li>
+<li>Cards from outside the UK cost more in Stripe fees. Check Stripe's pricing page.</li>
+<li>If you're not VAT registered, don't add VAT. You only need to register when your turnover goes over the VAT threshold.</li>
+<li>Delivery to other countries costs more, and some countries charge import tax. Start with your own country.</li>
+</ul>
+
+<h2 id="proof">4. Order a proof copy</h2>
+<p>Order one copy for yourself before you sell anything. Screens lie about colour, dark photos print darker, and text near the edge can get cut. Order it the same way your buyers' copies will be made (step 5 below), check every page, fix the file, and order another proof if you changed a lot.</p>
+
+<h2 id="route-a">5. Route A: no code, you place each order</h2>
+<p>Buyer pays on Stripe. Stripe emails you. You copy their address into Prodigi and order the book. About five minutes per order.</p>
+
+<h3>A1. Set up the book in Prodigi</h3>
+<ol class="steps">
+<li>Sign in to the Prodigi dashboard. Add a payment card in the billing settings.</li>
+<li>Start a new order and choose the photo book you want (size, hardcover or softcover, paper).</li>
+<li>Upload your PDF. Prodigi checks the page count and size.</li>
+<li>Type the spine text, and pick its colour and the spine colour.</li>
+<li>Note the price it shows. Use it in your price sum (step 3).</li>
+<li>Put in your own address and order this one as your proof.</li>
+</ol>
+<div class="shot">Screenshot: Prodigi dashboard, new photo book order</div>
+
+<h3>A2. Make the Stripe Payment Link</h3>
+<ol class="steps">
+<li>In Stripe, go to <b>Product catalogue</b> and add a product: your book's name, a photo of the cover, a one-time price.</li>
+<li>Go to <b>Payment Links</b> and create a link for that product.</li>
+<li>Turn on <b>Collect customers' addresses</b>, choose <b>Shipping addresses</b>, and allow only the countries you deliver to.</li>
+<li>Add a <b>shipping rate</b> with your delivery price and the delivery time (Prodigi's time plus a few days).</li>
+<li>Turn on <b>Require customers to provide a phone number</b>. Couriers sometimes need it.</li>
+<li>Turn on <b>Require customers to accept your terms of service</b>. Stripe asks for your terms page link in your public business details first (see section 7).</li>
+<li>Optional: add a custom field, a dropdown asking "Send me news about new books?" with Yes and No. Only email people who said yes.</li>
+<li>Create the link. Copy it. That's your Buy button.</li>
+</ol>
+<div class="shot">Screenshot: Stripe Payment Link options</div>
+<p class="note">Stripe moves menus around now and then. If a name here doesn't match, search for it in the dashboard's search bar.</p>
+
+<h3>A3. Put the Buy button on your website</h3>
+<p>Make a button or a plain link that opens the Payment Link. In Squarespace, Wix or WordPress, add a button block and paste the link. No website yet? Put the link in your Instagram bio or your email signature. It works on its own.</p>
+
+<h3>A4. Test it</h3>
+<ol class="steps">
+<li>In Stripe, switch to <b>test mode</b> (or a sandbox) and make the same Payment Link there.</li>
+<li>Buy with the test card <code>4242 4242 4242 4242</code>, any future expiry date, any 3 digits.</li>
+<li>Check you get the payment email, and that the address and phone show on the payment in Stripe.</li>
+</ol>
+
+<h3>A5. Each time someone buys</h3>
+<ol class="steps">
+<li>Stripe emails you about the payment (turn on emails for successful payments in Stripe's notification settings). Open it in the Stripe dashboard.</li>
+<li>In Prodigi, start a new order with your saved book, and copy in the buyer's name, address, phone and email exactly as Stripe shows them.</li>
+<li>If the order form has a reference field, paste the Stripe payment ID there (starts with <code>pi_</code>), so you can match them later. Otherwise write down both order numbers.</li>
+<li>Submit. Prodigi charges your card and prints.</li>
+</ol>
+<p>Do it the same day if you can. Your delivery time starts when the buyer pays.</p>
+
+<h2 id="route-b">6. Route B: automatic orders</h2>
+<p>Same Payment Link as Route A. The difference: when someone pays, Stripe sends a message to a small program on Cloudflare, called a Worker. The Worker checks the message is real, asks Stripe for the address, and places the Prodigi order. You do nothing.</p>
+<p>You'll copy and paste one file of code. You don't need to understand it. It's about 150 lines and every part has a comment in plain English. <a href="worker-template.js" download>Download the Worker code</a>.</p>
+<p class="note">Do every step below in test mode first: Stripe's test mode and Prodigi's sandbox. Nothing gets printed or charged. Switch to live only at B8.</p>
+
+<h3>B1. Make a Prodigi sandbox key</h3>
+<ol class="steps">
+<li>Prodigi has a separate sandbox dashboard for testing. The link is in Prodigi's API documentation (prodigi.com, Developers). Sign up there too.</li>
+<li>In the sandbox dashboard, find the API key in the settings (look for <b>API</b> or <b>Integrations</b>). Copy it into a password manager.</li>
+<li>Note the product code (SKU) for your book. It's on the product's page in Prodigi, and looks like <code>BOOK-FE-A4-L-HARD-G</code>.</li>
+</ol>
+
+<h3>B2. Put your book file in private storage</h3>
+<ol class="steps">
+<li>In Cloudflare, open <b>R2 Object Storage</b>. Turn it on (it asks for a card; up to 10 GB is free).</li>
+<li><b>Create bucket</b>. Give it any name. Leave public access <b>off</b>.</li>
+<li>Upload your book PDF. Give it a simple name with no spaces, like <code>book.pdf</code>.</li>
+<li>Optional: a spine file. If you leave it out, the spine is plain. If you want text on it, make a PDF exactly the spine's width (Prodigi shows it for your page count) by 210 mm tall, and upload it as <code>spine.pdf</code>.</li>
+</ol>
+<p class="note">The dashboard upload takes files up to 300 MB. A 160-page A4 book at 300 ppi is usually around 200 MB.</p>
+
+<h3>B3. Create the Worker</h3>
+<ol class="steps">
+<li>In Cloudflare, go to <b>Workers &amp; Pages</b>, <b>Create</b>, and start from the "Hello World" Worker. Name it, for example <code>book-shop</code>. Deploy.</li>
+<li>Click <b>Edit code</b>. Delete everything in the editor. Paste the whole Worker file. Click <b>Deploy</b>.</li>
+<li>Note your Worker's address. It ends in <code>.workers.dev</code>.</li>
+</ol>
+<div class="shot">Screenshot: Cloudflare Worker code editor</div>
+
+<h3>B4. Connect the storage</h3>
+<ol class="steps">
+<li>In the Worker, open <b>Settings</b>, then <b>Bindings</b>, <b>Add</b>, <b>R2 bucket</b>.</li>
+<li>Variable name: <code>BOOK</code> (capitals). Bucket: the one from B2. Save.</li>
+</ol>
+
+<h3>B5. Make the Stripe keys</h3>
+<p>Still in Stripe's test mode:</p>
+<ol class="steps">
+<li>Go to <b>Developers</b>, <b>API keys</b>, <b>Create restricted key</b>. Give it two permissions only: <b>Checkout Sessions: Read</b> and <b>PaymentIntents: Write</b>. Everything else stays None. Copy the key (starts <code>rk_test_</code>).</li>
+<li>Go to <b>Developers</b>, <b>Webhooks</b>, and add a destination (an endpoint). URL: your Worker address followed by <code>/stripe-webhook</code>, for example <code>https://book-shop.yourname.workers.dev/stripe-webhook</code>.</li>
+<li>Choose two events: <code>checkout.session.completed</code> and <code>checkout.session.async_payment_succeeded</code>.</li>
+<li>Save, then reveal the <b>signing secret</b> (starts <code>whsec_</code>) and copy it.</li>
+<li>Open your test Payment Link in the Stripe dashboard and copy its ID from the address bar (starts <code>plink_</code>).</li>
+</ol>
+<p class="note">A restricted key can only do what you ticked. If it ever leaks, nobody can use it to refund or move money. Never paste any key into the code itself, a website or a chat.</p>
+
+<h3>B6. Fill in the Worker's settings</h3>
+<p>In the Worker, open <b>Settings</b>, <b>Variables and Secrets</b>. Add each one below. Choose <b>Secret</b> for the first four, so they're stored encrypted and hidden even from you.</p>
+<table class="tbl">
+<tr><th>Name</th><th>Type</th><th>Value</th></tr>
+<tr><td><code>STRIPE_SECRET_KEY</code></td><td>Secret</td><td>the restricted key from B5</td></tr>
+<tr><td><code>STRIPE_WEBHOOK_SECRET</code></td><td>Secret</td><td>the <code>whsec_</code> signing secret</td></tr>
+<tr><td><code>PRODIGI_API_KEY</code></td><td>Secret</td><td>the sandbox key from B1</td></tr>
+<tr><td><code>FILE_SECRET</code></td><td>Secret</td><td>a long random password (40+ characters) from a password manager</td></tr>
+<tr><td><code>PRODIGI_BASE</code></td><td>Text</td><td><code>https://api.sandbox.prodigi.com/v4.0</code></td></tr>
+<tr><td><code>PRODIGI_SKU</code></td><td>Text</td><td>your book's product code</td></tr>
+<tr><td><code>PAGE_COUNT</code></td><td>Text</td><td>pages in your PDF, covers included</td></tr>
+<tr><td><code>BOOK_FILE</code></td><td>Text</td><td><code>book.pdf</code> (the name in R2)</td></tr>
+<tr><td><code>SPINE_FILE</code></td><td>Text</td><td>optional: <code>spine.pdf</code></td></tr>
+<tr><td><code>PAYMENT_LINK_ID</code></td><td>Text</td><td>optional: the <code>plink_</code> ID, so other Stripe sales don't print a book</td></tr>
+</table>
+<p>Deploy again after saving, if the dashboard asks.</p>
+
+<h3>B7. Test it end to end</h3>
+<ol class="steps">
+<li>Open your <b>test</b> Payment Link and buy with <code>4242 4242 4242 4242</code>. Use a real-looking address in your delivery country.</li>
+<li>In Stripe, open <b>Developers</b>, <b>Webhooks</b>, your endpoint. The delivery should show <b>200</b>.</li>
+<li>In Prodigi's sandbox dashboard, the order should be there with the buyer's address.</li>
+<li>Back in Stripe, the payment should show <code>prodigi_order</code> in its metadata.</li>
+<li>From the webhook page, resend the same event. Prodigi should still have one order, not two.</li>
+</ol>
+<p><b>If it fails</b>, the webhook page shows the answer the Worker gave:</p>
+<ul>
+<li><b>400 bad signature</b>: the <code>whsec_</code> secret is wrong, or it's from a different endpoint or mode.</li>
+<li><b>500</b>: open the Worker's <b>Logs</b> in Cloudflare. The line starting <code>FAILED</code> says why. Usual causes: a key from the wrong mode, a wrong SKU or page count, or the R2 binding not named <code>BOOK</code>.</li>
+<li><b>200 "not the book"</b>: <code>PAYMENT_LINK_ID</code> doesn't match the link you bought from.</li>
+</ul>
+
+<h3>B8. Go live</h3>
+<ol class="steps">
+<li>Switch Stripe to live mode. Make the live product, Payment Link, restricted key (<code>rk_live_</code>) and webhook exactly as in test mode.</li>
+<li>Get your live Prodigi API key from the normal dashboard (not the sandbox), with your card added.</li>
+<li>In the Worker, replace the four secrets with the live ones. Change <code>PRODIGI_BASE</code> to <code>https://api.prodigi.com/v4.0</code> and <code>PAYMENT_LINK_ID</code> to the live link.</li>
+<li>Put the live Payment Link on your website.</li>
+<li>Buy one copy yourself with a real card. That's your final test and your proof copy in one.</li>
+</ol>
+<p class="note">If the Worker or Prodigi is down when someone pays, the payment still goes through. Stripe resends the message for up to 3 days and emails you if it keeps failing. The order can't be printed twice.</p>
+
+<h2 id="legal">7. The legal minimum (UK)</h2>
+<p class="note">This is what I did, not legal advice. Check gov.uk for your own case.</p>
+<ul>
+<li><b>A terms page.</b> Before someone buys, they must see who you are, a geographical address, an email, the total price with delivery, delivery times and their right to cancel. Mine is at <a href="/terms/">davidslv.photography/terms</a>; read it as an example.</li>
+<li><b>14 days to cancel.</b> Buyers of a printed book can cancel within 14 days of delivery for any reason, and you refund within 14 days of getting it back.</li>
+<li><b>Faulty items.</b> A damaged or misprinted book gets a refund or replacement. Ask Prodigi's support about misprints and damage in transit, with photos and the order number.</li>
+<li><b>Tax.</b> Tell HMRC you're self-employed if your trading income goes over £1,000 in a tax year. VAT only after your turnover passes the VAT threshold.</li>
+<li><b>Customer data.</b> Use buyers' details to deliver their order. Email them news only if they said yes. The ICO's website has a quick check on whether you need to pay its data protection fee.</li>
+</ul>
+
+<h2 id="wrong">8. When something goes wrong</h2>
+<ul>
+<li><b>A book hasn't arrived.</b> Check the order in Prodigi for tracking. If it's lost, ask Prodigi to reprint. Tell the buyer what's happening the same day.</li>
+<li><b>A book arrived damaged.</b> Ask the buyer for photos of the book and the packaging. Send them to Prodigi's support with the order number.</li>
+<li><b>Payment came in but no print order (Route B).</b> Check Stripe's webhook page and the Worker's logs. Once the problem is fixed, resend the event from Stripe. It can't print twice.</li>
+<li><b>A refund.</b> Refund from the payment page in Stripe. If the book hasn't been printed yet, cancel the order in Prodigi first.</li>
+</ul>
+
+<h2>Questions</h2>
+<p>I can't set things up for you, but if a step here is wrong or out of date, tell me at <a href="mailto:hello@davidslv.photography">hello@davidslv.photography</a> and I'll fix the guide.</p>
+<p>And if you'd like to see what this setup sells: <a href="/sunday/"><em>It Started on a Sunday</em></a>, 72 photographs of car meets in and around London, and the people who love the cars.</p>
+</main>
+
+<footer><nav aria-label="Footer"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav><span>David Silva · London</span><span>All photographs © David Silva. Please ask before using them.</span><a href="https://davidslv.uk/" rel="me">Writing and engineering: davidslv.uk</a></footer>
+<script>// Photo pairs drift a little against each other as you scroll. Nothing else moves.
+(() => {
+  const pairs = [...document.querySelectorAll(".pair")];
+  if (!pairs.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let tick = false;
+  const drift = () => {
+    tick = false;
+    for (const p of pairs) {
+      const r = p.getBoundingClientRect();
+      const t = (innerHeight - r.top) / (innerHeight + r.height);
+      p.style.setProperty("--d", ((Math.min(1, Math.max(0, t)) - .5) * 80).toFixed(1));
+    }
+  };
+  addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(drift); } }, { passive: true });
+  drift();
+})();
+</script>
+</body>
+</html>
