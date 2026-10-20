@@ -193,10 +193,12 @@ def sequence_html(page, meta):
         k = s[0]
         if k == "hero":
             out.append(f'<section class="hero">{picture(s[1], meta, "100vw", eager=True)}'
-                       f'<div class="words"><p class="lbl">{E(page.HERO_LABEL)}</p><h1>{E(page.HERO_TITLE)}</h1></div></section>'
+                       f'<div class="words"><p class="lbl">{E(page.HERO_LABEL)}</p><h1>{E(page.HERO_TITLE)}</h1>{getattr(page, "HERO_EXTRA", "")}</div></section>'
                        '<main id="work">')
         elif k == "part":
             out.append(f'<section class="block part"><p class="lbl">{s[1]}</p><h2>{E(s[2])}</h2>{f'<p class="sub">{E(s[3])}</p>' if s[3] else ''}</section>')
+        elif k == "html":   # a page's own block, e.g. the book offer between parts on /sunday/
+            out.append(s[1])
         elif k == "line":
             out.append(f'<section class="block line"><p>{E(s[1])}</p></section>')
         elif k == "wide":

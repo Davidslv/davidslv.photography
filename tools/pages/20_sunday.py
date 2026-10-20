@@ -64,6 +64,18 @@ PHOTOS = {
     's5291': ph('2026-10-04/DSC_5291', 'A small group still talking in a gravel car park as the meet winds down.', 'Still Talking', '2026-10-04T10:43:00+01:00'),
 }
 
+IG = "https://www.instagram.com/davidslv.photography/"
+GUMROAD = "https://davidslv.gumroad.com/l/it-started-on-a-sunday"
+# Stripe Payment Link for the printed hardcover (live, 14 Oct 2026).
+HARDCOVER = "https://buy.stripe.com/cNiaEQdKGgzY93LcjJb3q00"   # LIVE (test link: https://buy.stripe.com/test_7sY6oA1zLaWCc4Q0G0f7i00)
+
+# Buy points before the end (David, 20 Oct 2026): 11 of 23 visitors never scrolled past the hero, and the only button was at the bottom.
+HERO_EXTRA = (f'<p class="hero-facts">A photo book · 72 photographs · hardcover £44.99</p>'
+              f'<div class="hero-buy"><a class="btn-solid" href="{HARDCOVER}">Buy the hardcover</a><a class="btn-ghost" href="#book">See the book</a></div>')
+MID_BUY = (f'<section class="mid-buy"><p class="lbl">The book</p><p>These photographs come from <em>It Started on a Sunday</em>, a hardcover of 72.</p>'
+           f'<p><a class="btn solid" href="{HARDCOVER}">Buy the hardcover · £44.99</a></p>'
+           f'<p class="note">Or <a href="#book">read about the book</a> first.</p></section>')
+
 SEQUENCE = [
     ("hero", "s3706"),
     ("part", "Part one", "One Sunday", "2 March 2025, Southside Common, Wimbledon Village. From 08:03 to 09:23."),
@@ -75,6 +87,7 @@ SEQUENCE = [
     ("print", "s4138", "centre-small"),
     ("line", "By twenty past nine the fog had burned off and the sun was low and hard across the road."),
     ("wide", "s4476"),
+    ("html", MID_BUY),
     ("part", "Part two", "Other Sundays", "Twelve more mornings and one evening, November 2024 to October 2026."),
     ("print", "s5054", "left"),
     ("print", "s8831", "right-small"),
@@ -90,10 +103,6 @@ SEQUENCE = [
     ("print", "s5291", "centre"),
 ]
 
-IG = "https://www.instagram.com/davidslv.photography/"
-GUMROAD = "https://davidslv.gumroad.com/l/it-started-on-a-sunday"
-# Stripe Payment Link for the printed hardcover (live, 14 Oct 2026).
-HARDCOVER = "https://buy.stripe.com/cNiaEQdKGgzY93LcjJb3q00"   # LIVE (test link: https://buy.stripe.com/test_7sY6oA1zLaWCc4Q0G0f7i00)
 WIDTHS = {"book-cover": (800, 1600), "book-spread-umbrellas": (800, 1600, 2000), "book-spread-show-and-tell": (800, 1600, 2000)}
 
 
@@ -152,7 +161,7 @@ def after(meta):
   <p>72 photographs from fourteen car meets, November 2024 to October 2026. Each one comes with its story, how it was shot, and the KERBSIDE look it was graded with. Five pages go behind the shot and show the frames either side of the one I kept.</p>
   <div class="buy">
     <div><p class="lbl">Hardcover</p><p>A4 landscape, 164 pages, printed to order. £44.99 plus £6.99 UK delivery.</p>
-    <p><a class="btn" href="{HARDCOVER}">Buy the hardcover · £44.99</a></p>
+    <p><a class="btn solid" href="{HARDCOVER}">Buy the hardcover · £44.99</a></p>
     <p class="note">UK delivery only for now. Each copy is printed when you order and posted within 7 to 12 working days. <a style="color:inherit" href="/terms/">Terms of sale</a></p></div>
     <div><p class="lbl">PDF</p><p>The same book as an A4 landscape PDF. £17.99.</p>
     <p><a class="btn" href="{GUMROAD}">Get the PDF · £17.99</a></p>
@@ -174,7 +183,11 @@ def after(meta):
 <div><p class="lbl">More photographs</p><h3><a href="/">From last light to last train</a></h3><p>One Saturday in London, and other nights.</p></div>
 <div><p class="lbl">Presets</p><h3>KERBSIDE</h3><p>The looks this book was graded with. 26 Lightroom presets for car-meet light. <a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE on Gumroad · £8.99</a></p></div>
 <div><p class="lbl">Contact</p><h3>Photographs of your meet</h3><p>I photograph club meets and events. Email for rates.<br><a href="mailto:hello@davidslv.photography">hello@davidslv.photography</a><br><a href="{IG}" rel="me">@davidslv.photography</a></p></div>
-</section>"""
+</section>
+<div class="buybar" id="buybar"><span class="t"><small>The book</small>It Started on a Sunday</span><a class="btn solid" href="{HARDCOVER}">Buy · £44.99</a></div>
+<script>(function(){{var b=document.getElementById("buybar"),hero=document.querySelector(".hero"),book=document.getElementById("book");
+function u(){{b.classList.toggle("on",scrollY>hero.offsetHeight*0.8&&book.getBoundingClientRect().top>innerHeight*0.6);}}
+addEventListener("scroll",u,{{passive:true}});u();}})();</script>"""
 
 
 def extra_jsonld(meta):
