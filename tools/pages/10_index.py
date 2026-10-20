@@ -6,10 +6,10 @@ FULL = P / "Shutter Hub - City Series London (Nov 2026)/_tools/full"
 
 PATH = "/"
 NAV_NAME = "London"
-TITLE = "David Silva · Street photographer in London"
+TITLE = "David Silva · Car and street photographer in London"
 OG_TITLE = "From last light to last train · David Silva"
-DESC = ("Candid street photographs of people in London's light, mostly late in the day and after dark. "
-        "One Saturday, from last light to last train, and other nights.")
+DESC = ("Car and street photographer in London. Owner car shoots, Sunday car meets and events, "
+        "and the city after dark.")
 HERO_LABEL = "Human street moments · London"
 HERO_TITLE = "From last light to last train"
 GALLERY_NAME = "One Saturday and other nights in London"
@@ -66,12 +66,13 @@ EMAIL, IG = "hello@davidslv.photography", "https://www.instagram.com/davidslv.ph
 def after(meta):
     return f"""<section class="about" id="about">
 <img src="/images/{meta['_portrait']}" width="800" height="800" loading="lazy" decoding="async" alt="Portrait of David Silva.">
-<div><p class="lbl">About</p><h2>I photograph people in London’s light.</h2>
-<p>Someone crossing a wet street, waiting in a doorway, laughing on a corner. Mostly late in the day and after dark, with one camera and a 35mm lens.</p>
-<p>On Sunday mornings I photograph the car meets, for the same reason.</p></div></section>
+<div><p class="lbl">About</p><h2>Car and street photographer in London.</h2>
+<p>I photograph cars and the people around them. Owners at Sunday meets, a car on a rooftop after the rain, someone crossing a wet street after dark. One camera, a 35mm lens, mostly late light.</p>
+<p>I’m booked for owner car shoots, meet and event coverage, and prints. By day I’m a software engineer, and I share what works as I build this business, with the real numbers.</p>
+<p>Bookings: <a href="mailto:{EMAIL}">{EMAIL}</a></p></div></section>
 <a class="next" href="/sunday/"><span class="lbl">Next</span><span class="next-title">It Started on a Sunday</span><span class="next-sub">The car meets, and the book out 15 November</span></a>
 <section class="more" id="contact">
 <div><p class="lbl">The book</p><h3><a href="/sunday/"><em>It Started on a Sunday</em></a></h3><p>The car meets in and around London. Out 15 November 2026. <a href="/sunday/">See the photographs</a></p></div>
 <div><p class="lbl">Presets</p><h3>LAST ROLL and KERBSIDE</h3><p>The Lightroom looks I grade with.<br><a href="https://davidslv.gumroad.com/l/last-roll">LAST ROLL · £3.99</a>: eight film looks for photos after dark.<br><a href="https://davidslv.gumroad.com/l/kerbside-preset">KERBSIDE · £8.99</a>: 26 looks for car-meet light.</p></div>
-<div><p class="lbl">Contact</p><h3>Commissions, prints and licensing</h3><p>Ask for prices.<br><a href="mailto:{EMAIL}">{EMAIL}</a><br><a href="{IG}" rel="me">@davidslv.photography</a></p></div>
+<div><p class="lbl">Contact</p><h3>Owner car shoots, events and prints</h3><p>Ask for prices.<br><a href="mailto:{EMAIL}">{EMAIL}</a><br><a href="{IG}" rel="me">@davidslv.photography</a></p></div>
 </section>"""
