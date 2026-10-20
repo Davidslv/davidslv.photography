@@ -602,6 +602,7 @@
         else if (h.startsWith("#")) k = "jump:" + h.slice(1);
         else { try { const u = new URL(h, location.href); k = u.hostname === location.hostname ? "page:" + u.pathname : "out:" + u.hostname; } catch (e) {} }
       }
+      if (k && a.dataset && a.dataset.track) clicks[k + "@" + a.dataset.track] = (clicks[k + "@" + a.dataset.track] || 0) + 1;   // which button: data-track="hero" etc.
       if (k) { clicks[k] = (clicks[k] || 0) + 1; if (k === "buy_hardcover" || k === "get_pdf") send(); }
     }, true);
 
