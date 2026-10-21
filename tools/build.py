@@ -20,7 +20,7 @@ import re
 import subprocess
 import sys
 from concurrent.futures import ProcessPoolExecutor
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 import numpy as np
@@ -246,7 +246,7 @@ def jsonld(page, meta):
     node = {"@type": "CollectionPage", "@id": f"{URL}{page.PATH}#page", "url": f"{URL}{page.PATH}", "name": page.HERO_TITLE,
             "headline": page.HERO_TITLE, "description": page.DESC, "inLanguage": "en-GB", "isPartOf": {"@id": f"{URL}/#site"},
             "author": {"@id": f"{URL}/#david"}, "primaryImageOfPage": {"@id": f"{URL}{page.PATH}#photo-{hero}"},
-            "dateModified": date.today().isoformat()}
+            "dateModified": datetime.now().astimezone().isoformat(timespec="seconds")}
     if page.PATH == "/":
         # The home page is David's own profile: Google's ProfilePage, with the gallery as part of it.
         node.update({"@type": ["ProfilePage", "CollectionPage"], "mainEntity": {"@id": f"{URL}/#david"}, "hasPart": gallery})
@@ -393,7 +393,7 @@ def guide_page():
             "Stripe and Prodigi, with no shop platform and no monthly fee. Two routes: no code, or automatic orders.")
     img = f"{URL}/images/guide-og.jpg"
     ld = json.dumps({"@context": "https://schema.org", "@type": "Article", "headline": title, "description": desc,
-                     "image": img, "url": URL + path, "inLanguage": "en-GB", "dateModified": date.today().isoformat(),
+                     "image": img, "url": URL + path, "inLanguage": "en-GB", "dateModified": datetime.now().astimezone().isoformat(timespec="seconds"),
                      "author": {"@type": "Person", "name": NAME, "url": URL + "/"},
                      "publisher": {"@type": "Person", "name": NAME, "url": URL + "/"}})
     out.write_text(f"""<!doctype html>
