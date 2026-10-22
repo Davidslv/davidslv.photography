@@ -380,6 +380,50 @@ GUIDE_PDF_URL = "https://davidslv.gumroad.com/l/sell-your-photo-book"   # Gumroa
 GUIDE_TEMPLATE = Path.home() / "Documents/cinematic/car-meet-book/shop/guide/worker-template.js"
 
 
+def write_guide(path, title, desc, img, body):
+    """A free how-to page under /guides/: shared head, nav and footer; the body is the page's own HTML."""
+    css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
+    out = SITE / path.strip("/") / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    ld = json.dumps({"@context": "https://schema.org", "@type": "Article", "headline": title, "description": desc,
+                     "image": img, "url": URL + path, "inLanguage": "en-GB", "dateModified": datetime.now().astimezone().isoformat(timespec="seconds"),
+                     "author": {"@type": "Person", "name": NAME, "url": URL + "/"},
+                     "publisher": {"@type": "Person", "name": NAME, "url": URL + "/"}})
+    out.write_text(f"""<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} · {NAME}</title>
+<meta name="description" content="{desc}">
+<link rel="canonical" href="{URL}{path}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{URL}{path}">
+<meta property="og:image" content="{img}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{ld}</script>
+{CF_BEACON}
+<style>{css}</style>
+</head>
+<body class="plain">
+<header class="site"><a class="name" href="/">{NAME}</a>{main_nav(path)}</header>
+{body}
+""" + footer())
+    print("built", out.relative_to(ROOT))
+    return f"<url><loc>{URL}{path}</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
+
+
+def field_guide_page():
+    """/field-guide/: sign-up page for the free Car Meet Field Guide and Quick Cards (lead magnet, 22 Oct 2026)."""
+    return write_guide("/field-guide/", "The Car Meet Field Guide",
+                       "A free 36-page printable field guide and 32 quick cards for your phone: how to plan a car meet, "
+                       "read the light, the angles round every car, and the settings I use.",
+                       f"{URL}/images/field-guide/guide-cover-1920w.jpg", (ROOT / "tools/field_guide_body.html").read_text())
+
+
 def guide_page():
     """/guides/sell-your-photo-book/: free how-to (text page). Body in tools/guide_body.html."""
     css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
@@ -488,6 +532,7 @@ def extras(meta):
         urls.append(f"<url><loc>{URL}{page.PATH}</loc><lastmod>{date.today().isoformat()}</lastmod>{imgs}</url>")
     urls.append(terms_page())
     urls.append(guide_page())
+    urls.append(field_guide_page())
     urls.append(guides_index_page())
     (SITE / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '

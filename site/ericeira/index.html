@@ -73,7 +73,7 @@
    "primaryImageOfPage": {
     "@id": "https://davidslv.photography/ericeira/#photo-e8537"
    },
-   "dateModified": "2026-10-22T15:35:08+01:00",
+   "dateModified": "2026-10-22T21:00:04+01:00",
    "mainEntity": {
     "@type": "ImageGallery",
     "name": "Skimboarding at Ericeira, 26 February 2012",
@@ -738,6 +738,21 @@ nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underl
 .buybar .btn { margin: 0; white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .buybar { transition: none; } }
 .buy .btn { padding: 18px 24px; line-height: 1.2; }
+
+/* /field-guide/ sign-up page (22 Oct 2026): photos break out to 960px; text stays 720px. */
+.fgpage .fig { --w: min(960px, calc(100vw - 2 * clamp(16px, 4vw, 48px))); width: var(--w); margin: 8px 0 22px calc((100% - var(--w)) / 2); }
+.fgpage .fig figcaption { margin: 6px auto 0; max-width: 624px; }
+.fgpage h1, .fgpage h2 { text-wrap: balance; }
+.guide .signup { border: 1px solid #9c4a26; border-radius: 6px; padding: 18px 20px 8px; margin: 28px 0; background: rgba(156,74,38,.05); }
+.guide .signup h2 { margin-top: 0; }
+.guide .cards { display: flex; gap: 14px; justify-content: center; margin: 8px 0 6px; }
+.guide .cards picture { flex: 0 1 200px; }
+.guide .cards img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid rgba(0,0,0,.15); }
+.guide .fgcta { border: 1px solid #9c4a26; border-radius: 6px; padding: 16px 18px; margin: 28px 0; background: rgba(156,74,38,.05); }
+.guide .fgcta .btn { margin-top: 4px; }
+.guide .fgcta.end { text-align: center; padding: 24px 20px; }
+.guide .fgcta.end h2 { margin-top: 0; }
+@media print { .fgpage .fig { width: auto; margin: 8px 0 18px; } }
 </style>
 </head>
 <body>
