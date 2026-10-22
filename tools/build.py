@@ -217,7 +217,7 @@ def person(meta):
     return {"@type": "Person", "@id": f"{URL}/#david", "name": NAME, "url": f"{URL}/",
             "jobTitle": "Street photographer", "image": f"{URL}/images/{meta['_portrait']}", "email": f"mailto:{EMAIL}",
             "address": {"@type": "PostalAddress", "addressLocality": "London", "addressCountry": "GB"},
-            "sameAs": [IG, "https://davidslv.uk/"]}
+            "sameAs": [IG]}
 
 
 def image_objects(page, meta):
@@ -331,11 +331,16 @@ def main_nav(path):
             f'<a href="/#about">About</a></nav>')
 
 
+# Company disclosure required on every page (Trading Disclosures Regulations 2015, regs 24 and 25).
+LEGAL = ("David Silva Photography is a trading name of CARERNOTES LTD, registered in England and Wales, "
+         "company number 16928805. Registered office: 1st Floor 87/89 High Street, Hoddesdon, Herts, EN11 8TL.")
+
+
 def footer():
     js = (ROOT / "tools/site.js").read_text()
     links = "".join(f'<a href="{h}">{n}</a>' for n, h in NAV)
     return (f'<footer><nav aria-label="Footer">{links}</nav><span>{NAME} · London</span><span>All photographs © {NAME}. Please ask before using them.</span>'
-            f'<a href="https://davidslv.uk/" rel="me">Writing and engineering: davidslv.uk</a></footer>\n'
+            f'<span class="legal" style="width:100%;font-size:12px;line-height:1.6">{LEGAL}</span></footer>\n'
             f"<script>{js}</script>\n</body>\n</html>\n")
 
 
