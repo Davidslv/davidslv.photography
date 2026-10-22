@@ -416,6 +416,14 @@ def write_guide(path, title, desc, img, body):
     return f"<url><loc>{URL}{path}</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
 
 
+def flat_guide_page():
+    """/guides/flat-car-meet-photos/: guide A1 (22 Oct 2026). Body in tools/guide_flat_body.html."""
+    return write_guide("/guides/flat-car-meet-photos/", "Why your car meet photos look flat (and the fix)",
+                       "Grey UK mornings make car meet photos dark and flat. Why it happens, and a free six-step fix in "
+                       "Lightroom, with before and after photos from real meets.",
+                       f"{URL}/images/guide/a1/DSC_5226_after_D01.jpg", (ROOT / "tools/guide_flat_body.html").read_text())
+
+
 def field_guide_page():
     """/field-guide/: sign-up page for the free Car Meet Field Guide and Quick Cards (lead magnet, 22 Oct 2026)."""
     return write_guide("/field-guide/", "The Car Meet Field Guide",
@@ -479,17 +487,25 @@ def guides_index_page():
     out = SITE / "guides" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     title = "Guides"
-    desc = "Free how-to guides from David Silva, a London photographer: what I learned making and selling my own photo book."
+    desc = "Free how-to guides from David Silva, a London photographer: editing car meet photos, and making and selling my own photo book."
     cards = f"""<a class="gcard" href="/guides/sell-your-photo-book/">
 <img src="/images/guide-og.jpg" width="1200" height="630" alt="The printed hardcover of It Started on a Sunday on a marble counter.">
 <span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
 <span class="gtitle">Sell your photo book from your own website</span>
 <span class="gdesc">Print on demand with Stripe and Prodigi. No shop platform, no monthly fee, no stock at home. Two routes: no code, or automatic orders with the code ready to copy.</span>
+<span class="gmore">Read the guide</span></span></a>
+<a class="gcard" href="/guides/flat-car-meet-photos/">
+<img src="/images/guide/a1/DSC_5226_after_D01.jpg" width="1200" height="799" alt="A red Ferrari Roma on gravel in front of trees, edited with the method in the guide.">
+<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
+<span class="gtitle">Why your car meet photos look flat (and the fix)</span>
+<span class="gdesc">Grey UK mornings make dark, dull photos. Why it happens, and six steps in Lightroom to fix it, with before and after from real meets.</span>
 <span class="gmore">Read the guide</span></span></a>"""
     ld = json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "description": desc,
                      "url": URL + path, "inLanguage": "en-GB",
                      "hasPart": [{"@type": "Article", "headline": "Sell your photo book from your own website",
-                                  "url": URL + "/guides/sell-your-photo-book/"}]})
+                                  "url": URL + "/guides/sell-your-photo-book/"},
+                                 {"@type": "Article", "headline": "Why your car meet photos look flat (and the fix)",
+                                  "url": URL + "/guides/flat-car-meet-photos/"}]})
     out.write_text(f"""<!doctype html>
 <html lang="en-GB">
 <head>
@@ -514,7 +530,7 @@ def guides_index_page():
 <main id="work" class="terms-page guides">
 <p class="lbl">Guides</p>
 <h1>What I learned, written down</h1>
-<p class="lead">Free how-to guides for photographers, from making and selling my own book. Plain steps, no jargon, checked against the real thing.</p>
+<p class="lead">Free how-to guides for photographers: editing car meet photos, and making and selling my own book. Plain steps, no jargon, checked against the real thing.</p>
 {cards}
 </main>
 """ + footer())
@@ -532,6 +548,7 @@ def extras(meta):
         urls.append(f"<url><loc>{URL}{page.PATH}</loc><lastmod>{date.today().isoformat()}</lastmod>{imgs}</url>")
     urls.append(terms_page())
     urls.append(guide_page())
+    urls.append(flat_guide_page())
     urls.append(field_guide_page())
     urls.append(guides_index_page())
     (SITE / "sitemap.xml").write_text(
