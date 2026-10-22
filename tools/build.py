@@ -346,7 +346,7 @@ def footer():
 
 def render(page, meta):
     if hasattr(page, "render_page"):  # a page with its own design (e.g. /cayman/), still given the site's head tags and nav
-        return page.render_page(meta, {"head": head_tags(page, meta), "nav": NAV, "name": NAME})
+        return page.render_page(meta, {"head": head_tags(page, meta), "nav": NAV, "name": NAME, "legal": LEGAL})
     return "\n".join([head(page, meta), header(page), sequence_html(page, meta), page.after(meta), footer()])
 
 
