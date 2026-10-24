@@ -441,11 +441,21 @@ def website_guide_page():
 
 
 def studio_kit_page():
-    """/studio-kit/: what the Studio Kit is, its price tiers and honest limits (draft 24 Oct 2026). Body in tools/studio_kit_body.html."""
-    return write_guide("/studio-kit/", "Studio Kit: your photography business, set up with Claude",
-                       "Step-by-step guides Claude follows with you to set up a photographer's domain, email, website, "
-                       "mailing list, social posting and shop. 16 modules, built from my own set-up. Opening soon.",
-                       f"{URL}/images/studio-kit/systems-og.jpg", (ROOT / "tools/studio_kit_body.html").read_text())
+    """/studio-kit/: the Studio Kit sales page in the kit's own branding (Fraunces, Inter, ink and gradient). Template tools/studio_kit.html."""
+    ld = json.dumps({"@context": "https://schema.org", "@type": "Product", "name": "Studio Kit",
+                     "description": "Step-by-step guides Claude Code follows with you to set up a creative business: domain, email, "
+                                    "website, Google, mailing list, social posting and shop. 16 modules.",
+                     "image": f"{URL}/images/studio-kit/og.jpg", "url": URL + "/studio-kit/",
+                     "brand": {"@type": "Brand", "name": "Studio Kit"},
+                     "creator": {"@type": "Person", "name": NAME, "url": URL + "/"}})
+    html = (ROOT / "tools/studio_kit.html").read_text()
+    for k, v in {"{{URL}}": URL, "{{LD}}": ld, "{{BEACON}}": CF_BEACON, "{{LEGAL}}": LEGAL}.items():
+        html = html.replace(k, v)
+    out = SITE / "studio-kit" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(html)
+    print("built", out.relative_to(ROOT))
+    return f"<url><loc>{URL}/studio-kit/</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
 
 
 def field_guide_page():

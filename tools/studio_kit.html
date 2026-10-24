@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio Kit: the setup behind this website, for Claude to build yours</title>
+<meta name="description" content="Studio Kit is the setup behind davidslv.photography, written down so Claude Code can build yours: domain, email, website, Google, mailing list, social posting and shop. 16 modules. Opening soon.">
+<link rel="canonical" href="{{URL}}/studio-kit/">
+<meta property="og:type" content="product">
+<meta property="og:title" content="Studio Kit: the setup behind this website, written down so Claude can build yours">
+<meta property="og:description" content="Domain, email, website, Google, mailing list, social posting and shop, set up with Claude in plain English. You approve every step.">
+<meta property="og:url" content="{{URL}}/studio-kit/">
+<meta property="og:image" content="{{URL}}/images/studio-kit/og.jpg">
+<meta property="og:image:alt" content="Studio Kit cover: the wordmark, a terminal window saying Set up my studio, and the chips Domain, Email, Website, Google, Mailing list, Social, Shop.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<script type="application/ld+json">{{LD}}</script>
+{{BEACON}}
+<style>
+:root{--ink:#111315;--ink2:#1b1e22;--paper:#fbf8f3;--muted:#6b6f75;--line:#e6e0d6;--clay:#d9653b;--amber:#f2a541;--rose:#ef5d8f;--plum:#8a4fff;--sea:#2bb3a3;--tan:#e9b98e;
+--grad:linear-gradient(100deg,#f2a541,#d9653b 40%,#ef5d8f 70%,#8a4fff)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.serif{font-family:Fraunces,Georgia,serif;font-weight:300}
+.kicker{font:600 12px/1 Inter;letter-spacing:.2em;text-transform:uppercase}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1,h2,h3{margin:0}
+h2{font:300 clamp(36px,5.4vw,60px)/1 Fraunces,Georgia,serif;letter-spacing:-.025em;margin:14px 0 18px}
+h2 i{font-weight:300}
+.lead{font:300 clamp(19px,2.2vw,23px)/1.4 Fraunces,Georgia,serif;color:var(--muted);max-width:720px;margin:0 0 40px}
+section{padding:96px 0}
+.skip{position:absolute;left:-9999px}.skip:focus{left:16px;top:16px;background:#fff;color:var(--ink);padding:8px 12px;z-index:9}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
+/* top bar */
+.top{position:absolute;inset:0 0 auto 0;z-index:3}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;height:68px}
+.top a{color:#d9d3c9;text-decoration:none;font:500 14px Inter}
+.top a:hover{color:#fff}
+.top nav{display:flex;gap:22px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--ink);color:#f4efe7;padding:150px 0 90px}
+.glow{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none}
+.hero .grid{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.wm{font:300 clamp(64px,9vw,112px)/.86 Fraunces,Georgia,serif;letter-spacing:-.045em;margin:18px 0 26px}
+.wm i{padding-right:.08em}
+.promise{font:300 clamp(26px,3.3vw,38px)/1.15 Fraunces,Georgia,serif;color:#fff;margin:0 0 18px;letter-spacing:-.01em}
+.sub{color:#b9b4ab;font-size:18px;max-width:560px;margin:0 0 34px}
+.btns{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 26px;border-radius:99px;font:600 16px Inter;text-decoration:none}
+.btn.main{background:var(--grad);color:#111315}
+.btn.ghost{border:1px solid #3a3e45;color:#e8e1d6}
+.btn.ghost:hover{border-color:#6b6f75}
+.price-note{margin-top:22px;color:#8f8a82;font-size:14px}
+.price-note b{color:#f4efe7;font-weight:600}
+.term{background:rgba(27,30,34,.94);border:1px solid #2c3036;border-radius:16px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.term .bar{height:34px;background:#24282d;display:flex;align-items:center;gap:8px;padding-left:16px}
+.term .bar i{width:12px;height:12px;border-radius:50%;display:block}
+.term pre{margin:0;padding:22px 26px;font:400 15px/1.75 "JetBrains Mono",monospace;color:#cfc8bd;white-space:pre-wrap}
+.term .say{font:300 30px/1.2 Fraunces,Georgia,serif;color:#fff}
+.chips{position:relative;display:flex;flex-wrap:wrap;gap:10px;margin-top:64px}
+.chip{border:1px solid #3a3e45;border-radius:99px;padding:9px 17px;font:500 14px Inter;color:#d9d3c9;background:rgba(255,255,255,.03)}
+
+/* proof */
+.shot{border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(17,19,21,.16),0 0 0 1px var(--line);background:#fff}
+.shot .bar{height:30px;background:#efe9df;display:flex;align-items:center;gap:7px;padding-left:14px}
+.shot .bar i{width:10px;height:10px;border-radius:50%;background:#d6cfc3;display:block}
+.shot .bar span{margin-left:12px;font:500 12px Inter;color:var(--muted)}
+.shot img{display:block;width:100%;height:auto}
+.proof{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.runs{list-style:none;margin:0;padding:0}
+.runs li{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;padding:15px 0;border-top:1px solid var(--line)}
+.runs li:last-child{border-bottom:1px solid var(--line)}
+.runs b{font-weight:600}
+.runs span{display:block;color:var(--muted);font-size:15px}
+.runs .mod{font:500 13px "JetBrains Mono",monospace;color:var(--clay);white-space:nowrap}
+.note{font-size:14px;color:var(--muted);margin-top:18px}
+
+/* outcomes */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border-radius:18px;padding:30px 28px;box-shadow:0 1px 0 var(--line),0 0 0 1px var(--line)}
+.card .dot{width:42px;height:42px;border-radius:50%;margin-bottom:20px}
+.card h3{font:300 27px/1.1 Fraunces,Georgia,serif;margin-bottom:10px}
+.card p{color:var(--muted);margin:0;font-size:16px}
+
+/* path */
+.path{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:20px 0 70px}
+.path:before{content:"";position:absolute;left:9%;right:9%;top:30px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--amber),var(--clay),var(--rose),var(--plum),var(--sea))}
+.stop{text-align:center;position:relative}
+.stop .n{width:62px;height:62px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font:300 24px Fraunces,serif;color:#fff;box-shadow:0 0 0 6px var(--paper)}
+.stop h3{font:600 16px Inter;margin-bottom:4px}
+.stop p{font-size:14px;color:var(--muted);margin:0 8px;line-height:1.4}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.side{border-radius:18px;padding:32px}
+.side h3{font:300 34px/1 Fraunces,Georgia,serif;margin-bottom:16px}
+.side ul{list-style:none;margin:0;padding:0}
+.side li{padding:12px 0;border-top:1px solid rgba(0,0,0,.08)}
+.side.cl{background:var(--ink);color:#efe9df}.side.cl li{border-color:rgba(255,255,255,.1)}
+.side.you{background:linear-gradient(135deg,#ffd9b8,#ffc3cf)}
+
+/* costs */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tile{background:#fff;border-radius:16px;padding:24px;position:relative;box-shadow:0 1px 0 var(--line),0 0 0 1px var(--line)}
+.tile h3{font:600 17px Inter;margin:0 0 4px;padding-right:90px}
+.tile p{margin:0;color:var(--muted);font-size:15px}
+.tag{position:absolute;top:22px;right:20px;font:600 13px Inter;padding:5px 10px;border-radius:99px;background:#f6efe4}
+.small{font-size:14px;color:var(--muted);margin-top:18px}
+
+/* faq */
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.faq div{padding:22px 0;border-top:1px solid var(--line)}
+.faq h3{font:600 18px Inter;margin-bottom:6px}
+.faq p{margin:0;color:#3d4146}
+
+/* offer */
+.offer{position:relative;overflow:hidden;background:var(--ink);color:#f4efe7}
+.offer .wrap{position:relative}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:10px 0 36px}
+.tier{border:1px solid #2f3339;border-radius:18px;padding:28px;background:rgba(255,255,255,.02)}
+.tier.first{border-color:transparent;background:linear-gradient(#1b1e22,#1b1e22) padding-box,var(--grad) border-box;border:1.5px solid transparent}
+.tier .k{font:600 12px Inter;letter-spacing:.2em;text-transform:uppercase;color:var(--tan)}
+.tier .p{font:300 64px/1 Fraunces,serif;letter-spacing:-.03em;margin:12px 0 6px;color:#fff}
+.tier p{margin:0;color:#a9a49b;font-size:15px}
+.fine{color:#8f8a82;font-size:14px;max-width:760px;margin-top:26px}
+.limits{background:#f3ece1;border-radius:18px;padding:32px 34px}
+.limits h3{font:300 30px/1.1 Fraunces,Georgia,serif;margin-bottom:12px}
+.limits ul{margin:0;padding-left:20px}
+.limits li{margin:6px 0}
+
+footer{background:var(--ink);color:#8f8a82;font-size:13px;padding:40px 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 26px}
+footer a{color:#cfc8bd}
+footer .legal{width:100%;line-height:1.6}
+
+@media (max-width:860px){
+  section{padding:68px 0}
+  .hero{padding:118px 0 64px}
+  .hero .grid,.proof,.split,.faq{grid-template-columns:1fr}
+  .cards,.tiles,.tiers{grid-template-columns:1fr}
+  .path{grid-template-columns:1fr;gap:22px;margin-bottom:48px}
+  .path:before{left:30px;right:auto;top:30px;bottom:30px;width:4px;height:auto;background:linear-gradient(180deg,var(--amber),var(--clay),var(--rose),var(--plum),var(--sea))}
+  .stop{display:grid;grid-template-columns:62px 1fr;gap:16px;text-align:left;align-items:center}
+  .stop .n{margin:0}
+  .stop p{margin:0}
+  .top nav a.hide-s{display:none}
+  .chips{margin-top:44px}
+  .term pre{font-size:13px;padding:18px}
+  .term .say{font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="wrap">
+  <a href="/">David Silva</a>
+  <nav aria-label="Main"><a href="/guides/" class="hide-s">Guides</a><a href="/sunday/" class="hide-s">Book</a><a href="#offer">Price</a></nav>
+</div></header>
+
+<main id="main">
+<section class="hero">
+  <div class="glow" style="width:640px;height:640px;right:-160px;top:-240px;background:radial-gradient(circle,#d9653b,transparent 65%)"></div>
+  <div class="glow" style="width:560px;height:560px;right:22%;top:38%;background:radial-gradient(circle,#8a4fff,transparent 65%);opacity:.55"></div>
+  <div class="glow" style="width:540px;height:540px;left:-240px;bottom:-280px;background:radial-gradient(circle,#f2a541,transparent 65%);opacity:.42"></div>
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="kicker" style="color:var(--tan)">Version 1.0 · For Claude Code · Opening soon</div>
+        <h1 class="wm">Studio<br><i class="grad">Kit.</i></h1>
+        <p class="promise">The setup behind this website, written down so Claude can build yours.</p>
+        <p class="sub">Your domain, email, website, Google, mailing list, social posting and shop, set up with Claude in plain English. You approve every step.</p>
+        <div class="btns">
+          <a class="btn main" href="mailto:hello@davidslv.photography?subject=Studio%20Kit%3A%20tell%20me%20when%20it%20opens">Tell me when it opens</a>
+          <a class="btn ghost" href="#proof">See what it built</a>
+        </div>
+        <p class="price-note"><b>£49 for the first 10 buyers.</b> Then £69, then £129. Prices plus VAT.</p>
+      </div>
+      <div class="term" aria-hidden="true">
+        <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
+<pre><span style="color:#f2a541">&gt;</span> <span class="say">Set up my studio.</span>
+
+<span style="color:#7d8188">Checking your setup…</span>
+<span style="color:#2bb3a3">✓</span> Claude Code ready
+<span style="color:#7d8188">Let's start with a few questions</span>
+<span style="color:#7d8188">about your work.</span>
+
+<span style="color:#e9b98e">1.</span> What do you make?
+<span style="color:#e9b98e">2.</span> Who buys it?
+<span style="color:#e9b98e">3.</span> What do you have already?</pre>
+      </div>
+    </div>
+    <div class="chips"><span class="chip">Domain</span><span class="chip">Email</span><span class="chip">Website</span><span class="chip">Google</span><span class="chip">Mailing list</span><span class="chip">Social</span><span class="chip">Shop</span></div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--clay)">The proof</div>
+    <h2>This website came first. <i>The kit is how.</i></h2>
+    <p class="lead">I set up my own photography business with Claude, then wrote every step down so Claude can repeat it for you. Everything below is live. Click it and check.</p>
+    <div class="proof">
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span>davidslv.photography</span></div>
+        <img src="/images/guide/b2/home.jpg" width="1200" height="750" alt="The home page of davidslv.photography: two women smiling on a London street at night, with the line From last light to last train." loading="lazy" decoding="async"></div>
+      <ul class="runs">
+        <li><div><b><a href="/">This website</a></b><span>Static, fast, AVIF photos, £0 hosting</span></div><span class="mod">04 Website</span></li>
+        <li><div><b>davidslv.photography</b><span>The domain, on Cloudflare</span></div><span class="mod">01 Domain</span></li>
+        <li><div><b><a href="mailto:hello@davidslv.photography">hello@davidslv.photography</a></b><span>Business email in Gmail</span></div><span class="mod">02 Email</span></li>
+        <li><div><b>Colours, fonts, logo, signature</b><span>One brand everywhere</span></div><span class="mod">03 Brand</span></li>
+        <li><div><b><a href="/guides/">Guides that Google finds</a></b><span>Search Console, share cards, sitemap</span></div><span class="mod">05 Search</span></li>
+        <li><div><b><a href="/field-guide/">Free field guide by email</a></b><span>Sign-up and welcome emails</span></div><span class="mod">06 Mailing list</span></li>
+        <li><div><b><a href="https://www.instagram.com/davidslv.photography/">Instagram and YouTube</a></b><span>Posts and Reels, scheduled</span></div><span class="mod">07 Social</span></li>
+        <li><div><b><a href="/sunday/">The hardcover book shop</a></b><span>Card payments, printed and posted for me</span></div><span class="mod">08 + 10</span></li>
+        <li><div><b>Presets and downloads</b><span>Sold on Gumroad</span></div><span class="mod">09 Downloads</span></li>
+        <li><div><b>Comment a word, get the link</b><span>Automatic Instagram DMs</span></div><span class="mod">12 Messages</span></li>
+        <li><div><b>Business cards, quotes, invoices</b><span>Made from my brand</span></div><span class="mod">11 Stationery</span></li>
+      </ul>
+    </div>
+    <p class="note">The kit's website starter is a cleaner rewrite of this site's build, tested with sample photos. Your site is built in your own brand, not a copy of mine.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--clay)">What you get</div>
+    <h2>Three things <i>you'll have.</i></h2>
+    <div class="cards">
+      <div class="card"><div class="dot" style="background:var(--amber)"></div><h3>Your own name online</h3><p>A domain, a hello@ email, your brand, and a fast website Google can find.</p></div>
+      <div class="card"><div class="dot" style="background:var(--rose)"></div><h3>People who come back</h3><p>A mailing list with welcome emails, scheduled posts, and replies to DMs.</p></div>
+      <div class="card"><div class="dot" style="background:var(--plum)"></div><h3>A way to get paid</h3><p>Card payments, downloads, prints, and quotes and invoices.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#f6f1e9">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--clay)">How it works</div>
+    <h2>Claude interviews you. <i>Then you build.</i></h2>
+    <p class="lead">Unzip the folder, open the Start here guide, and type one sentence. Claude asks about your work and suggests an order. You can say no to anything.</p>
+    <div class="path">
+      <div class="stop"><div class="n" style="background:var(--amber)">1</div><div><h3>Foundations</h3><p>Claude Code, domain, hello@ email</p></div></div>
+      <div class="stop"><div class="n" style="background:var(--clay)">2</div><div><h3>Be seen</h3><p>Brand, website, Google</p></div></div>
+      <div class="stop"><div class="n" style="background:var(--rose)">3</div><div><h3>Keep in touch</h3><p>Mailing list, social, messages</p></div></div>
+      <div class="stop"><div class="n" style="background:var(--plum)">4</div><div><h3>Get paid</h3><p>Payments, downloads, prints, stationery</p></div></div>
+      <div class="stop"><div class="n" style="background:var(--sea)">5</div><div><h3>Keep going</h3><p>A weekly routine</p></div></div>
+    </div>
+    <div class="split">
+      <div class="side cl"><h3>Claude does</h3><ul><li>Website code and images</li><li>DNS records and settings</li><li>Checks after every step</li><li>Drafts of posts and replies</li></ul></div>
+      <div class="side you"><h3>You do</h3><ul><li>Sign-ups and log-ins</li><li>Anything that costs money</li><li>Say yes before anything goes public</li><li>Tell Claude about your work</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker" style="color:var(--clay)">What it costs to run</div>
+    <h2>No shop plan. <i>No surprises.</i></h2>
+    <p class="lead">The kit sets up the services. These are what you'd pay for them. Most modules are free, or only charge when you sell.</p>
+    <div class="tiles">
+      <div class="tile"><span class="tag">~$20/mo</span><h3>Claude Pro or Max</h3><p>Claude Code comes with it.</p></div>
+      <div class="tile"><span class="tag">£10–40/yr</span><h3>A domain</h3><p>yourname.com. Claude helps you buy it.</p></div>
+      <div class="tile"><span class="tag">£0</span><h3>Website hosting</h3><p>On GitHub Pages, with the padlock.</p></div>
+      <div class="tile"><span class="tag">~£7/mo</span><h3>Google Workspace</h3><p>Recommended for hello@. £5.90 a month on a yearly plan you can't cancel early.</p></div>
+      <div class="tile"><span class="tag">Per sale</span><h3>Payments and downloads</h3><p>Stripe and Gumroad take a fee when you sell.</p></div>
+      <div class="tile"><span class="tag">12–20 hrs</span><h3>Your time</h3><p>For the basics, at your own pace.</p></div>
+    </div>
+    <p class="small">Prices checked October 2026, before VAT. Claude re-checks each one when you get there. Optional extras, only if you choose them: social scheduling and automatic DMs.</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--clay)">Questions</div>
+    <h2>Straight <i>answers.</i></h2>
+    <div class="faq">
+      <div><h3>I'm not technical. Is it for me?</h3><p>You need to copy, paste and click Approve. Claude does the code, the DNS records and the checks, and tells you exactly where to click for the rest.</p></div>
+      <div><h3>Do I need to code?</h3><p>No. The step-by-step instructions are written for Claude. You never have to read them.</p></div>
+      <div><h3>What if Claude gets something wrong?</h3><p>It asks before every change, and nothing goes public, costs money or gets sent without your yes. Each module lists known problems and their fixes. Passwords never go in the kit folder.</p></div>
+      <div><h3>Mac only?</h3><p>It's tested on a Mac. The Windows steps are written but untested, and the kit says so.</p></div>
+      <div><h3>I'm not a photographer.</h3><p>It was built by a photographer for any solo creative: illustration, music, ceramics, writing, video. The interview adapts to your work.</p></div>
+      <div><h3>Is it a course?</h3><p>No videos to sit through. It's a folder of guides that Claude follows with you, one module at a time, until each part is live.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="offer" id="offer">
+  <div class="glow" style="width:560px;height:560px;left:-200px;bottom:-240px;background:radial-gradient(circle,#8a4fff,transparent 65%);opacity:.5"></div>
+  <div class="glow" style="width:520px;height:520px;right:-180px;top:-200px;background:radial-gradient(circle,#d9653b,transparent 65%);opacity:.5"></div>
+  <div class="wrap">
+    <div class="kicker" style="color:var(--tan)">Opening soon</div>
+    <h2 style="color:#fff">A founding price <i class="grad">for the first 10.</i></h2>
+    <div class="tiers">
+      <div class="tier first"><div class="k">Buyers 1 to 10</div><div class="p">£49</div><p>The founding price.</p></div>
+      <div class="tier"><div class="k">Buyers 11 to 20</div><div class="p">£69</div><p>Then the price goes up.</p></div>
+      <div class="tier"><div class="k">After that</div><div class="p">£129</div><p>The full price.</p></div>
+    </div>
+    <div class="btns"><a class="btn main" href="mailto:hello@davidslv.photography?subject=Studio%20Kit%3A%20tell%20me%20when%20it%20opens">Tell me when it opens</a></div>
+    <p class="fine">Prices plus VAT where it applies (a UK buyer pays £58.80 for the founding price). It isn't on sale yet. It's a download you get straight away, so there are no refunds for change of mind. Your legal rights aren't affected: if the files are faulty or not as described, I'll put it right with a fix, a replacement or a refund.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="limits">
+      <h3>Before you buy</h3>
+      <ul>
+        <li>Tested by one person, me, on a Mac, in October 2026. Not yet used by outside buyers.</li>
+        <li>Some modules are only partly tested. The roadmap in the kit says which, step by step.</li>
+        <li>The website starter is new and tested with sample photos only.</li>
+        <li>Written for the UK first. For tax and consumer law elsewhere, Claude checks your local rules on official sites.</li>
+        <li>It sets up the tools. It doesn't make your work, and it doesn't promise sales, bookings or followers.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <a href="/">davidslv.photography</a><a href="/guides/">Guides</a><a href="/terms/">Terms</a><a href="mailto:hello@davidslv.photography">hello@davidslv.photography</a>
+  <span class="legal">{{LEGAL}}</span>
+</div></footer>
+</body>
+</html>
