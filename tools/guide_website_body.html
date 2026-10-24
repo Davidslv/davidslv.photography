@@ -44,8 +44,8 @@
 <li><b>Write the build script.</b> One Python script, no framework: it reads a list of photos and their descriptions, makes the image sizes, and writes each page. This is the part I built with Claude.</li>
 <li><b>Preview on your own computer</b> before anything goes online.</li>
 <li><b>Turn on Pages:</b> repository Settings, Pages, deploy with GitHub Actions. A short workflow file checks the build and publishes the <code>site</code> folder whenever you push to the main branch.</li>
+<li><b>Verify the domain first</b> in your GitHub account settings (Settings, Pages, Add a domain). GitHub gives you one TXT record to add in Cloudflare. This stops anyone else claiming your domain for their own Pages site.</li>
 <li><b>Connect your domain.</b> In Pages settings, add your domain. In Cloudflare DNS, add GitHub's four A records and four AAAA records for the root, and a CNAME for www pointing to yourname.github.io. Then tick <b>Enforce HTTPS</b>.</li>
-<li><b>Verify the domain</b> in your GitHub account settings, so nobody else can claim it for their own Pages site.</li>
 </ol>
 <p>GitHub's addresses change rarely, but check their current list in the GitHub Pages docs before you add them.</p>
 

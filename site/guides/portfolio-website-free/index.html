@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://davidslv.photography/images/guide/b2/home.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "A photography portfolio website for \u00a30 a month", "description": "How this photography site runs on GitHub Pages for \u00a30 a month, on its own domain: the costs, the steps, fast photos that stay yours, and what it can't do.", "image": "https://davidslv.photography/images/guide/b2/home.jpg", "url": "https://davidslv.photography/guides/portfolio-website-free/", "inLanguage": "en-GB", "dateModified": "2026-10-24T18:34:49+01:00", "author": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}, "publisher": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "A photography portfolio website for \u00a30 a month", "description": "How this photography site runs on GitHub Pages for \u00a30 a month, on its own domain: the costs, the steps, fast photos that stay yours, and what it can't do.", "image": "https://davidslv.photography/images/guide/b2/home.jpg", "url": "https://davidslv.photography/guides/portfolio-website-free/", "inLanguage": "en-GB", "dateModified": "2026-10-24T19:43:49+01:00", "author": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}, "publisher": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}}</script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5049d2f041d46859a41276d44ddba33"}'></script><script>/* Anonymous reading stats for this site (site-stats Worker). No cookies, nothing stored on the device,
    no IP kept. Skipped for browsers sending Global Privacy Control or Do Not Track, and for automation. */
 (() => {
@@ -433,8 +433,8 @@ nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underl
 <li><b>Write the build script.</b> One Python script, no framework: it reads a list of photos and their descriptions, makes the image sizes, and writes each page. This is the part I built with Claude.</li>
 <li><b>Preview on your own computer</b> before anything goes online.</li>
 <li><b>Turn on Pages:</b> repository Settings, Pages, deploy with GitHub Actions. A short workflow file checks the build and publishes the <code>site</code> folder whenever you push to the main branch.</li>
+<li><b>Verify the domain first</b> in your GitHub account settings (Settings, Pages, Add a domain). GitHub gives you one TXT record to add in Cloudflare. This stops anyone else claiming your domain for their own Pages site.</li>
 <li><b>Connect your domain.</b> In Pages settings, add your domain. In Cloudflare DNS, add GitHub's four A records and four AAAA records for the root, and a CNAME for www pointing to yourname.github.io. Then tick <b>Enforce HTTPS</b>.</li>
-<li><b>Verify the domain</b> in your GitHub account settings, so nobody else can claim it for their own Pages site.</li>
 </ol>
 <p>GitHub's addresses change rarely, but check their current list in the GitHub Pages docs before you add them.</p>
 
