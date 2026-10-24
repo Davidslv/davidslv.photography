@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://davidslv.photography/images/guide/b2/home.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "A photography portfolio website for \u00a30 a month", "description": "How this photography site runs on GitHub Pages for \u00a30 a month, on its own domain: the costs, the steps, fast photos that stay yours, and what it can't do.", "image": "https://davidslv.photography/images/guide/b2/home.jpg", "url": "https://davidslv.photography/guides/portfolio-website-free/", "inLanguage": "en-GB", "dateModified": "2026-10-24T19:43:49+01:00", "author": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}, "publisher": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "A photography portfolio website for \u00a30 a month", "description": "How this photography site runs on GitHub Pages for \u00a30 a month, on its own domain: the costs, the steps, fast photos that stay yours, and what it can't do.", "image": "https://davidslv.photography/images/guide/b2/home.jpg", "url": "https://davidslv.photography/guides/portfolio-website-free/", "inLanguage": "en-GB", "dateModified": "2026-10-24T19:56:45+01:00", "author": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}, "publisher": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}}</script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5049d2f041d46859a41276d44ddba33"}'></script><script>/* Anonymous reading stats for this site (site-stats Worker). No cookies, nothing stored on the device,
    no IP kept. Skipped for browsers sending Global Privacy Control or Do Not Track, and for automation. */
 (() => {
@@ -401,7 +401,7 @@ nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underl
 <li><a href="#cost">What it costs</a></li>
 <li><a href="#how">How it works</a></li>
 <li><a href="#steps">The steps</a></li>
-<li><a href="#photos">Photos that load fast and stay yours</a></li>
+<li><a href="#photos">Photos that load fast, and links that share well</a></li>
 <li><a href="#limits">What it can't do</a></li>
 </ol>
 </nav>
@@ -430,22 +430,33 @@ nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underl
 <li><b>A GitHub account.</b> Sign up with your business email and turn on two-factor sign-in. Keep your personal email private in GitHub's settings.</li>
 <li><b>A repository</b> named after your domain, set to public. It holds the build script, your text, and the built site in a folder called <code>site</code>.</li>
 <li><b>Choose your pages.</b> Mine: the work, the book, guides, about, terms. Keep it to your best 12 to 30 photos to start.</li>
-<li><b>Write the build script.</b> One Python script, no framework: it reads a list of photos and their descriptions, makes the image sizes, and writes each page. This is the part I built with Claude.</li>
+<li><b>Write the build script.</b> One Python script, no framework: it reads a list of photos and their descriptions, makes the image sizes, and writes each page. This is the part I built with Claude. A good first ask: <i>"Write one Python script that turns my photos folder into a portfolio site: a work page, an about page and a contact link. Save every photo in three sizes, as AVIF with a JPEG fallback, remove the location data, and add my copyright. No framework."</i> Then ask for changes in plain words, one at a time.</li>
 <li><b>Preview on your own computer</b> before anything goes online.</li>
 <li><b>Turn on Pages:</b> repository Settings, Pages, deploy with GitHub Actions. A short workflow file checks the build and publishes the <code>site</code> folder whenever you push to the main branch.</li>
 <li><b>Verify the domain first</b> in your GitHub account settings (Settings, Pages, Add a domain). GitHub gives you one TXT record to add in Cloudflare. This stops anyone else claiming your domain for their own Pages site.</li>
 <li><b>Connect your domain.</b> In Pages settings, add your domain. In Cloudflare DNS, add GitHub's four A records and four AAAA records for the root, and a CNAME for www pointing to yourname.github.io. Then tick <b>Enforce HTTPS</b>.</li>
 </ol>
-<p>GitHub's addresses change rarely, but check their current list in the GitHub Pages docs before you add them.</p>
+<p>These are the records on my domain today, read from public DNS. In Cloudflare, set each one to <b>DNS only</b> (the grey cloud), not proxied.</p>
+<table class="tbl">
+<thead><tr><th>Type</th><th>Name</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>A</td><td><code>@</code></td><td><code>185.199.108.153</code><br><code>185.199.109.153</code><br><code>185.199.110.153</code><br><code>185.199.111.153</code></td></tr>
+<tr><td>AAAA</td><td><code>@</code></td><td><code>2606:50c0:8000::153</code><br><code>2606:50c0:8001::153</code><br><code>2606:50c0:8002::153</code><br><code>2606:50c0:8003::153</code></td></tr>
+<tr><td>CNAME</td><td><code>www</code></td><td><code>yourname.github.io</code></td></tr>
+</tbody>
+</table>
+<p>Checked October 2026. GitHub changes these rarely, but check the current list in the <a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site">GitHub Pages docs</a> before you add them. The padlock can take from a few minutes to 24 hours to appear; until then, <b>Enforce HTTPS</b> stays greyed out.</p>
 
 <figure class="fig"><img src="/images/guide/b2/sunday.jpg" width="1200" height="750" alt="The photo book page on davidslv.photography: owners standing round a vintage open car on a frosty morning, with buttons to buy the hardcover." loading="lazy" decoding="async"><figcaption>A page for my photo book, on the same free site. The shop itself runs through Stripe, not GitHub.</figcaption></figure>
 
-<h2 id="photos">5. Photos that load fast and stay yours</h2>
+<h2 id="photos">5. Photos that load fast and stay yours, and links that share well</h2>
 <ul>
 <li><b>Three sizes of every photo</b> (around 640, 1200 and 2000 pixels wide), so phones don't download a huge file. The largest is too small for a good print, which protects your work.</li>
 <li><b>Two formats:</b> AVIF, which is small, with JPEG as a fallback for older browsers.</li>
-<li><b>Location data removed.</b> Re-saving the photos drops the GPS and camera serial number from the originals.</li>
+<li><b>Location data removed.</b> Re-saving the photos drops the GPS and camera serial number from the web copies. Your originals stay as they are.</li>
 <li><b>Your name added back:</b> creator, credit and copyright written into each web JPEG.</li>
+<li><b>Link previews.</b> Each page carries Open Graph tags (a title, a short description and one photo), so a link shared in WhatsApp, iMessage or LinkedIn shows a proper card instead of a bare address. Facebook's <a href="https://developers.facebook.com/tools/debug/">Sharing Debugger</a> shows what the card will look like.</li>
+<li><b>Facts for search engines (JSON-LD).</b> A small hidden block on each page says who I am, what the site is, and who took and owns each photo. Google reads it; visitors don't see it. Google's <a href="https://search.google.com/test/rich-results">Rich Results Test</a> checks it.</li>
 <li><b>Proper descriptions (alt text)</b> on every photo, which helps people using screen readers and helps Google understand the page.</li>
 </ul>
 
