@@ -55,6 +55,8 @@
 <li>Gmail sends a confirmation to hello@, which lands in the same inbox. Click the link.</li>
 <li>Back in Accounts and Import: make hello@ the default if the account is mainly for the business, and choose <b>Reply from the same address the message was sent to</b>.</li>
 </ol>
+<figure class="fig"><img src="/images/guide/b1/gmail-1-address.jpg" width="1200" height="429" alt="Gmail's Add another email address window: name David Silva, address hello@davidslv.photography, Treat as an alias ticked." loading="lazy" decoding="async"><figcaption>Step 3: your name, the business address, and Treat as an alias ticked.</figcaption></figure>
+<figure class="fig"><img src="/images/guide/b1/gmail-2-smtp-prefilled.jpg" width="1200" height="469" alt="Gmail's SMTP server screen pre-filled with route3.mx.cloudflare.net and the username hello, which are wrong." loading="lazy" decoding="async"><figcaption>Step 4: what Gmail fills in for you. Both the server and the username are wrong. Replace every field.</figcaption></figure>
 <p>The app password opens your whole Gmail account, not only sending. Keep it private, and delete it on the same page if you ever stop using the alias.</p>
 
 <h2 id="tidy">5. Part 3: a label, a signature and a DNS tidy</h2>
@@ -64,6 +66,8 @@
 <li><b>SPF:</b> your domain must have exactly one TXT record starting <code>v=spf1</code>. Make it include both Cloudflare and Google: <code>v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all</code>. Two SPF records break mail for both.</li>
 <li><b>DMARC:</b> add a TXT record on <code>_dmarc</code> with <code>v=DMARC1; p=none;</code>. It only reports; it blocks nothing.</li>
 </ul>
+<figure class="fig"><img src="/images/guide/b1/gmail-4-filter.jpg" width="1200" height="1040" alt="Gmail's filter options for mail to hello@davidslv.photography: apply a label, never send it to Spam, always mark it as important." loading="lazy" decoding="async"><figcaption>The filter: the address goes in To, then a label and Never send it to Spam.</figcaption></figure>
+<figure class="fig"><img src="/images/guide/b1/gmail-5-signature.jpg" width="1200" height="526" alt="Gmail signature settings with a business signature set as the default for hello@davidslv.photography." loading="lazy" decoding="async"><figcaption>The signature, set as the default for hello@ only.</figcaption></figure>
 <p>Last test: send to hello@ from another account, reply, and check the reply arrives from hello@, with your signature, and not in spam. Try one Gmail and one Outlook address.</p>
 
 <h2 id="problems">6. Problems I hit</h2>
@@ -73,6 +77,7 @@
 <li><b>The filter caught nothing.</b> I'd put the address in From. It has to go in To.</li>
 <li><b>A DNS check said the record didn't exist.</b> A lookup made just before adding it was cached. It sorted itself out in a few minutes.</li>
 </ul>
+<figure class="fig"><img src="/images/guide/b1/gmail-3-popup-error.jpg" width="1200" height="521" alt="A Gmail page saying Temporary Error (404)." loading="lazy" decoding="async"><figcaption>The 404 I got after leaving the pop-up open while making the app password.</figcaption></figure>
 
 <h2 id="limits">7. When to pay for Workspace instead</h2>
 <p>This setup is right for one person writing one-to-one emails to clients. If you send to lots of people, need several team addresses, or your replies start landing in spam, Google Workspace (paid, per user) signs mail properly for your domain. For a mailing list, use a newsletter tool instead; I use Sender.</p>

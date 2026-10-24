@@ -429,7 +429,7 @@ def email_guide_page():
     return write_guide("/guides/business-email-free/", "A business email on your own domain, free (Gmail + Cloudflare)",
                        "How to get hello@yourdomain for free: Cloudflare Email Routing forwards it to Gmail, and Gmail's "
                        "Send mail as replies from it. Step by step, with the problems I hit.",
-                       f"{URL}/og.jpg", (ROOT / "tools/guide_email_body.html").read_text())
+                       f"{URL}/images/guide/b1/gmail-1-address.jpg", (ROOT / "tools/guide_email_body.html").read_text())
 
 
 def field_guide_page():
