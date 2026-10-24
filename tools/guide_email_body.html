@@ -62,11 +62,21 @@
 <h2 id="tidy">5. Part 3: a label, a signature and a DNS tidy</h2>
 <ul>
 <li><b>A label:</b> in Gmail search, open the search options, put hello@yourdomain in <b>To</b> (not From), Create filter, apply a label with your business name, and tick "Never send it to Spam".</li>
-<li><b>A signature:</b> name, what you do and where, email, website, one social handle. Set it as the default for hello@ only.</li>
+<li><b>A signature:</b> the steps are below.</li>
 <li><b>SPF:</b> your domain must have exactly one TXT record starting <code>v=spf1</code>. Make it include both Cloudflare and Google: <code>v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all</code>. Two SPF records break mail for both.</li>
 <li><b>DMARC:</b> add a TXT record on <code>_dmarc</code> with <code>v=DMARC1; p=none;</code>. It only reports; it blocks nothing.</li>
 </ul>
 <figure class="fig"><img src="/images/guide/b1/gmail-4-filter.jpg" width="1200" height="1040" alt="Gmail's filter options for mail to hello@davidslv.photography: apply a label, never send it to Spam, always mark it as important." loading="lazy" decoding="async"><figcaption>The filter: the address goes in To, then a label and Never send it to Spam.</figcaption></figure>
+<h3>The signature, step by step</h3>
+<ol class="flow">
+<li><b>Write it.</b> Three or four short lines: your name, what you do and where, your email, your website, one or two social handles. Mine: David Silva, Photographer, London, hello@davidslv.photography, https://davidslv.photography, Instagram and YouTube.</li>
+<li><b>A logo, if you have one.</b> A PNG about 200 px wide on a white background, so it still reads when someone's email is in dark mode.</li>
+<li>Gmail, the cog, <b>See all settings</b>, <b>General</b>, <b>Signature</b>, <b>Create new</b>. Name it after your business and paste the text.</li>
+<li>For the logo: <b>Insert image</b>, <b>Upload</b>, choose the PNG. Upload it rather than pasting a web link. If it shows too big, click it and pick <b>Small</b> or <b>Medium</b>.</li>
+<li><b>Signature defaults:</b> pick hello@ in the address list, and choose your business signature for both <b>For new emails use</b> and <b>On reply/forward use</b>. Then pick your Gmail address and set <b>No signature</b>, or your personal one.</li>
+<li>Tick <b>Insert signature before quoted text in replies and remove the "--" line</b>, scroll to the bottom and <b>Save Changes</b>.</li>
+<li>On the phone, the Gmail app has its own signature setting. Send yourself a test from the phone too.</li>
+</ol>
 <figure class="fig"><img src="/images/guide/b1/gmail-5-signature.jpg" width="1200" height="526" alt="Gmail signature settings with a business signature set as the default for hello@davidslv.photography." loading="lazy" decoding="async"><figcaption>The signature, set as the default for hello@ only.</figcaption></figure>
 <p>Last test: send to hello@ from another account, reply, and check the reply arrives from hello@, with your signature, and not in spam. Try one Gmail and one Outlook address.</p>
 
