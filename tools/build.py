@@ -432,6 +432,14 @@ def email_guide_page():
                        f"{URL}/images/guide/b1/gmail-1-address.jpg", (ROOT / "tools/guide_email_body.html").read_text())
 
 
+def website_guide_page():
+    """/guides/portfolio-website-free/: guide B2 (24 Oct 2026). Body in tools/guide_website_body.html."""
+    return write_guide("/guides/portfolio-website-free/", "A photography portfolio website for £0 a month",
+                       "How this photography site runs on GitHub Pages for £0 a month, on its own domain: the costs, the "
+                       "steps, fast photos that stay yours, and what it can't do.",
+                       f"{URL}/images/guide/b2/home.jpg", (ROOT / "tools/guide_website_body.html").read_text())
+
+
 def field_guide_page():
     """/field-guide/: sign-up page for the free Car Meet Field Guide and Quick Cards (lead magnet, 22 Oct 2026)."""
     return write_guide("/field-guide/", "The Car Meet Field Guide",
@@ -508,6 +516,12 @@ def guides_index_page():
 <span class="gtitle">Why your car meet photos look flat (and the fix)</span>
 <span class="gdesc">Grey UK mornings make dark, dull photos. Why it happens, and six steps in Lightroom to fix it, with before and after from real meets.</span>
 <span class="gmore">Read the guide</span></span></a>
+<a class="gcard" href="/guides/portfolio-website-free/">
+<img src="/images/guide/b2/home.jpg" width="1200" height="750" alt="The home page of davidslv.photography.">
+<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
+<span class="gtitle">A photography portfolio website for £0 a month</span>
+<span class="gdesc">GitHub Pages on your own domain: the costs, the steps, fast photos that stay yours, and the catch.</span>
+<span class="gmore">Read the guide</span></span></a>
 <a class="gcard" href="/guides/business-email-free/">
 <span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
 <span class="gtitle">A business email on your own domain, free</span>
@@ -563,6 +577,7 @@ def extras(meta):
     urls.append(guide_page())
     urls.append(flat_guide_page())
     urls.append(email_guide_page())
+    urls.append(website_guide_page())
     urls.append(field_guide_page())
     urls.append(guides_index_page())
     (SITE / "sitemap.xml").write_text(

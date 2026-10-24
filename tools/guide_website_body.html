@@ -1,0 +1,75 @@
+<main id="work" class="terms-page guide">
+<p class="lbl">Free guide · last checked October 2026</p>
+<h1>A photography portfolio website for £0 a month</h1>
+<p class="lead">This website costs me nothing a month to host. No Squarespace, no Wix, no Shopify plan. It runs on GitHub Pages, on my own domain, and the only bill is the domain itself. Here's how it's set up, what it can and can't do, and the catch.</p>
+
+<figure class="fig"><img src="/images/guide/b2/home.jpg" width="1200" height="750" alt="The home page of davidslv.photography: two women smiling on a London street at night, with the line From last light to last train." loading="eager" decoding="async"><figcaption>This site, hosted on GitHub Pages for £0 a month.</figcaption></figure>
+
+<nav class="toc" aria-label="Contents">
+<p class="lbl">Contents</p>
+<ol>
+<li><a href="#catch">The catch first</a></li>
+<li><a href="#cost">What it costs</a></li>
+<li><a href="#how">How it works</a></li>
+<li><a href="#steps">The steps</a></li>
+<li><a href="#photos">Photos that load fast and stay yours</a></li>
+<li><a href="#limits">What it can't do</a></li>
+</ol>
+</nav>
+
+<h2 id="catch">1. The catch first</h2>
+<p>There's no drag-and-drop editor. The site is plain files: one small script turns my photos and text into web pages. I'm a software engineer, so that suits me, and I build and change it with Claude, an AI assistant, which writes and checks the code with me. If you never want to see a file or a terminal, a paid site builder is the easier road. If you're happy to follow steps, this saves you £15 to £30 a month.</p>
+
+<h2 id="cost">2. What it costs</h2>
+<ul>
+<li><b>Hosting:</b> £0. GitHub Pages is free for public repositories.</li>
+<li><b>Domain:</b> what your registrar charges each year. Mine is on Cloudflare, which sells domains at cost.</li>
+<li><b>Security certificate (the padlock):</b> £0, included.</li>
+<li><b>Analytics:</b> £0. Cloudflare Web Analytics counts visits without cookies.</li>
+</ul>
+
+<h2 id="how">3. How it works</h2>
+<ol class="flow">
+<li><b>Your originals stay on your computer.</b> Full-size photos never go online.</li>
+<li><b>A build script</b> makes web-size copies of each photo and writes the pages as plain HTML.</li>
+<li><b>GitHub</b> keeps the finished site. Every time you push a change, it checks the pages and publishes them.</li>
+<li><b>Your domain</b> points at GitHub Pages, so visitors see yourname.com, not a GitHub address.</li>
+</ol>
+
+<h2 id="steps">4. The steps</h2>
+<ol class="flow">
+<li><b>A GitHub account.</b> Sign up with your business email and turn on two-factor sign-in. Keep your personal email private in GitHub's settings.</li>
+<li><b>A repository</b> named after your domain, set to public. It holds the build script, your text, and the built site in a folder called <code>site</code>.</li>
+<li><b>Choose your pages.</b> Mine: the work, the book, guides, about, terms. Keep it to your best 12 to 30 photos to start.</li>
+<li><b>Write the build script.</b> One Python script, no framework: it reads a list of photos and their descriptions, makes the image sizes, and writes each page. This is the part I built with Claude.</li>
+<li><b>Preview on your own computer</b> before anything goes online.</li>
+<li><b>Turn on Pages:</b> repository Settings, Pages, deploy with GitHub Actions. A short workflow file checks the build and publishes the <code>site</code> folder whenever you push to the main branch.</li>
+<li><b>Connect your domain.</b> In Pages settings, add your domain. In Cloudflare DNS, add GitHub's four A records and four AAAA records for the root, and a CNAME for www pointing to yourname.github.io. Then tick <b>Enforce HTTPS</b>.</li>
+<li><b>Verify the domain</b> in your GitHub account settings, so nobody else can claim it for their own Pages site.</li>
+</ol>
+<p>GitHub's addresses change rarely, but check their current list in the GitHub Pages docs before you add them.</p>
+
+<figure class="fig"><img src="/images/guide/b2/sunday.jpg" width="1200" height="750" alt="The photo book page on davidslv.photography: owners standing round a vintage open car on a frosty morning, with buttons to buy the hardcover." loading="lazy" decoding="async"><figcaption>A page for my photo book, on the same free site. The shop itself runs through Stripe, not GitHub.</figcaption></figure>
+
+<h2 id="photos">5. Photos that load fast and stay yours</h2>
+<ul>
+<li><b>Three sizes of every photo</b> (around 640, 1200 and 2000 pixels wide), so phones don't download a huge file. The largest is too small for a good print, which protects your work.</li>
+<li><b>Two formats:</b> AVIF, which is small, with JPEG as a fallback for older browsers.</li>
+<li><b>Location data removed.</b> Re-saving the photos drops the GPS and camera serial number from the originals.</li>
+<li><b>Your name added back:</b> creator, credit and copyright written into each web JPEG.</li>
+<li><b>Proper descriptions (alt text)</b> on every photo, which helps people using screen readers and helps Google understand the page.</li>
+</ul>
+
+<h2 id="limits">6. What it can't do</h2>
+<ul>
+<li><b>No shop on GitHub itself.</b> GitHub Pages isn't for running an online business. For sales I link out: Gumroad for downloads, Stripe for the printed book.</li>
+<li><b>No contact forms or logins</b> on their own. I use an email link, and a separate service (Sender) for the newsletter sign-up.</li>
+<li><b>Size limits.</b> The published site can be up to 1 GB, with a soft limit of 100 GB of traffic a month. A portfolio is far under both.</li>
+<li><b>Public code.</b> On the free plan the repository is public, so never put anything private in it: no client details, no bank details, no full-size originals.</li>
+</ul>
+
+<aside class="cta">
+<p class="lbl">Building your business around a day job?</p>
+<p>I'm setting up every system behind my photography business this way and sharing each one. The next guide: <a href="/guides/business-email-free/">a business email on your own domain, free</a>. Or get my free Car Meet Field Guide by email: <a href="/field-guide/">davidslv.photography/field-guide</a>.</p>
+</aside>
+</main>
