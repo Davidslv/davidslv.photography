@@ -224,11 +224,14 @@ section{padding:96px 0}
 .tier .k{font:600 13px Inter;letter-spacing:.2em;text-transform:uppercase;color:var(--tan)}
 .tier .p{font:300 64px/1 Fraunces,serif;letter-spacing:-.03em;margin:12px 0 6px;color:#fff}
 .tier p{margin:0;color:#a9a49b;font-size:15px}
-.waitlist{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;align-items:center;background:rgba(255,255,255,.04);border:1px solid #2f3339;border-radius:20px;padding:28px;margin-top:6px}
-.waitlist h3{font:300 34px/1.05 Fraunces,Georgia,serif;color:#fff;margin:0 0 10px}
-.waitlist p{color:#b9b4ab;margin:0}
-.waitlist .sender-form-field{min-height:330px}
-@media (max-width:860px){.waitlist{grid-template-columns:1fr;padding:20px}}
+.formcard{background:#efece6;color:var(--ink);border-radius:22px;padding:28px 26px 18px;box-shadow:0 30px 70px rgba(0,0,0,.45);text-align:center;max-width:460px;width:100%;justify-self:end}
+.formcard.dark-c{margin:6px auto 0;justify-self:auto}
+.fc-k{font:600 13px/1 Inter;letter-spacing:.2em;text-transform:uppercase;color:var(--clay-text);margin:0 0 10px}
+.fc-h{font:300 34px/1.05 Fraunces,Georgia,serif;letter-spacing:-.02em;margin:0 0 8px;color:var(--ink)}
+.fc-p{color:var(--muted);font-size:15px;margin:0 auto 6px;max-width:340px}
+.formcard .sender-form-field{min-height:330px;display:flex;justify-content:center}
+.term-wrap{max-width:620px;margin:0 0 56px}
+@media (max-width:860px){.formcard{justify-self:auto;margin:0 auto;padding:22px 16px 12px}.term-wrap{margin-bottom:40px}}
 .fine{color:#8f8a82;font-size:14px;max-width:760px;margin-top:26px}
 .limits{background:#f3ece1;border-radius:18px;padding:32px 34px}
 .limits h3{font:300 30px/1.1 Fraunces,Georgia,serif;margin-bottom:12px}
@@ -280,7 +283,7 @@ footer .legal{width:100%;line-height:1.6}
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap">
   <a href="/">David Silva</a>
-  <nav aria-label="Main"><a href="/guides/" class="hide-s">Guides</a><a href="/sunday/" class="hide-s">Book</a><a href="#waitlist">Waitlist</a></nav>
+  <nav aria-label="Main"><a href="/guides/" class="hide-s">Guides</a><a href="/sunday/" class="hide-s">Book</a><a href="#join">Waitlist</a></nav>
 </div></header>
 
 <main id="main">
@@ -296,23 +299,17 @@ footer .legal{width:100%;line-height:1.6}
         <p class="promise">The setup behind this website, written down so Claude can build yours.</p>
         <p class="sub">Your domain, email, website, Google, mailing list, social posting and shop, set up with Claude in plain English. You approve every step.</p>
         <div class="btns">
-          <a class="btn main" href="#waitlist">Join the waitlist</a>
+          <a class="btn main" href="#join">Join the waitlist</a>
           <a class="btn ghost" href="#proof">See what it built</a>
         </div>
         <p class="price-note"><b>Founding round: 25 places at £49.</b> I support each of you directly.</p>
       </div>
-      <div class="term" aria-hidden="true">
-        <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
-<pre><span style="color:#f2a541">&gt;</span> <span class="say">Set up my studio.</span>
-
-<span style="color:#8b8f96">Checking your setup…</span>
-<span style="color:#2bb3a3">✓</span> Claude Code ready
-<span style="color:#8b8f96">Let's start with a few questions</span>
-<span style="color:#8b8f96">about your work.</span>
-
-<span style="color:#e9b98e">1.</span> What do you make?
-<span style="color:#e9b98e">2.</span> Who buys it?
-<span style="color:#e9b98e">3.</span> What do you have already?</pre>
+      <div class="formcard" id="join">
+        <p class="fc-k">Founding round · 25 places</p>
+        <h2 class="fc-h">Get a founding place</h2>
+        <p class="fc-p">Join the waitlist. I'll email you first when the 25 places open.</p>
+        <div class="sender-form-field" data-sender-form-id="av2Eq0"></div>
+        <noscript><p><a href="https://stats.sender.net/forms/av2Eq0/view">Open the waitlist form</a></p></noscript>
       </div>
     </div>
     <div class="chips"><span class="chip">Domain</span><span class="chip">Email</span><span class="chip">Website</span><span class="chip">Google</span><span class="chip">Mailing list</span><span class="chip">Social</span><span class="chip">Shop</span></div>
@@ -362,6 +359,21 @@ footer .legal{width:100%;line-height:1.6}
     <div class="kicker" style="color:var(--clay-text)">How it works</div>
     <h2>Claude interviews you. <i>Then you build.</i></h2>
     <p class="lead">Unzip the folder, open the Start here guide, and type one sentence. Claude asks about your work and suggests an order. You can say no to anything.</p>
+    <div class="term-wrap">
+      <div class="term" aria-hidden="true">
+        <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
+<pre><span style="color:#f2a541">&gt;</span> <span class="say">Set up my studio.</span>
+
+<span style="color:#8b8f96">Checking your setup…</span>
+<span style="color:#2bb3a3">✓</span> Claude Code ready
+<span style="color:#8b8f96">Let's start with a few questions</span>
+<span style="color:#8b8f96">about your work.</span>
+
+<span style="color:#e9b98e">1.</span> What do you make?
+<span style="color:#e9b98e">2.</span> Who buys it?
+<span style="color:#e9b98e">3.</span> What do you have already?</pre>
+      </div>
+    </div>
     <div class="path">
       <div class="stop"><div class="n" style="background:var(--amber)">1</div><div><h3>Foundations</h3><p>Claude Code, domain, hello@ email</p></div></div>
       <div class="stop"><div class="n" style="background:var(--clay)">2</div><div><h3>Be seen</h3><p>Brand, website, Google</p></div></div>
@@ -420,8 +432,9 @@ footer .legal{width:100%;line-height:1.6}
       <div class="tier"><div class="k">What you get</div><div class="p" style="font-size:40px;line-height:1.15;margin-top:18px">Kit + me</div><p>The kit, and direct email support from me.</p></div>
     </div>
     <p style="color:#cfc8bd;max-width:760px;margin:0 0 30px">I'm keeping it small on purpose. With 25 people I can answer every email, see where you get stuck, and fix the kit from what you find. After that it closes, I improve it, and it reopens later at a higher price.</p>
-    <div class="waitlist" id="waitlist">
-      <div><h3>Get a founding place</h3><p>Join the waitlist and I'll email you first when the 25 places open. No spam, unsubscribe any time.</p></div>
+    <div class="formcard dark-c" id="waitlist">
+      <h2 class="fc-h">Get a founding place</h2>
+      <p class="fc-p">Join the waitlist and I'll email you first when the 25 places open. No spam, unsubscribe any time.</p>
       <div class="sender-form-field" data-sender-form-id="av2Eq0"></div>
       <noscript><p><a href="https://stats.sender.net/forms/av2Eq0/view">Open the waitlist form</a></p></noscript>
     </div>
@@ -429,20 +442,6 @@ footer .legal{width:100%;line-height:1.6}
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <div class="limits">
-      <h3>Before you buy</h3>
-      <ul>
-        <li>Tested by one person, me, on a Mac, in October 2026. The founding 25 are the first outside buyers.</li>
-        <li>Some modules are only partly tested. The roadmap in the kit says which, step by step.</li>
-        <li>The website starter is new and tested with sample photos only.</li>
-        <li>Written for the UK first. For tax and consumer law elsewhere, Claude checks your local rules on official sites.</li>
-        <li>It sets up the tools. It doesn't make your work, and it doesn't promise sales, bookings or followers.</li>
-      </ul>
-    </div>
-  </div>
-</section>
 </main>
 
 <footer><div class="wrap">
