@@ -429,7 +429,7 @@ def email_guide_page():
     return write_guide("/guides/business-email-free/", "A business email on your own domain, free (Gmail + Cloudflare)",
                        "How to get hello@yourdomain for free: Cloudflare Email Routing forwards it to Gmail, and Gmail's "
                        "Send mail as replies from it. Step by step, with the problems I hit.",
-                       f"{URL}/images/guide/b1/gmail-1-address.jpg", (ROOT / "tools/guide_email_body.html").read_text())
+                       f"{URL}/images/guide/b1/cards-og.jpg", (ROOT / "tools/guide_email_body.html").read_text())
 
 
 def website_guide_page():
@@ -506,7 +506,7 @@ GUIDES = [
      "img": ("/images/guide/a1/DSC_5226_after_D01.jpg", 1200, 799, "A red Ferrari Roma on gravel in front of trees, edited with the method in the guide."),
      "desc": "Grey UK mornings make dark, dull photos. Why it happens, and six steps in Lightroom to fix it, with before and after from real meets."},
     {"date": "2026-10-24T18:28", "path": "/guides/business-email-free/", "title": "A business email on your own domain, free",
-     "img": ("/images/guide/b1/gmail-1-address.jpg", 1200, 429, "Gmail's Add another email address window with hello@davidslv.photography."), "shot": True,
+     "img": ("/images/guide/b1/cards.jpg", 1200, 895, "My business cards on a wooden desk, the back printed with hello@davidslv.photography."),
      "desc": "hello@yourdomain in your normal Gmail, with Cloudflare Email Routing and Gmail's Send mail as. No Workspace bill."},
     {"date": "2026-10-24T18:34", "path": "/guides/portfolio-website-free/", "title": "A photography portfolio website for £0 a month",
      "img": ("/images/guide/b2/home.jpg", 1200, 750, "The home page of davidslv.photography."), "shot": True,
