@@ -1,0 +1,99 @@
+<main id="work" class="terms-page guide">
+<p class="lbl">Free guide · last checked October 2026</p>
+<h1>A business email on your own domain, free (Gmail + Cloudflare)</h1>
+<p class="lead">A Gmail address on a business card looks like a hobby. I wanted hello@davidslv.photography without paying for Google Workspace or changing inboxes. This is how I set it up: mail to my domain arrives in my normal Gmail, and I reply from the business address. It costs nothing beyond the domain.</p>
+
+<nav class="toc" aria-label="Contents">
+<p class="lbl">Contents</p>
+<ol>
+<li><a href="#need">What you need</a></li>
+<li><a href="#how">How it works</a></li>
+<li><a href="#receive">Part 1: receive mail</a></li>
+<li><a href="#send">Part 2: send as your business address</a></li>
+<li><a href="#tidy">Part 3: a label, a signature and a DNS tidy</a></li>
+<li><a href="#problems">Problems I hit</a></li>
+<li><a href="#limits">When to pay for Workspace instead</a></li>
+</ol>
+</nav>
+
+<h2 id="need">1. What you need</h2>
+<ul>
+<li>Your own domain, with its DNS on Cloudflare (the free plan is enough).</li>
+<li>A Gmail account. This is where the mail will land. Keep this address private.</li>
+<li>About 45 minutes.</li>
+</ul>
+
+<h2 id="how">2. How it works</h2>
+<ol class="flow">
+<li><b>Receiving:</b> Cloudflare Email Routing catches mail sent to hello@yourdomain and forwards it to your Gmail. Free.</li>
+<li><b>Sending:</b> Gmail's "Send mail as" lets you write from hello@yourdomain, sending through Gmail's own servers.</li>
+<li><b>Proof it's you:</b> two small DNS records (SPF and DMARC) tell other mail servers that Cloudflare and Google are allowed to handle mail for your domain.</li>
+</ol>
+
+<h2 id="receive">3. Part 1: receive mail</h2>
+<ol class="flow">
+<li>Check you don't already have email on the domain. In Cloudflare, look at the DNS records. If there are MX records pointing somewhere else (Microsoft, Zoho, Workspace), stop: replacing them would cut that email off.</li>
+<li>Cloudflare dashboard, your domain, <b>Email</b>, <b>Email Routing</b>, <b>Get started</b>. Accept the records it offers to add.</li>
+<li><b>Destination addresses</b>, <b>Add destination address</b>: your Gmail. Cloudflare sends a link to that Gmail; click it.</li>
+<li><b>Routing rules</b>, <b>Create address</b>: custom address <code>hello</code>, action <b>Send to an email</b>, your Gmail. Save.</li>
+<li>Test it: send an email to hello@yourdomain from your phone or another account. It should arrive in Gmail within a minute.</li>
+</ol>
+
+<h2 id="send">4. Part 2: send as your business address</h2>
+<ol class="flow">
+<li>Turn on 2-Step Verification for the Gmail account, if it isn't on already (Google account, Security).</li>
+<li>Make an <b>app password</b>: myaccount.google.com/apppasswords, name it "hello alias", Create. Keep the 16-letter code on screen. Do this before the next step.</li>
+<li>Gmail, the cog, <b>See all settings</b>, <b>Accounts and Import</b>, <b>Send mail as</b>, <b>Add another email address</b>. Your name, hello@yourdomain, <b>Treat as an alias</b> ticked.</li>
+<li>On the server screen, Gmail fills in the wrong details. Replace them all:
+<ul>
+<li>SMTP server: <code>smtp.gmail.com</code></li>
+<li>Port: <code>587</code></li>
+<li>Username: your full Gmail address</li>
+<li>Password: the app password</li>
+<li>Secured connection using TLS</li>
+</ul></li>
+<li>Gmail sends a confirmation to hello@, which lands in the same inbox. Click the link.</li>
+<li>Back in Accounts and Import: make hello@ the default if the account is mainly for the business, and choose <b>Reply from the same address the message was sent to</b>.</li>
+</ol>
+<figure class="fig"><img src="/images/guide/b1/gmail-1-address.jpg" width="1200" height="429" alt="Gmail's Add another email address window: name David Silva, address hello@davidslv.photography, Treat as an alias ticked." loading="lazy" decoding="async"><figcaption>Step 3: your name, the business address, and Treat as an alias ticked.</figcaption></figure>
+<figure class="fig"><img src="/images/guide/b1/gmail-2-smtp-prefilled.jpg" width="1200" height="469" alt="Gmail's SMTP server screen pre-filled with route3.mx.cloudflare.net and the username hello, which are wrong." loading="lazy" decoding="async"><figcaption>Step 4: what Gmail fills in for you. Both the server and the username are wrong. Replace every field.</figcaption></figure>
+<p>The app password opens your whole Gmail account, not only sending. Keep it private, and delete it on the same page if you ever stop using the alias.</p>
+
+<h2 id="tidy">5. Part 3: a label, a signature and a DNS tidy</h2>
+<ul>
+<li><b>A label:</b> in Gmail search, open the search options, put hello@yourdomain in <b>To</b> (not From), Create filter, apply a label with your business name, and tick "Never send it to Spam".</li>
+<li><b>A signature:</b> the steps are below.</li>
+<li><b>SPF:</b> your domain must have exactly one TXT record starting <code>v=spf1</code>. Make it include both Cloudflare and Google: <code>v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all</code>. Two SPF records break mail for both.</li>
+<li><b>DMARC:</b> add a TXT record on <code>_dmarc</code> with <code>v=DMARC1; p=none;</code>. It only reports; it blocks nothing.</li>
+</ul>
+<figure class="fig"><img src="/images/guide/b1/gmail-4-filter.jpg" width="1200" height="1040" alt="Gmail's filter options for mail to hello@davidslv.photography: apply a label, never send it to Spam, always mark it as important." loading="lazy" decoding="async"><figcaption>The filter: the address goes in To, then a label and Never send it to Spam.</figcaption></figure>
+<h3>The signature, step by step</h3>
+<ol class="flow">
+<li><b>Write it.</b> Three or four short lines: your name, what you do and where, your email, your website, one or two social handles. Mine: David Silva, Photographer, London, hello@davidslv.photography, https://davidslv.photography, Instagram and YouTube.</li>
+<li><b>A logo, if you have one.</b> A PNG about 200 px wide on a white background, so it still reads when someone's email is in dark mode.</li>
+<li>Gmail, the cog, <b>See all settings</b>, <b>General</b>, <b>Signature</b>, <b>Create new</b>. Name it after your business and paste the text.</li>
+<li>For the logo: <b>Insert image</b>, <b>Upload</b>, choose the PNG. Upload it rather than pasting a web link. If it shows too big, click it and pick <b>Small</b> or <b>Medium</b>.</li>
+<li><b>Signature defaults:</b> pick hello@ in the address list, and choose your business signature for both <b>For new emails use</b> and <b>On reply/forward use</b>. Then pick your Gmail address and set <b>No signature</b>, or your personal one.</li>
+<li>Tick <b>Insert signature before quoted text in replies and remove the "--" line</b>, scroll to the bottom and <b>Save Changes</b>.</li>
+<li>On the phone, the Gmail app has its own signature setting. Send yourself a test from the phone too.</li>
+</ol>
+<figure class="fig"><img src="/images/guide/b1/gmail-5-signature.jpg" width="1200" height="526" alt="Gmail signature settings with a business signature set as the default for hello@davidslv.photography." loading="lazy" decoding="async"><figcaption>The signature, set as the default for hello@ only.</figcaption></figure>
+<p>Last test: send to hello@ from another account, reply, and check the reply arrives from hello@, with your signature, and not in spam. Try one Gmail and one Outlook address.</p>
+
+<h2 id="problems">6. Problems I hit</h2>
+<ul>
+<li><b>Gmail pre-filled the wrong server.</b> It suggested Cloudflare's server. That one only receives. Use smtp.gmail.com.</li>
+<li><b>A "Temporary Error (404)" pop-up.</b> It happened because I left the Gmail window open while making the app password. Close it, reload Gmail, and add the address again with the code ready.</li>
+<li><b>The filter caught nothing.</b> I'd put the address in From. It has to go in To.</li>
+<li><b>A DNS check said the record didn't exist.</b> A lookup made just before adding it was cached. It sorted itself out in a few minutes.</li>
+</ul>
+<figure class="fig"><img src="/images/guide/b1/gmail-3-popup-error.jpg" width="1200" height="521" alt="A Gmail page saying Temporary Error (404)." loading="lazy" decoding="async"><figcaption>The 404 I got after leaving the pop-up open while making the app password.</figcaption></figure>
+
+<h2 id="limits">7. When to pay for Workspace instead</h2>
+<p>This setup is right for one person writing one-to-one emails to clients. If you send to lots of people, need several team addresses, or your replies start landing in spam, Google Workspace (paid, per user) signs mail properly for your domain. For a mailing list, use a newsletter tool instead; I use Sender.</p>
+
+<aside class="cta">
+<p class="lbl">Building your business around a day job?</p>
+<p>I'm setting up every system behind my photography business this way, and sharing each one. Follow along on Instagram, <a href="https://www.instagram.com/davidslv.photography/">@davidslv.photography</a>, or get my free Car Meet Field Guide by email: <a href="/field-guide/">davidslv.photography/field-guide</a>.</p>
+</aside>
+</main>

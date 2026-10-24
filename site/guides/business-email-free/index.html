@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A business email on your own domain, free (Gmail + Cloudflare) · David Silva</title>
+<meta name="description" content="How to get hello@yourdomain for free: Cloudflare Email Routing forwards it to Gmail, and Gmail's Send mail as replies from it. Step by step, with the problems I hit.">
+<link rel="canonical" href="https://davidslv.photography/guides/business-email-free/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A business email on your own domain, free (Gmail + Cloudflare)">
+<meta property="og:description" content="How to get hello@yourdomain for free: Cloudflare Email Routing forwards it to Gmail, and Gmail's Send mail as replies from it. Step by step, with the problems I hit.">
+<meta property="og:url" content="https://davidslv.photography/guides/business-email-free/">
+<meta property="og:image" content="https://davidslv.photography/images/guide/b1/gmail-1-address.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "A business email on your own domain, free (Gmail + Cloudflare)", "description": "How to get hello@yourdomain for free: Cloudflare Email Routing forwards it to Gmail, and Gmail's Send mail as replies from it. Step by step, with the problems I hit.", "image": "https://davidslv.photography/images/guide/b1/gmail-1-address.jpg", "url": "https://davidslv.photography/guides/business-email-free/", "inLanguage": "en-GB", "dateModified": "2026-10-24T18:31:58+01:00", "author": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}, "publisher": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}}</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5049d2f041d46859a41276d44ddba33"}'></script><script>/* Anonymous reading stats for this site (site-stats Worker). No cookies, nothing stored on the device,
+   no IP kept. Skipped for browsers sending Global Privacy Control or Do Not Track, and for automation. */
+(() => {
+  try {
+    if (navigator.webdriver || navigator.globalPrivacyControl || navigator.doNotTrack === "1") return;
+    const END = "https://site-stats.davidslv-london.workers.dev/e";
+    const pv = (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36))
+      .replace(/-/g, "").slice(0, 32);
+    const w = innerWidth, coarse = matchMedia("(pointer: coarse)").matches;
+    const device = w < 720 ? "phone" : coarse ? "tablet" : "desktop";
+    const q = new URLSearchParams(location.search);
+    let ref = q.get("utm_source") || "";
+    if (!ref && document.referrer) {
+      try { const h = new URL(document.referrer).hostname.replace(/^www\./, ""); if (h !== location.hostname) ref = h; } catch (e) {}
+    }
+    let seq = 0, maxScroll = 0, ended = 0, visMs = 0, last = null;
+    let visSince = document.visibilityState === "visible" ? performance.now() : null;
+    const photos = {}, clicks = {}, onScreen = new Map();
+    const now = () => performance.now();
+
+    const pid = img => {
+      const f = (img.currentSrc || img.src || "").split("/").pop() || "";
+      const m = f.match(/^([a-z]{1,3}\d{2,6}[a-z]?)[-.]/i);
+      return m ? m[1] : (img.alt || "photo").slice(0, 40);
+    };
+    const stopPhoto = id => {
+      const t = onScreen.get(id);
+      if (t != null) { photos[id] = (photos[id] || 0) + (now() - t) / 1000; onScreen.delete(id); }
+    };
+    const io = new IntersectionObserver(entries => {
+      for (const en of entries) {
+        const id = pid(en.target);
+        if (en.intersectionRatio >= 0.5 && document.visibilityState === "visible") {
+          if (!onScreen.has(id)) onScreen.set(id, now());
+          last = id;
+        } else stopPhoto(id);
+      }
+    }, { threshold: [0, 0.5] });
+    const watch = () => document.querySelectorAll("main img, section img, figure img").forEach(i => io.observe(i));
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(() => {
+        const d = document.documentElement;
+        const p = Math.min(100, Math.round((scrollY + innerHeight) / Math.max(1, d.scrollHeight) * 100));
+        if (p > maxScroll) maxScroll = p;
+        if (p >= 97) ended = 1;
+        ticking = false;
+      });
+    };
+
+    const send = () => {
+      const t = now();
+      const running = [...onScreen.keys()];
+      running.forEach(stopPhoto);                       // bank time so far, then restart the timers
+      if (document.visibilityState === "visible") running.forEach(id => onScreen.set(id, t));
+      const secs = Math.round((visMs + (visSince != null ? t - visSince : 0)) / 1000);
+      const ph = {};
+      for (const [k, v] of Object.entries(photos)) if (v >= 0.5) ph[k] = Math.round(v);
+      const body = JSON.stringify({ pv, seq: ++seq, path: location.pathname, ref, device, vw: w,
+        scroll: maxScroll, ended, secs, last_photo: last, photos: ph, clicks });
+      try { navigator.sendBeacon(END, new Blob([body], { type: "text/plain" })); } catch (e) {}
+    };
+
+    document.addEventListener("click", ev => {
+      const a = ev.target.closest && ev.target.closest("a, summary");
+      if (!a) return;
+      let k = null;
+      if (a.tagName === "SUMMARY") k = "menu";
+      else {
+        const h = a.getAttribute("href") || "";
+        if (/buy\.stripe\.com/.test(h)) k = "buy_hardcover";
+        else if (/gumroad\.com/.test(h)) k = "get_pdf";
+        else if (/instagram\.com/.test(h)) k = "instagram";
+        else if (h.startsWith("mailto:")) k = "email";
+        else if (h.startsWith("#")) k = "jump:" + h.slice(1);
+        else { try { const u = new URL(h, location.href); k = u.hostname === location.hostname ? "page:" + u.pathname : "out:" + u.hostname; } catch (e) {} }
+      }
+      if (k && a.dataset && a.dataset.track) clicks[k + "@" + a.dataset.track] = (clicks[k + "@" + a.dataset.track] || 0) + 1;   // which button: data-track="hero" etc.
+      if (k) { clicks[k] = (clicks[k] || 0) + 1; if (k === "buy_hardcover" || k === "get_pdf") send(); }
+    }, true);
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        if (visSince != null) { visMs += now() - visSince; visSince = null; }
+        send();
+        [...onScreen.keys()].forEach(stopPhoto);
+      } else visSince = now();
+    });
+    addEventListener("pagehide", send);
+    addEventListener("scroll", onScroll, { passive: true });
+    const start = () => { watch(); onScroll(); setTimeout(send, 15000); };   // one early summary for very short visits
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+  } catch (e) {}
+})();
+</script>
+<style>@font-face {   font-family: 'Newsreader';   font-style: italic;   font-weight: 300;   font-display: swap;   src: url(/fonts/Newsreader-italic-300.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {   font-family: 'Newsreader';   font-style: normal;   font-weight: 300;   font-display: swap;   src: url(/fonts/Newsreader-normal-300.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {   font-family: 'Newsreader';   font-style: normal;   font-weight: 400;   font-display: swap;   src: url(/fonts/Newsreader-normal-300.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {   font-family: 'Public Sans';   font-style: normal;   font-weight: 400;   font-display: swap;   src: url(/fonts/PublicSans-normal-400.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {   font-family: 'Public Sans';   font-style: normal;   font-weight: 500;   font-display: swap;   src: url(/fonts/PublicSans-normal-400.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face {   font-family: 'Public Sans';   font-style: normal;   font-weight: 600;   font-display: swap;   src: url(/fonts/PublicSans-normal-400.woff2) format('woff2');   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Newsreader Fallback"; src: local("Georgia"); size-adjust: 92.6%; ascent-override: 79.3%; descent-override: 28.6%; line-gap-override: 0.0%; }
+@font-face { font-family: "Public Sans Fallback"; src: local("Arial"); size-adjust: 104.5%; ascent-override: 90.9%; descent-override: 21.5%; line-gap-override: 0.0%; }
+/* Layout: a photo book on paper. Large prints, lots of space, small tracked labels; pairs drift a little. Single paper look by choice. */
+:root {
+  --paper: #efece6; --ink: #1b1916; --soft: #6b665c; --hair: #d9d4ca; --accent: #9c4a26;
+    --display: "Newsreader", Georgia, serif; --label: "Public Sans", system-ui, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); }
+body { font: 400 16px/1.65 var(--label); }
+img { display: block; width: 100%; height: auto; max-width: 100%; }
+figure { margin: 0; position: relative; }
+.lbl { font: 500 11px/1.4 var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--soft); }
+figcaption { margin-top: 12px; display: flex; gap: 14px; }
+figcaption .t { font-variant-numeric: tabular-nums; color: var(--ink); }
+
+header.site { position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; justify-content: space-between; align-items: baseline; padding: 26px clamp(16px, 4vw, 48px); color: #f4f1ea; }
+header.site .name { font: 400 22px var(--display); letter-spacing: .02em; color: inherit; text-decoration: none; }
+header.site nav { display: flex; gap: 22px; }
+header.site nav a { color: inherit; text-decoration: none; font: 500 11px var(--label); letter-spacing: .16em; text-transform: uppercase; }
+
+.hero { position: relative; height: min(100svh, 62vw); min-height: 520px; overflow: hidden; }
+.hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
+.hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,0) 30%, rgba(0,0,0,0) 55%, rgba(0,0,0,.5)); }
+.hero .words { position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(28px, 7vh, 72px); text-align: center; color: #f6f3ec; padding-inline: 16px; }
+.hero h1 { font: 300 clamp(38px, 6vw, 80px)/1.02 var(--display); margin: 10px 0 0; text-wrap: balance; }
+.hero .lbl { color: rgba(246,243,236,.85); }
+
+main { padding-inline: clamp(16px, 4vw, 48px); }
+.block { max-width: 1240px; margin: 0 auto; padding-block: clamp(56px, 11vh, 140px) 0; position: relative; }
+.part { text-align: center; padding-block: clamp(90px, 16vh, 200px) clamp(10px, 4vh, 40px); }
+.part h2 { font: 300 clamp(40px, 6vw, 76px)/1 var(--display); margin: 14px 0 12px; }
+.part p { margin: 0 auto; max-width: 46ch; color: var(--soft); font: italic 300 20px/1.45 var(--display); }
+.line p { font: 300 clamp(26px, 3.4vw, 42px)/1.25 var(--display); max-width: 24ch; margin: 0 auto; text-align: center; text-wrap: balance; }
+
+.print.left { width: min(72%, 900px); margin-right: auto; }
+.print.right { width: min(56%, 720px); margin-left: auto; }
+.print.right-small { width: min(40%, 480px); margin-left: auto; margin-right: 8%; }
+.print.centre { width: min(52%, 640px); margin-inline: auto; }
+.print.centre-large { width: min(66%, 820px); margin-inline: auto; }
+.print.centre-small { width: min(34%, 420px); margin-inline: auto; }
+.wide { max-width: none; margin-inline: calc(-1 * clamp(16px, 4vw, 48px)); }
+.wide figcaption { padding-inline: clamp(16px, 4vw, 48px); }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 4vw, 64px); align-items: start; }
+.pair figure:first-child { transform: translateY(calc(var(--d, 0) * 1px)); }
+.pair figure:last-child { margin-top: 18vh; transform: translateY(calc(var(--d, 0) * -1px)); }
+.pair.landscape figure:last-child { margin-top: 12vh; }
+.rise { transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
+.rise.wait { transform: translateY(28px); }
+
+.about { max-width: 1040px; margin: 0 auto; padding-block: clamp(110px, 18vh, 220px) 40px; display: grid; grid-template-columns: 1fr 1.6fr; gap: clamp(24px, 5vw, 72px); align-items: end; }
+.about h2 { font: 300 clamp(34px, 4vw, 52px)/1.05 var(--display); margin: 0 0 18px; }
+.about p { margin: 0 0 16px; max-width: 52ch; color: #3b3832; font-size: 17px; }
+.about .ph { aspect-ratio: 1; background: #ddd8ce; display: grid; place-items: center; color: var(--soft); font-size: 13px; }
+.more { max-width: 1040px; margin: 0 auto; padding-block: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; border-top: 1px solid var(--hair); }
+.more h3 { font: 400 22px var(--display); margin: 8px 0 6px; }
+.more p { margin: 0; color: var(--soft); font-size: 15px; }
+.more a { color: var(--ink); }
+footer { max-width: 1040px; margin: 0 auto; padding-block: 28px 140px; border-top: 1px solid var(--hair); color: var(--soft); font-size: 13px; display: flex; gap: 18px; flex-wrap: wrap; }
+
+@media (max-width: 720px) {
+  .print.left, .print.right, .print.right-small, .print.centre, .print.centre-large, .print.centre-small { width: 100%; margin-inline: 0; }
+  .print.right-small, .print.centre-small { width: 78%; margin-left: auto; }
+  .pair { gap: 12px; }
+  .pair figure:last-child { margin-top: 10vh; }
+  .about { grid-template-columns: 1fr; }
+  .more { grid-template-columns: 1fr; }
+  header.site nav { gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .rise { transition: none; } .rise.wait { transform: none; } }
+
+.skip { position: absolute; left: -999px; top: 8px; z-index: 20; background: #fff; color: var(--ink); padding: 8px 12px; }
+.skip:focus { left: 8px; }
+.hero picture, .hero picture img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero img { object-fit: cover; object-position: 50% 22%; }
+.part .sub { margin: 0 auto; max-width: 46ch; color: var(--soft); font: italic 300 20px/1.45 var(--display); }
+.about img { width: 100%; height: auto; }
+footer a { color: inherit; }
+.more a { text-underline-offset: 3px; }
+.part p.lbl { font: 500 11px/1.4 var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--soft); font-style: normal; max-width: none; }
+.book { max-width: 1240px; margin: 0 auto; padding-block: clamp(110px, 18vh, 220px) 20px; display: grid; gap: clamp(48px, 9vh, 110px); }
+.book-head { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(24px, 5vw, 72px); align-items: center; }
+.book-cover img { box-shadow: 0 24px 60px rgba(40, 30, 15, .22); }
+.book-text h2 { font: 300 clamp(36px, 4.4vw, 58px)/1.02 var(--display); margin: 10px 0 6px; }
+.book-text .sub { font: italic 300 22px/1.4 var(--display); color: var(--soft); margin: 0 0 22px; }
+.book-text p { max-width: 46ch; margin: 0 0 14px; color: #3b3832; }
+.btn { display: inline-block; margin-top: 10px; padding: 13px 20px; border: 1px solid var(--ink); color: var(--ink); text-decoration: none; font: 600 14px var(--label); letter-spacing: .02em; }
+.btn:hover { background: var(--ink); color: var(--paper); }
+.spread img { box-shadow: 0 12px 40px rgba(40, 30, 15, .16); }
+nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; }
+@media (max-width: 720px) { .book-head { grid-template-columns: 1fr; } }
+/* Accessibility pass (10 Oct 2026): readable menu over any hero, real tap targets, visible focus, larger labels. */
+header.site { flex-wrap: wrap; gap: 4px 24px; text-shadow: 0 1px 10px rgba(0,0,0,.55), 0 0 2px rgba(0,0,0,.35); }
+header.site nav a { font-size: 12px; padding: 12px 0; display: inline-block; }
+.hero::after { background: linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,0) 32%, rgba(0,0,0,0) 52%, rgba(0,0,0,.55)); }
+.hero .words { text-shadow: 0 1px 14px rgba(0,0,0,.45); }
+.lbl, figcaption { font-size: 12px; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.more a, footer a, .book-text a { display: inline-block; padding-block: 3px; }
+footer nav { display: flex; gap: 18px; flex-wrap: wrap; width: 100%; }
+footer nav a { padding-block: 10px; }
+@media (max-width: 720px) { header.site { padding-top: 16px; } header.site nav { gap: 18px; } }
+header.site .name { display: inline-block; padding-block: 6px; }
+/* 2026 pass: fallback fonts sized to match, smooth page changes, skip work off-screen, onward link. */
+:root { --display: "Newsreader", "Newsreader Fallback", Georgia, serif; --label: "Public Sans", "Public Sans Fallback", Arial, sans-serif; }
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .35s; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+main .block:nth-of-type(n+4) { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.next { display: grid; gap: 6px; max-width: 1040px; margin: clamp(80px, 14vh, 160px) auto 0; padding: 36px 0; border-top: 1px solid var(--hair); text-decoration: none; color: var(--ink); }
+.next .next-title { font: 300 clamp(32px, 4.4vw, 56px)/1.05 var(--display); }
+.next .next-title::after { content: " →"; }
+.next .next-sub { color: var(--soft); font: italic 300 19px var(--display); }
+.next:hover .next-title { text-decoration: underline; text-underline-offset: 8px; text-decoration-thickness: 1px; }
+.about, .more, .next, .book, footer { padding-inline: clamp(16px, 4vw, 48px); }
+/* /mclaren/: the brand pitch. Papaya is used only as a rule, never as text (contrast). */
+.pitch { max-width: 1040px; margin: clamp(90px, 15vh, 180px) auto 0; padding-block: 48px 8px; border-top: 3px solid #ff8000; display: grid; gap: 18px; }
+.pitch h2 { font: 300 clamp(36px, 5vw, 62px)/1.04 var(--display); margin: 0; max-width: 18ch; text-wrap: balance; }
+.pitch-lede { font: italic 300 clamp(20px, 2.2vw, 24px)/1.45 var(--display); color: #3b3832; max-width: 46ch; margin: 0; }
+.pitch-list { list-style: none; margin: 12px 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 40px; }
+.pitch-list li { display: grid; gap: 4px; max-width: 42ch; color: #3b3832; }
+.pitch-note { margin: 0; color: var(--soft); }
+.pitch-small { margin: 18px 0 0; color: var(--soft); font-size: 13px; max-width: 70ch; }
+@media (max-width: 720px) { .pitch-list { grid-template-columns: 1fr; } }
+.pitch { padding-inline: clamp(16px, 4vw, 48px); }
+.pitch a { color: var(--ink); }
+.hero .words .lbl { display: inline-block; background: rgba(0,0,0,.28); padding: 4px 10px; border-radius: 2px; }
+.pitch-note a { display: inline-block; padding-block: 3px; }
+header.site nav { flex-wrap: wrap; column-gap: 16px; }
+@media (max-width: 720px) { header.site nav { row-gap: 0; column-gap: 12px; } header.site nav a { letter-spacing: .1em; padding-block: 10px; } .hero .words .lbl { font-size: 11px; } }
+/* /sunday/ hardcover + PDF buy block and the delivery/returns notes (draft, 14 Oct 2026). */
+.buy { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, auto); column-gap: 28px; row-gap: 0; margin: 18px 0 8px; }
+.buy > div { display: grid; grid-row: span 4; grid-template-rows: subgrid; align-content: start; }   /* label, text, button, note line up across both columns */
+.buy p { margin: 0 0 8px; }
+.buy .btn { margin-top: 2px; }
+.buy .note { font-size: .9em; color: var(--soft); }
+.terms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 32px; border-top: 1px solid rgba(0,0,0,.12); padding-top: 28px; font-size: .95em; }
+.terms p { margin: 0 0 6px; color: #3b3832; }
+@media (max-width: 900px) { .terms { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px) { .buy, .terms { grid-template-columns: 1fr; } .buy { grid-template-rows: none; row-gap: 22px; } .buy > div { grid-row: auto; grid-template-rows: none; } }
+/* /terms/: plain text page on the site's paper, readable measure, header made legible without a hero. */
+body.plain header.site { position: static; color: var(--ink); text-shadow: none; padding-inline: clamp(16px, 4vw, 48px); }
+body.plain header.site a { color: var(--ink); }
+.terms-page { max-width: 720px; margin: 0 auto; padding: clamp(40px, 8vh, 90px) clamp(16px, 4vw, 48px) 80px; }
+.terms-page h1 { font: 300 clamp(36px, 5vw, 56px)/1.05 var(--display); margin: 10px 0 18px; text-wrap: balance; }
+.terms-page h2, .terms-page h3 { text-wrap: balance; }
+.terms-page h2 { font: 400 26px/1.2 var(--display); margin: 40px 0 10px; }
+.terms-page p { color: #3b3832; margin: 0 0 14px; }
+.terms-page .lead { font-size: 1.08em; }
+.terms-page .form { border-left: 2px solid rgba(0,0,0,.2); padding: 4px 0 4px 16px; font: 15px/1.7 var(--label, inherit); white-space: pre-wrap; color: #3b3832; user-select: all; }
+.terms-page mark { background: #ffe58a; }
+/* One menu on phones and desktop (15 Oct 2026): Work opens the series; Book, Guides, About stay visible. */
+header.site { flex-wrap: nowrap; align-items: center; }
+header.site nav.main { display: flex; align-items: center; flex-wrap: nowrap; gap: 22px; }
+header.site nav.main > a, nav.main summary { color: inherit; text-decoration: none; font: 500 12px var(--label); letter-spacing: .16em; text-transform: uppercase; padding: 12px 0; display: inline-block; white-space: nowrap; }
+nav.main details { position: relative; }
+nav.main summary { list-style: none; cursor: pointer; }
+nav.main summary::-webkit-details-marker { display: none; }
+nav.main summary::after { content: ""; display: inline-block; margin-left: 7px; vertical-align: 2px; border: 4px solid transparent; border-top-color: currentColor; border-bottom-width: 0; }
+nav.main details[open] summary::after { transform: rotate(180deg); }
+nav.main summary.cur { text-decoration: underline; text-underline-offset: 6px; }
+nav.main .panel { position: absolute; left: 0; top: 100%; z-index: 9; display: flex; flex-direction: column; min-width: 210px; padding: 8px 20px 10px; background: rgba(24, 21, 17, .94); border-radius: 6px; box-shadow: 0 12px 30px rgba(0,0,0,.25); text-shadow: none; }
+nav.main .panel a { color: #f4f1ea !important; text-decoration: none; font: 500 12px var(--label); letter-spacing: .14em; text-transform: uppercase; padding: 11px 0; }
+nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; }
+@media (max-width: 720px) { header.site nav.main { gap: 14px; } header.site nav.main > a, nav.main summary { font-size: 11px; letter-spacing: .12em; padding-block: 14px; } }
+@media (max-width: 370px) { header.site .name { font-size: 19px; } header.site nav.main { gap: 10px; } header.site nav.main > a, nav.main summary { letter-spacing: .08em; } }
+/* /guides/: how-to pages */
+.guide h3 { font: 600 17px/1.3 var(--label, inherit); margin: 28px 0 8px; }
+.guide ul, .guide ol { color: #3b3832; padding-left: 22px; margin: 0 0 16px; }
+.guide li { margin: 0 0 8px; }
+.guide code { font: 14px/1.4 ui-monospace, Menlo, monospace; background: rgba(0,0,0,.06); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+.guide .note { border-left: 2px solid #b48a3c; padding: 2px 0 2px 14px; font-size: .95em; }
+.guide .pdfnote { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; justify-content: space-between; border: 1px solid #b48a3c; background: rgba(180,138,60,.08); border-radius: 6px; padding: 14px 16px; margin: 18px 0 22px; font-size: .95em; color: #3b3832; }
+.guide .pdfnote span { flex: 1 1 260px; }
+.guide a.pdfbtn { background: #a5702a; color: #fffdf8; text-decoration: none; font-weight: 600; padding: 10px 16px; border-radius: 4px; white-space: nowrap; }
+.guide .toc { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 16px 20px 6px; margin: 24px 0 8px; }
+.guide .toc ol { margin: 6px 0 10px; }
+.guide .toc a { color: inherit; }
+.guide .shot { border: 1px dashed rgba(0,0,0,.3); border-radius: 6px; padding: 28px 16px; text-align: center; color: #8a857a; font-size: .9em; margin: 4px 0 18px; }
+.guide .tbl { width: 100%; border-collapse: collapse; font-size: .92em; margin: 6px 0 18px; display: block; overflow-x: auto; }
+.guide .tbl th, .guide .tbl td { text-align: left; padding: 8px 10px 8px 0; border-bottom: 1px solid rgba(0,0,0,.1); vertical-align: top; color: #3b3832; }
+.guide .tbl th { font-size: .82em; text-transform: uppercase; letter-spacing: .05em; color: #6b665c; }
+.guide .sum { border: 1px solid rgba(0,0,0,.12); border-radius: 6px; padding: 10px 16px; margin: 6px 0 16px; }
+.guide .sum p { display: flex; justify-content: space-between; gap: 16px; margin: 6px 0; }
+.guide .sum .tot { border-top: 1px solid rgba(0,0,0,.2); padding-top: 8px; font-weight: 600; }
+.guide .fig { margin: 8px 0 22px; }
+.guide .fig img { display: block; width: 100%; height: auto; border: 1px solid rgba(0,0,0,.15); border-radius: 6px; }
+.guide .fig figcaption { font-size: .88em; color: #6b665c; margin-top: 6px; }
+.print-only { display: none; }
+@media print {
+  @page { size: A4; margin: 18mm 18mm 16mm; }
+  html, body.plain { background: #fff !important; color: #000; }
+  body.plain { font-size: 11pt; line-height: 1.5; }
+  header.site, footer, .guide .pdfnote { display: none !important; }
+  .print-only { display: block; }
+  .terms-page.guide { max-width: none; padding: 0; }
+  .guide p, .guide li, .guide td, .guide th, .guide .tbl th { color: #000; }
+  .guide h1 { font-size: 30pt; margin-top: 4pt; }
+  .guide h2 { font-size: 18pt; margin: 22pt 0 6pt; break-after: avoid; }
+  .guide h3 { font-size: 12.5pt; margin: 14pt 0 4pt; break-after: avoid; }
+  #route-a, #route-b, #legal { break-before: page; }
+  .guide .fig { break-inside: avoid; }
+  .guide .fig figcaption { color: #333; }
+  .guide li, .guide .tbl tr, .guide .sum, .guide .note, .guide .shot { break-inside: avoid; }
+  .guide code { background: #eee; color: #000; font-size: 9.5pt; }
+  .guide .note { border-left: 2pt solid #000; }
+  .guide .toc, .guide .sum, .guide .shot { border-color: #999; }
+  .guide .tbl { display: table; }
+  .guide a { text-decoration: none; }
+  .guide p, .guide li { font-size: 11.5pt; }
+  .guide .tbl { font-size: 10pt; }
+  .guide .tbl td:first-child code { white-space: nowrap; }
+  .guide .note { font-size: 10.5pt; }
+  .guide a[href^="/"]::after { content: " (davidslv.photography" attr(href) ")"; font-size: 9pt; color: #444; }
+  .guide a[href^="mailto:"]::after { content: ""; }
+}
+.guide a { color: inherit; }
+/* /guides/: index of guides, one card each */
+.guides .gcard { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 34px 0 0; border: 1px solid rgba(0,0,0,.12); border-radius: 8px; overflow: hidden; color: inherit; text-decoration: none; background: rgba(255,255,255,.35); }
+.guides .gcard img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; display: block; }
+.guides .gtext { display: flex; flex-direction: column; gap: 10px; padding: 22px 24px; }
+.guides .gtitle { font: 400 28px/1.12 var(--display); }
+.guides .gdesc { color: #3b3832; font-size: .95em; }
+.guides .gmore { margin-top: auto; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.guides .gcard:hover .gtitle { text-decoration: underline; text-underline-offset: 5px; }
+@media (max-width: 720px) { .guides .gcard { grid-template-columns: 1fr; } .guides .gcard img { height: auto; aspect-ratio: 1200/630; } }
+
+/* /sunday/ buy points: hero buttons, a block between parts, and a bar that shows after the hero (20 Oct 2026) */
+.hero-facts { margin: 12px 0 0; font: 500 12px/1.5 var(--label); letter-spacing: .08em; color: rgba(246,243,236,.9); }
+.hero-buy { margin-top: 22px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-solid { display: inline-block; padding: 14px 22px; background: #f6f3ec; color: var(--ink); text-decoration: none; font: 600 14px var(--label); letter-spacing: .02em; }
+.btn-ghost { display: inline-block; padding: 13px 20px; border: 1px solid rgba(246,243,236,.8); color: #f6f3ec; text-decoration: none; font: 600 14px var(--label); }
+.btn.solid { background: var(--ink); color: var(--paper); }
+.btn.solid:hover { background: var(--accent); border-color: var(--accent); }
+.mid-buy { max-width: 760px; margin: 0 auto; padding: clamp(60px, 10vh, 110px) clamp(16px, 4vw, 48px); text-align: center; }
+.mid-buy p { margin: 0 auto 6px; max-width: 40ch; font: italic 300 22px/1.4 var(--display); color: #3b3832; }
+.mid-buy p.lbl { font: 500 11px/1.4 var(--label); font-style: normal; color: var(--soft); }
+.mid-buy p.note { font: 13px var(--label); color: var(--soft); }
+.mid-buy .note a { color: inherit; }
+.buybar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px clamp(16px, 4vw, 48px) calc(10px + env(safe-area-inset-bottom)); background: rgba(239,236,230,.96); border-top: 1px solid var(--hair);
+  backdrop-filter: blur(8px); transform: translateY(110%); transition: transform .35s ease; }
+.buybar.on { transform: none; }
+.buybar .t { font: 400 17px/1.2 var(--display); }
+.buybar .t small { display: block; font: 500 11px var(--label); letter-spacing: .12em; text-transform: uppercase; color: var(--soft); }
+.buybar .btn { margin: 0; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .buybar { transition: none; } }
+.buy .btn { padding: 18px 24px; line-height: 1.2; }
+
+/* /field-guide/ sign-up page (22 Oct 2026): photos break out to 960px; text stays 720px. */
+.fgpage .fig { --w: min(960px, calc(100vw - 2 * clamp(16px, 4vw, 48px))); width: var(--w); margin: 8px 0 22px calc((100% - var(--w)) / 2); }
+.fgpage .fig figcaption { margin: 6px auto 0; max-width: 624px; }
+.fgpage h1, .fgpage h2 { text-wrap: balance; }
+.guide .signup { border: 1px solid #9c4a26; border-radius: 6px; padding: 18px 20px 8px; margin: 28px 0; background: rgba(156,74,38,.05); }
+.guide .signup h2 { margin-top: 0; }
+.guide .cards { display: flex; gap: 14px; justify-content: center; margin: 8px 0 6px; }
+.guide .cards picture { flex: 0 1 200px; }
+.guide .cards img { width: 100%; height: auto; display: block; border-radius: 10px; border: 1px solid rgba(0,0,0,.15); }
+.guide .fgcta { border: 1px solid #9c4a26; border-radius: 6px; padding: 16px 18px; margin: 28px 0; background: rgba(156,74,38,.05); }
+.guide .fgcta .btn { margin-top: 4px; }
+.guide .fgcta.end { text-align: center; padding: 24px 20px; }
+.guide .fgcta.end h2 { margin-top: 0; }
+@media print { .fgpage .fig { width: auto; margin: 8px 0 18px; } }
+.guide .signup .sender-form-field iframe { margin-left: auto !important; margin-right: auto !important; }
+.guide .signup { text-align: center; padding-bottom: 20px; }
+</style>
+</head>
+<body class="plain">
+<header class="site"><a class="name" href="/">David Silva</a><nav class="main" aria-label="Main"><details class="work"><summary>Work</summary><div class="panel"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a></div></details><a href="/sunday/">Book</a><a href="/guides/" aria-current="page">Guides</a><a href="/#about">About</a></nav></header>
+<main id="work" class="terms-page guide">
+<p class="lbl">Free guide · last checked October 2026</p>
+<h1>A business email on your own domain, free (Gmail + Cloudflare)</h1>
+<p class="lead">A Gmail address on a business card looks like a hobby. I wanted hello@davidslv.photography without paying for Google Workspace or changing inboxes. This is how I set it up: mail to my domain arrives in my normal Gmail, and I reply from the business address. It costs nothing beyond the domain.</p>
+
+<nav class="toc" aria-label="Contents">
+<p class="lbl">Contents</p>
+<ol>
+<li><a href="#need">What you need</a></li>
+<li><a href="#how">How it works</a></li>
+<li><a href="#receive">Part 1: receive mail</a></li>
+<li><a href="#send">Part 2: send as your business address</a></li>
+<li><a href="#tidy">Part 3: a label, a signature and a DNS tidy</a></li>
+<li><a href="#problems">Problems I hit</a></li>
+<li><a href="#limits">When to pay for Workspace instead</a></li>
+</ol>
+</nav>
+
+<h2 id="need">1. What you need</h2>
+<ul>
+<li>Your own domain, with its DNS on Cloudflare (the free plan is enough).</li>
+<li>A Gmail account. This is where the mail will land. Keep this address private.</li>
+<li>About 45 minutes.</li>
+</ul>
+
+<h2 id="how">2. How it works</h2>
+<ol class="flow">
+<li><b>Receiving:</b> Cloudflare Email Routing catches mail sent to hello@yourdomain and forwards it to your Gmail. Free.</li>
+<li><b>Sending:</b> Gmail's "Send mail as" lets you write from hello@yourdomain, sending through Gmail's own servers.</li>
+<li><b>Proof it's you:</b> two small DNS records (SPF and DMARC) tell other mail servers that Cloudflare and Google are allowed to handle mail for your domain.</li>
+</ol>
+
+<h2 id="receive">3. Part 1: receive mail</h2>
+<ol class="flow">
+<li>Check you don't already have email on the domain. In Cloudflare, look at the DNS records. If there are MX records pointing somewhere else (Microsoft, Zoho, Workspace), stop: replacing them would cut that email off.</li>
+<li>Cloudflare dashboard, your domain, <b>Email</b>, <b>Email Routing</b>, <b>Get started</b>. Accept the records it offers to add.</li>
+<li><b>Destination addresses</b>, <b>Add destination address</b>: your Gmail. Cloudflare sends a link to that Gmail; click it.</li>
+<li><b>Routing rules</b>, <b>Create address</b>: custom address <code>hello</code>, action <b>Send to an email</b>, your Gmail. Save.</li>
+<li>Test it: send an email to hello@yourdomain from your phone or another account. It should arrive in Gmail within a minute.</li>
+</ol>
+
+<h2 id="send">4. Part 2: send as your business address</h2>
+<ol class="flow">
+<li>Turn on 2-Step Verification for the Gmail account, if it isn't on already (Google account, Security).</li>
+<li>Make an <b>app password</b>: myaccount.google.com/apppasswords, name it "hello alias", Create. Keep the 16-letter code on screen. Do this before the next step.</li>
+<li>Gmail, the cog, <b>See all settings</b>, <b>Accounts and Import</b>, <b>Send mail as</b>, <b>Add another email address</b>. Your name, hello@yourdomain, <b>Treat as an alias</b> ticked.</li>
+<li>On the server screen, Gmail fills in the wrong details. Replace them all:
+<ul>
+<li>SMTP server: <code>smtp.gmail.com</code></li>
+<li>Port: <code>587</code></li>
+<li>Username: your full Gmail address</li>
+<li>Password: the app password</li>
+<li>Secured connection using TLS</li>
+</ul></li>
+<li>Gmail sends a confirmation to hello@, which lands in the same inbox. Click the link.</li>
+<li>Back in Accounts and Import: make hello@ the default if the account is mainly for the business, and choose <b>Reply from the same address the message was sent to</b>.</li>
+</ol>
+<figure class="fig"><img src="/images/guide/b1/gmail-1-address.jpg" width="1200" height="429" alt="Gmail's Add another email address window: name David Silva, address hello@davidslv.photography, Treat as an alias ticked." loading="lazy" decoding="async"><figcaption>Step 3: your name, the business address, and Treat as an alias ticked.</figcaption></figure>
+<figure class="fig"><img src="/images/guide/b1/gmail-2-smtp-prefilled.jpg" width="1200" height="469" alt="Gmail's SMTP server screen pre-filled with route3.mx.cloudflare.net and the username hello, which are wrong." loading="lazy" decoding="async"><figcaption>Step 4: what Gmail fills in for you. Both the server and the username are wrong. Replace every field.</figcaption></figure>
+<p>The app password opens your whole Gmail account, not only sending. Keep it private, and delete it on the same page if you ever stop using the alias.</p>
+
+<h2 id="tidy">5. Part 3: a label, a signature and a DNS tidy</h2>
+<ul>
+<li><b>A label:</b> in Gmail search, open the search options, put hello@yourdomain in <b>To</b> (not From), Create filter, apply a label with your business name, and tick "Never send it to Spam".</li>
+<li><b>A signature:</b> the steps are below.</li>
+<li><b>SPF:</b> your domain must have exactly one TXT record starting <code>v=spf1</code>. Make it include both Cloudflare and Google: <code>v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all</code>. Two SPF records break mail for both.</li>
+<li><b>DMARC:</b> add a TXT record on <code>_dmarc</code> with <code>v=DMARC1; p=none;</code>. It only reports; it blocks nothing.</li>
+</ul>
+<figure class="fig"><img src="/images/guide/b1/gmail-4-filter.jpg" width="1200" height="1040" alt="Gmail's filter options for mail to hello@davidslv.photography: apply a label, never send it to Spam, always mark it as important." loading="lazy" decoding="async"><figcaption>The filter: the address goes in To, then a label and Never send it to Spam.</figcaption></figure>
+<h3>The signature, step by step</h3>
+<ol class="flow">
+<li><b>Write it.</b> Three or four short lines: your name, what you do and where, your email, your website, one or two social handles. Mine: David Silva, Photographer, London, hello@davidslv.photography, https://davidslv.photography, Instagram and YouTube.</li>
+<li><b>A logo, if you have one.</b> A PNG about 200 px wide on a white background, so it still reads when someone's email is in dark mode.</li>
+<li>Gmail, the cog, <b>See all settings</b>, <b>General</b>, <b>Signature</b>, <b>Create new</b>. Name it after your business and paste the text.</li>
+<li>For the logo: <b>Insert image</b>, <b>Upload</b>, choose the PNG. Upload it rather than pasting a web link. If it shows too big, click it and pick <b>Small</b> or <b>Medium</b>.</li>
+<li><b>Signature defaults:</b> pick hello@ in the address list, and choose your business signature for both <b>For new emails use</b> and <b>On reply/forward use</b>. Then pick your Gmail address and set <b>No signature</b>, or your personal one.</li>
+<li>Tick <b>Insert signature before quoted text in replies and remove the "--" line</b>, scroll to the bottom and <b>Save Changes</b>.</li>
+<li>On the phone, the Gmail app has its own signature setting. Send yourself a test from the phone too.</li>
+</ol>
+<figure class="fig"><img src="/images/guide/b1/gmail-5-signature.jpg" width="1200" height="526" alt="Gmail signature settings with a business signature set as the default for hello@davidslv.photography." loading="lazy" decoding="async"><figcaption>The signature, set as the default for hello@ only.</figcaption></figure>
+<p>Last test: send to hello@ from another account, reply, and check the reply arrives from hello@, with your signature, and not in spam. Try one Gmail and one Outlook address.</p>
+
+<h2 id="problems">6. Problems I hit</h2>
+<ul>
+<li><b>Gmail pre-filled the wrong server.</b> It suggested Cloudflare's server. That one only receives. Use smtp.gmail.com.</li>
+<li><b>A "Temporary Error (404)" pop-up.</b> It happened because I left the Gmail window open while making the app password. Close it, reload Gmail, and add the address again with the code ready.</li>
+<li><b>The filter caught nothing.</b> I'd put the address in From. It has to go in To.</li>
+<li><b>A DNS check said the record didn't exist.</b> A lookup made just before adding it was cached. It sorted itself out in a few minutes.</li>
+</ul>
+<figure class="fig"><img src="/images/guide/b1/gmail-3-popup-error.jpg" width="1200" height="521" alt="A Gmail page saying Temporary Error (404)." loading="lazy" decoding="async"><figcaption>The 404 I got after leaving the pop-up open while making the app password.</figcaption></figure>
+
+<h2 id="limits">7. When to pay for Workspace instead</h2>
+<p>This setup is right for one person writing one-to-one emails to clients. If you send to lots of people, need several team addresses, or your replies start landing in spam, Google Workspace (paid, per user) signs mail properly for your domain. For a mailing list, use a newsletter tool instead; I use Sender.</p>
+
+<aside class="cta">
+<p class="lbl">Building your business around a day job?</p>
+<p>I'm setting up every system behind my photography business this way, and sharing each one. Follow along on Instagram, <a href="https://www.instagram.com/davidslv.photography/">@davidslv.photography</a>, or get my free Car Meet Field Guide by email: <a href="/field-guide/">davidslv.photography/field-guide</a>.</p>
+</aside>
+</main>
+
+<footer><nav aria-label="Footer"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/guides/">Guides</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav><span>David Silva · London</span><span>All photographs © David Silva. Please ask before using them.</span><span class="legal" style="width:100%;font-size:12px;line-height:1.6">David Silva Photography is a trading name of CARERNOTES LTD, registered in England and Wales, company number 16928805. Registered office: 1st Floor 87/89 High Street, Hoddesdon, Herts, EN11 8TL.</span></footer>
+<script>// Photo pairs drift a little against each other as you scroll. Nothing else moves.
+(() => {
+  const pairs = [...document.querySelectorAll(".pair")];
+  if (!pairs.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let tick = false;
+  const drift = () => {
+    tick = false;
+    for (const p of pairs) {
+      const r = p.getBoundingClientRect();
+      const t = (innerHeight - r.top) / (innerHeight + r.height);
+      p.style.setProperty("--d", ((Math.min(1, Math.max(0, t)) - .5) * 80).toFixed(1));
+    }
+  };
+  addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(drift); } }, { passive: true });
+  drift();
+})();
+// Work menu: close on a tap outside it or on Esc.
+(() => {
+  const d = document.querySelector("nav.main details");
+  if (!d) return;
+  document.addEventListener("click", e => { if (d.open && !d.contains(e.target)) d.open = false; });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && d.open) { d.open = false; d.querySelector("summary").focus(); } });
+})();
+</script>
+</body>
+</html>
