@@ -424,6 +424,14 @@ def flat_guide_page():
                        f"{URL}/images/guide/a1/DSC_5226_after_D01.jpg", (ROOT / "tools/guide_flat_body.html").read_text())
 
 
+def email_guide_page():
+    """/guides/business-email-free/: guide B1 (24 Oct 2026). Body in tools/guide_email_body.html."""
+    return write_guide("/guides/business-email-free/", "A business email on your own domain, free (Gmail + Cloudflare)",
+                       "How to get hello@yourdomain for free: Cloudflare Email Routing forwards it to Gmail, and Gmail's "
+                       "Send mail as replies from it. Step by step, with the problems I hit.",
+                       f"{URL}/og.jpg", (ROOT / "tools/guide_email_body.html").read_text())
+
+
 def field_guide_page():
     """/field-guide/: sign-up page for the free Car Meet Field Guide and Quick Cards (lead magnet, 22 Oct 2026)."""
     return write_guide("/field-guide/", "The Car Meet Field Guide",
@@ -499,6 +507,11 @@ def guides_index_page():
 <span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
 <span class="gtitle">Why your car meet photos look flat (and the fix)</span>
 <span class="gdesc">Grey UK mornings make dark, dull photos. Why it happens, and six steps in Lightroom to fix it, with before and after from real meets.</span>
+<span class="gmore">Read the guide</span></span></a>
+<a class="gcard" href="/guides/business-email-free/">
+<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
+<span class="gtitle">A business email on your own domain, free</span>
+<span class="gdesc">hello@yourdomain in your normal Gmail, with Cloudflare Email Routing and Gmail's Send mail as. No Workspace bill.</span>
 <span class="gmore">Read the guide</span></span></a>"""
     ld = json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "description": desc,
                      "url": URL + path, "inLanguage": "en-GB",
@@ -549,6 +562,7 @@ def extras(meta):
     urls.append(terms_page())
     urls.append(guide_page())
     urls.append(flat_guide_page())
+    urls.append(email_guide_page())
     urls.append(field_guide_page())
     urls.append(guides_index_page())
     (SITE / "sitemap.xml").write_text(
