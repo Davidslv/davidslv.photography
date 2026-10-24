@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://davidslv.photography/images/guide/b1/cards-og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "A business email on your own domain, free (Gmail + Cloudflare)", "description": "How to get hello@yourdomain for free: Cloudflare Email Routing forwards it to Gmail, and Gmail's Send mail as replies from it. Step by step, with the problems I hit.", "image": "https://davidslv.photography/images/guide/b1/cards-og.jpg", "url": "https://davidslv.photography/guides/business-email-free/", "inLanguage": "en-GB", "dateModified": "2026-10-24T20:05:33+01:00", "author": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}, "publisher": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "A business email on your own domain, free (Gmail + Cloudflare)", "description": "How to get hello@yourdomain for free: Cloudflare Email Routing forwards it to Gmail, and Gmail's Send mail as replies from it. Step by step, with the problems I hit.", "image": "https://davidslv.photography/images/guide/b1/cards-og.jpg", "url": "https://davidslv.photography/guides/business-email-free/", "inLanguage": "en-GB", "dateModified": "2026-10-24T20:21:50+01:00", "author": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}, "publisher": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}}</script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5049d2f041d46859a41276d44ddba33"}'></script><script>/* Anonymous reading stats for this site (site-stats Worker). No cookies, nothing stored on the device,
    no IP kept. Skipped for browsers sending Global Privacy Control or Do Not Track, and for automation. */
 (() => {
@@ -398,6 +398,8 @@ nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underl
 <h1>A business email on your own domain, free (Gmail + Cloudflare)</h1>
 <p class="lead">A Gmail address on a business card looks like a hobby. I wanted hello@davidslv.photography without paying for Google Workspace or changing inboxes. This is how I set it up: mail to my domain arrives in my normal Gmail, and I reply from the business address. It costs nothing beyond the domain.</p>
 
+<p class="note"><b>Update, October 2026:</b> Google is ending "Send mail as" for addresses that aren't Google's in January 2027, and <a href="https://support.google.com/mail/answer/17101213">may refuse new set-ups before then</a>. Part 1 (receiving hello@ in Gmail through Cloudflare) keeps working. Part 2 (sending as hello@ from free Gmail) stops then. If you're starting now, Google recommends Google Workspace, from £5.90 a user a month plus VAT (<a href="https://workspace.google.com/intl/en_uk/pricing.html">check the current price</a>).</p>
+
 <figure class="fig"><img src="/images/guide/b1/cards-og.jpg" width="1200" height="630" alt="The back of my business card: David Silva, Photographer, London, hello@davidslv.photography, https://davidslv.photography and @davidslv.photography." loading="eager" fetchpriority="high" decoding="async"><figcaption>The address on my business cards. It costs nothing a month.</figcaption></figure>
 
 <nav class="toc" aria-label="Contents">
@@ -487,7 +489,7 @@ nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underl
 <figure class="fig"><img src="/images/guide/b1/gmail-3-popup-error.jpg" width="1200" height="521" alt="A Gmail page saying Temporary Error (404)." loading="lazy" decoding="async"><figcaption>The 404 I got after leaving the pop-up open while making the app password.</figcaption></figure>
 
 <h2 id="limits">7. When to pay for Workspace instead</h2>
-<p>This setup is right for one person writing one-to-one emails to clients. If you send to lots of people, need several team addresses, or your replies start landing in spam, Google Workspace (paid, per user) signs mail properly for your domain. For a mailing list, use a newsletter tool instead; I use Sender.</p>
+<p>From January 2027 this is the main reason: free Gmail will no longer send as your own address (see the update at the top). This setup is right for one person writing one-to-one emails to clients. If you send to lots of people, need several team addresses, or your replies start landing in spam, Google Workspace (paid, per user) signs mail properly for your domain. For a mailing list, use a newsletter tool instead; I use Sender.</p>
 
 <aside class="cta">
 <p class="lbl">Building your business around a day job?</p>
