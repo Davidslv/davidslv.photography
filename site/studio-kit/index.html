@@ -224,6 +224,11 @@ section{padding:96px 0}
 .tier .k{font:600 13px Inter;letter-spacing:.2em;text-transform:uppercase;color:var(--tan)}
 .tier .p{font:300 64px/1 Fraunces,serif;letter-spacing:-.03em;margin:12px 0 6px;color:#fff}
 .tier p{margin:0;color:#a9a49b;font-size:15px}
+.waitlist{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;align-items:center;background:rgba(255,255,255,.04);border:1px solid #2f3339;border-radius:20px;padding:28px;margin-top:6px}
+.waitlist h3{font:300 34px/1.05 Fraunces,Georgia,serif;color:#fff;margin:0 0 10px}
+.waitlist p{color:#b9b4ab;margin:0}
+.waitlist .sender-form-field{min-height:330px}
+@media (max-width:860px){.waitlist{grid-template-columns:1fr;padding:20px}}
 .fine{color:#8f8a82;font-size:14px;max-width:760px;margin-top:26px}
 .limits{background:#f3ece1;border-radius:18px;padding:32px 34px}
 .limits h3{font:300 30px/1.1 Fraunces,Georgia,serif;margin-bottom:12px}
@@ -252,12 +257,30 @@ footer .legal{width:100%;line-height:1.6}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
+<script>
+  (function (s, e, n, d, er) {
+    s['Sender'] = er;
+    s[er] = s[er] || function () {
+      (s[er].q = s[er].q || []).push(arguments)
+    }, s[er].l = 1 * new Date();
+    s[er].on = function(event, callback) {
+      s[er].listeners = s[er].listeners || {};
+      (s[er].listeners[event] = s[er].listeners[event] || []).push(callback);
+    };
+    var a = e.createElement(n),
+        m = e.getElementsByTagName(n)[0];
+    a.async = 1;
+    a.src = d;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', 'https://cdn.sender.net/accounts_resources/universal.js', 'sender');
+  sender('2e9a73e3622892')
+</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top"><div class="wrap">
   <a href="/">David Silva</a>
-  <nav aria-label="Main"><a href="/guides/" class="hide-s">Guides</a><a href="/sunday/" class="hide-s">Book</a><a href="#offer">25 places</a></nav>
+  <nav aria-label="Main"><a href="/guides/" class="hide-s">Guides</a><a href="/sunday/" class="hide-s">Book</a><a href="#waitlist">Waitlist</a></nav>
 </div></header>
 
 <main id="main">
@@ -273,7 +296,7 @@ footer .legal{width:100%;line-height:1.6}
         <p class="promise">The setup behind this website, written down so Claude can build yours.</p>
         <p class="sub">Your domain, email, website, Google, mailing list, social posting and shop, set up with Claude in plain English. You approve every step.</p>
         <div class="btns">
-          <a class="btn main" href="mailto:hello@davidslv.photography?subject=Studio%20Kit%3A%20founding%20round">Ask for a founding place</a>
+          <a class="btn main" href="#waitlist">Join the waitlist</a>
           <a class="btn ghost" href="#proof">See what it built</a>
         </div>
         <p class="price-note"><b>Founding round: 25 places at £49.</b> I support each of you directly.</p>
@@ -397,7 +420,11 @@ footer .legal{width:100%;line-height:1.6}
       <div class="tier"><div class="k">What you get</div><div class="p" style="font-size:40px;line-height:1.15;margin-top:18px">Kit + me</div><p>The kit, and direct email support from me.</p></div>
     </div>
     <p style="color:#cfc8bd;max-width:760px;margin:0 0 30px">I'm keeping it small on purpose. With 25 people I can answer every email, see where you get stuck, and fix the kit from what you find. After that it closes, I improve it, and it reopens later at a higher price.</p>
-    <div class="btns"><a class="btn main" href="mailto:hello@davidslv.photography?subject=Studio%20Kit%3A%20founding%20round">Ask for a founding place</a></div>
+    <div class="waitlist" id="waitlist">
+      <div><h3>Get a founding place</h3><p>Join the waitlist and I'll email you first when the 25 places open. No spam, unsubscribe any time.</p></div>
+      <div class="sender-form-field" data-sender-form-id="av2Eq0"></div>
+      <noscript><p><a href="https://stats.sender.net/forms/av2Eq0/view">Open the waitlist form</a></p></noscript>
+    </div>
     <p class="fine">It isn't on sale yet. It's a download you get straight away, so there are no refunds for change of mind. Your legal rights aren't affected: if the files are faulty or not as described, I'll put it right with a fix, a replacement or a refund.</p>
   </div>
 </section>
