@@ -496,44 +496,72 @@ def guide_page():
     return f"<url><loc>{URL}{path}</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
 
 
-def guides_index_page():
-    """/guides/: list of guides (text page). One card per guide."""
-    css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
-    path = "/guides/"
-    out = SITE / "guides" / "index.html"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    title = "Guides"
-    desc = "Free how-to guides from David Silva, a London photographer: editing car meet photos, and making and selling my own photo book."
-    cards = f"""<a class="gcard" href="/guides/sell-your-photo-book/">
-<img src="/images/guide-og.jpg" width="1200" height="630" alt="The printed hardcover of It Started on a Sunday on a marble counter.">
+# The /guides/ cards. "shot": the image is a screenshot with text, shown whole above the text instead of cropped beside it.
+# Each guide's date is the day it was first written; the index lists newest first.
+GUIDES = [
+    {"date": "2026-10-15", "path": "/guides/sell-your-photo-book/", "title": "Sell your photo book from your own website",
+     "img": ("/images/guide-og.jpg", 1200, 630, "The printed hardcover of It Started on a Sunday on a marble counter."),
+     "desc": "Print on demand with Stripe and Prodigi. No shop platform, no monthly fee, no stock at home. Two routes: no code, or automatic orders with the code ready to copy."},
+    {"date": "2026-10-22", "path": "/guides/flat-car-meet-photos/", "title": "Why your car meet photos look flat (and the fix)",
+     "img": ("/images/guide/a1/DSC_5226_after_D01.jpg", 1200, 799, "A red Ferrari Roma on gravel in front of trees, edited with the method in the guide."),
+     "desc": "Grey UK mornings make dark, dull photos. Why it happens, and six steps in Lightroom to fix it, with before and after from real meets."},
+    {"date": "2026-10-24T18:28", "path": "/guides/business-email-free/", "title": "A business email on your own domain, free",
+     "img": ("/images/guide/b1/gmail-1-address.jpg", 1200, 429, "Gmail's Add another email address window with hello@davidslv.photography."), "shot": True,
+     "desc": "hello@yourdomain in your normal Gmail, with Cloudflare Email Routing and Gmail's Send mail as. No Workspace bill."},
+    {"date": "2026-10-24T18:34", "path": "/guides/portfolio-website-free/", "title": "A photography portfolio website for £0 a month",
+     "img": ("/images/guide/b2/home.jpg", 1200, 750, "The home page of davidslv.photography."), "shot": True,
+     "desc": "GitHub Pages on your own domain: the costs, the steps, fast photos that stay yours, and the catch."},
+]
+GUIDES_PER_PAGE = 10
+
+
+def guide_card(g):
+    src_, w, h, alt = g["img"]
+    return f"""<a class="gcard{' gshot' if g.get('shot') else ''}" href="{g['path']}">
+<img src="{src_}" width="{w}" height="{h}" alt="{alt}" loading="lazy" decoding="async">
 <span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
-<span class="gtitle">Sell your photo book from your own website</span>
-<span class="gdesc">Print on demand with Stripe and Prodigi. No shop platform, no monthly fee, no stock at home. Two routes: no code, or automatic orders with the code ready to copy.</span>
-<span class="gmore">Read the guide</span></span></a>
-<a class="gcard" href="/guides/flat-car-meet-photos/">
-<img src="/images/guide/a1/DSC_5226_after_D01.jpg" width="1200" height="799" alt="A red Ferrari Roma on gravel in front of trees, edited with the method in the guide.">
-<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
-<span class="gtitle">Why your car meet photos look flat (and the fix)</span>
-<span class="gdesc">Grey UK mornings make dark, dull photos. Why it happens, and six steps in Lightroom to fix it, with before and after from real meets.</span>
-<span class="gmore">Read the guide</span></span></a>
-<a class="gcard" href="/guides/portfolio-website-free/">
-<img src="/images/guide/b2/home.jpg" width="1200" height="750" alt="The home page of davidslv.photography.">
-<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
-<span class="gtitle">A photography portfolio website for £0 a month</span>
-<span class="gdesc">GitHub Pages on your own domain: the costs, the steps, fast photos that stay yours, and the catch.</span>
-<span class="gmore">Read the guide</span></span></a>
-<a class="gcard" href="/guides/business-email-free/">
-<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
-<span class="gtitle">A business email on your own domain, free</span>
-<span class="gdesc">hello@yourdomain in your normal Gmail, with Cloudflare Email Routing and Gmail's Send mail as. No Workspace bill.</span>
+<span class="gtitle">{g['title']}</span>
+<span class="gdesc">{g['desc']}</span>
 <span class="gmore">Read the guide</span></span></a>"""
-    ld = json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "description": desc,
-                     "url": URL + path, "inLanguage": "en-GB",
-                     "hasPart": [{"@type": "Article", "headline": "Sell your photo book from your own website",
-                                  "url": URL + "/guides/sell-your-photo-book/"},
-                                 {"@type": "Article", "headline": "Why your car meet photos look flat (and the fix)",
-                                  "url": URL + "/guides/flat-car-meet-photos/"}]})
-    out.write_text(f"""<!doctype html>
+
+
+def guides_index_page():
+    """/guides/: guide cards, newest first, GUIDES_PER_PAGE to a page (/guides/, /guides/page/2/, ...). Returns sitemap entries."""
+    css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
+    guides = sorted(GUIDES, key=lambda g: g["date"], reverse=True)
+    pages = [guides[i:i + GUIDES_PER_PAGE] for i in range(0, len(guides), GUIDES_PER_PAGE)]
+    page_path = lambda n: "/guides/" if n == 1 else f"/guides/page/{n}/"
+    entries = []
+    for n, chunk in enumerate(pages, 1):
+        path = page_path(n)
+        out = SITE / path.strip("/") / "index.html"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        title = "Guides" if n == 1 else f"Guides, page {n}"
+        desc = "Free how-to guides from David Silva, a London photographer: editing car meet photos, the systems behind a photography business, and making and selling my own photo book."
+        cards = "\n".join(guide_card(g) for g in chunk)
+        # the first card's photo is the page's main image: load it straight away
+        cards = cards.replace(' loading="lazy"', ' fetchpriority="high"', 1)
+        pager = ""
+        if len(pages) > 1:
+            links = []
+            if n > 1:
+                links.append(f'<a rel="prev" href="{page_path(n - 1)}">Newer guides</a>')
+            links.append('<span class="pnums">' + " ".join(
+                f'<span aria-current="page">{k}</span>' if k == n else f'<a href="{page_path(k)}">{k}</a>'
+                for k in range(1, len(pages) + 1)) + '</span>')
+            if n < len(pages):
+                links.append(f'<a rel="next" href="{page_path(n + 1)}">Older guides</a>')
+            pager = f'<nav class="pager" aria-label="Guide pages">{"".join(links)}</nav>'
+        head_links = "".join(
+            [f'<link rel="prev" href="{URL}{page_path(n - 1)}">\n' if n > 1 else "",
+             f'<link rel="next" href="{URL}{page_path(n + 1)}">\n' if n < len(pages) else ""])
+        ld = json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": title, "description": desc,
+                         "url": URL + path, "inLanguage": "en-GB",
+                         "hasPart": [{"@type": "Article", "headline": g["title"], "url": URL + g["path"]} for g in chunk]})
+        intro = ("""<h1>What I learned, written down</h1>
+<p class="lead">Free how-to guides for photographers: editing car meet photos, the systems behind a photography business, and making and selling my own book. Plain steps, no jargon, checked against the real thing. Newest first.</p>"""
+                 if n == 1 else f"<h1>Guides, page {n}</h1>")
+        out.write_text(f"""<!doctype html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
@@ -541,7 +569,7 @@ def guides_index_page():
 <title>{title} · {NAME}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{URL}{path}">
-<meta property="og:type" content="website">
+{head_links}<meta property="og:type" content="website">
 <meta property="og:title" content="{title} · {NAME}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{URL}{path}">
@@ -553,16 +581,17 @@ def guides_index_page():
 <style>{css}</style>
 </head>
 <body class="plain">
-<header class="site"><a class="name" href="/">{NAME}</a>{main_nav(path)}</header>
+<header class="site"><a class="name" href="/">{NAME}</a>{main_nav("/guides/")}</header>
 <main id="work" class="terms-page guides">
 <p class="lbl">Guides</p>
-<h1>What I learned, written down</h1>
-<p class="lead">Free how-to guides for photographers: editing car meet photos, and making and selling my own book. Plain steps, no jargon, checked against the real thing.</p>
+{intro}
 {cards}
+{pager}
 </main>
 """ + footer())
-    print("built", out.relative_to(ROOT))
-    return f"<url><loc>{URL}{path}</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
+        print("built", out.relative_to(ROOT))
+        entries.append(f"<url><loc>{URL}{path}</loc><lastmod>{date.today().isoformat()}</lastmod></url>")
+    return entries
 
 
 def extras(meta):
@@ -579,7 +608,7 @@ def extras(meta):
     urls.append(email_guide_page())
     urls.append(website_guide_page())
     urls.append(field_guide_page())
-    urls.append(guides_index_page())
+    urls.extend(guides_index_page())
     (SITE / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
         'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' + "\n".join(urls) + "\n</urlset>\n")

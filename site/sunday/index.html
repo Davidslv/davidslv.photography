@@ -73,7 +73,7 @@
    "primaryImageOfPage": {
     "@id": "https://davidslv.photography/sunday/#photo-s3706"
    },
-   "dateModified": "2026-10-24T19:56:45+01:00",
+   "dateModified": "2026-10-24T20:02:29+01:00",
    "mainEntity": {
     "@type": "ImageGallery",
     "name": "Sunday car meets, November 2024 to October 2026",
@@ -846,6 +846,12 @@ nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underl
 .guides .gdesc { color: #3b3832; font-size: .95em; }
 .guides .gmore { margin-top: auto; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
 .guides .gcard:hover .gtitle { text-decoration: underline; text-underline-offset: 5px; }
+.guides .pager { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin: 40px 0 0; font-weight: 600; }
+.guides .pager a, .guides .pager span[aria-current] { display: inline-block; min-width: 44px; min-height: 44px; line-height: 44px; text-align: center; color: inherit; }
+.guides .pager .pnums { display: flex; gap: 4px; }
+.guides .pager span[aria-current] { border-bottom: 2px solid currentColor; }
+.guides .gcard.gshot { grid-template-columns: 1fr; }
+.guides .gcard.gshot img { height: auto; object-fit: initial; border-bottom: 1px solid rgba(0,0,0,.12); }
 @media (max-width: 720px) { .guides .gcard { grid-template-columns: 1fr; } .guides .gcard img { height: auto; aspect-ratio: 1200/630; } }
 
 /* /sunday/ buy points: hero buttons, a block between parts, and a bar that shows after the hero (20 Oct 2026) */

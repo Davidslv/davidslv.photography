@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Guides · David Silva</title>
-<meta name="description" content="Free how-to guides from David Silva, a London photographer: editing car meet photos, and making and selling my own photo book.">
+<meta name="description" content="Free how-to guides from David Silva, a London photographer: editing car meet photos, the systems behind a photography business, and making and selling my own photo book.">
 <link rel="canonical" href="https://davidslv.photography/guides/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Guides · David Silva">
-<meta property="og:description" content="Free how-to guides from David Silva, a London photographer: editing car meet photos, and making and selling my own photo book.">
+<meta property="og:description" content="Free how-to guides from David Silva, a London photographer: editing car meet photos, the systems behind a photography business, and making and selling my own photo book.">
 <meta property="og:url" content="https://davidslv.photography/guides/">
 <meta property="og:image" content="https://davidslv.photography/images/guide-og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Guides", "description": "Free how-to guides from David Silva, a London photographer: editing car meet photos, and making and selling my own photo book.", "url": "https://davidslv.photography/guides/", "inLanguage": "en-GB", "hasPart": [{"@type": "Article", "headline": "Sell your photo book from your own website", "url": "https://davidslv.photography/guides/sell-your-photo-book/"}, {"@type": "Article", "headline": "Why your car meet photos look flat (and the fix)", "url": "https://davidslv.photography/guides/flat-car-meet-photos/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Guides", "description": "Free how-to guides from David Silva, a London photographer: editing car meet photos, the systems behind a photography business, and making and selling my own photo book.", "url": "https://davidslv.photography/guides/", "inLanguage": "en-GB", "hasPart": [{"@type": "Article", "headline": "A photography portfolio website for \u00a30 a month", "url": "https://davidslv.photography/guides/portfolio-website-free/"}, {"@type": "Article", "headline": "A business email on your own domain, free", "url": "https://davidslv.photography/guides/business-email-free/"}, {"@type": "Article", "headline": "Why your car meet photos look flat (and the fix)", "url": "https://davidslv.photography/guides/flat-car-meet-photos/"}, {"@type": "Article", "headline": "Sell your photo book from your own website", "url": "https://davidslv.photography/guides/sell-your-photo-book/"}]}</script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5049d2f041d46859a41276d44ddba33"}'></script><script>/* Anonymous reading stats for this site (site-stats Worker). No cookies, nothing stored on the device,
    no IP kept. Skipped for browsers sending Global Privacy Control or Do Not Track, and for automation. */
 (() => {
@@ -343,6 +343,12 @@ nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underl
 .guides .gdesc { color: #3b3832; font-size: .95em; }
 .guides .gmore { margin-top: auto; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
 .guides .gcard:hover .gtitle { text-decoration: underline; text-underline-offset: 5px; }
+.guides .pager { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin: 40px 0 0; font-weight: 600; }
+.guides .pager a, .guides .pager span[aria-current] { display: inline-block; min-width: 44px; min-height: 44px; line-height: 44px; text-align: center; color: inherit; }
+.guides .pager .pnums { display: flex; gap: 4px; }
+.guides .pager span[aria-current] { border-bottom: 2px solid currentColor; }
+.guides .gcard.gshot { grid-template-columns: 1fr; }
+.guides .gcard.gshot img { height: auto; object-fit: initial; border-bottom: 1px solid rgba(0,0,0,.12); }
 @media (max-width: 720px) { .guides .gcard { grid-template-columns: 1fr; } .guides .gcard img { height: auto; aspect-ratio: 1200/630; } }
 
 /* /sunday/ buy points: hero buttons, a block between parts, and a bar that shows after the hero (20 Oct 2026) */
@@ -390,30 +396,32 @@ nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underl
 <main id="work" class="terms-page guides">
 <p class="lbl">Guides</p>
 <h1>What I learned, written down</h1>
-<p class="lead">Free how-to guides for photographers: editing car meet photos, and making and selling my own book. Plain steps, no jargon, checked against the real thing.</p>
-<a class="gcard" href="/guides/sell-your-photo-book/">
-<img src="/images/guide-og.jpg" width="1200" height="630" alt="The printed hardcover of It Started on a Sunday on a marble counter.">
-<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
-<span class="gtitle">Sell your photo book from your own website</span>
-<span class="gdesc">Print on demand with Stripe and Prodigi. No shop platform, no monthly fee, no stock at home. Two routes: no code, or automatic orders with the code ready to copy.</span>
-<span class="gmore">Read the guide</span></span></a>
-<a class="gcard" href="/guides/flat-car-meet-photos/">
-<img src="/images/guide/a1/DSC_5226_after_D01.jpg" width="1200" height="799" alt="A red Ferrari Roma on gravel in front of trees, edited with the method in the guide.">
-<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
-<span class="gtitle">Why your car meet photos look flat (and the fix)</span>
-<span class="gdesc">Grey UK mornings make dark, dull photos. Why it happens, and six steps in Lightroom to fix it, with before and after from real meets.</span>
-<span class="gmore">Read the guide</span></span></a>
-<a class="gcard" href="/guides/portfolio-website-free/">
-<img src="/images/guide/b2/home.jpg" width="1200" height="750" alt="The home page of davidslv.photography.">
+<p class="lead">Free how-to guides for photographers: editing car meet photos, the systems behind a photography business, and making and selling my own book. Plain steps, no jargon, checked against the real thing. Newest first.</p>
+<a class="gcard gshot" href="/guides/portfolio-website-free/">
+<img src="/images/guide/b2/home.jpg" width="1200" height="750" alt="The home page of davidslv.photography." fetchpriority="high" decoding="async">
 <span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
 <span class="gtitle">A photography portfolio website for £0 a month</span>
 <span class="gdesc">GitHub Pages on your own domain: the costs, the steps, fast photos that stay yours, and the catch.</span>
 <span class="gmore">Read the guide</span></span></a>
-<a class="gcard" href="/guides/business-email-free/">
+<a class="gcard gshot" href="/guides/business-email-free/">
+<img src="/images/guide/b1/gmail-1-address.jpg" width="1200" height="429" alt="Gmail's Add another email address window with hello@davidslv.photography." loading="lazy" decoding="async">
 <span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
 <span class="gtitle">A business email on your own domain, free</span>
 <span class="gdesc">hello@yourdomain in your normal Gmail, with Cloudflare Email Routing and Gmail's Send mail as. No Workspace bill.</span>
 <span class="gmore">Read the guide</span></span></a>
+<a class="gcard" href="/guides/flat-car-meet-photos/">
+<img src="/images/guide/a1/DSC_5226_after_D01.jpg" width="1200" height="799" alt="A red Ferrari Roma on gravel in front of trees, edited with the method in the guide." loading="lazy" decoding="async">
+<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
+<span class="gtitle">Why your car meet photos look flat (and the fix)</span>
+<span class="gdesc">Grey UK mornings make dark, dull photos. Why it happens, and six steps in Lightroom to fix it, with before and after from real meets.</span>
+<span class="gmore">Read the guide</span></span></a>
+<a class="gcard" href="/guides/sell-your-photo-book/">
+<img src="/images/guide-og.jpg" width="1200" height="630" alt="The printed hardcover of It Started on a Sunday on a marble counter." loading="lazy" decoding="async">
+<span class="gtext"><span class="lbl">Free guide · last checked October 2026</span>
+<span class="gtitle">Sell your photo book from your own website</span>
+<span class="gdesc">Print on demand with Stripe and Prodigi. No shop platform, no monthly fee, no stock at home. Two routes: no code, or automatic orders with the code ready to copy.</span>
+<span class="gmore">Read the guide</span></span></a>
+
 </main>
 <footer><nav aria-label="Footer"><a href="/#work">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/guides/">Guides</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav><span>David Silva · London</span><span>All photographs © David Silva. Please ask before using them.</span><span class="legal" style="width:100%;font-size:12px;line-height:1.6">David Silva Photography is a trading name of CARERNOTES LTD, registered in England and Wales, company number 16928805. Registered office: 1st Floor 87/89 High Street, Hoddesdon, Herts, EN11 8TL.</span></footer>
 <script>// Photo pairs drift a little against each other as you scroll. Nothing else moves.
