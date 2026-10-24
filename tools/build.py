@@ -440,6 +440,14 @@ def website_guide_page():
                        f"{URL}/images/guide/b2/home.jpg", (ROOT / "tools/guide_website_body.html").read_text())
 
 
+def studio_kit_page():
+    """/studio-kit/: what the Studio Kit is, its price tiers and honest limits (draft 24 Oct 2026). Body in tools/studio_kit_body.html."""
+    return write_guide("/studio-kit/", "Studio Kit: your photography business, set up with Claude",
+                       "Step-by-step guides Claude follows with you to set up a photographer's domain, email, website, "
+                       "mailing list, social posting and shop. 16 modules, built from my own set-up. Opening soon.",
+                       f"{URL}/images/studio-kit/systems-og.jpg", (ROOT / "tools/studio_kit_body.html").read_text())
+
+
 def field_guide_page():
     """/field-guide/: sign-up page for the free Car Meet Field Guide and Quick Cards (lead magnet, 22 Oct 2026)."""
     return write_guide("/field-guide/", "The Car Meet Field Guide",
@@ -607,6 +615,7 @@ def extras(meta):
     urls.append(flat_guide_page())
     urls.append(email_guide_page())
     urls.append(website_guide_page())
+    urls.append(studio_kit_page())
     urls.append(field_guide_page())
     urls.extend(guides_index_page())
     (SITE / "sitemap.xml").write_text(
