@@ -73,7 +73,7 @@
    "primaryImageOfPage": {
     "@id": "https://davidslv.photography/mclaren/#photo-m0206"
    },
-   "dateModified": "2026-11-04T11:20:02+00:00",
+   "dateModified": "2026-11-04T11:22:45+00:00",
    "mainEntity": {
     "@type": "ImageGallery",
     "name": "A day at the McLaren Technology Centre open day, 2024",
@@ -832,8 +832,8 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 .home-hero .hero-buy { margin-top: 24px; }
 .home-hero .btn-solid, .home-hero .btn-ghost { text-shadow: none; }
 .home-hero .btn-ghost { background: rgba(0,0,0,.25); }
-/* readability: a soft dark pool behind the words, darkest where the paragraph sits */
-.home-hero::after { background: radial-gradient(ellipse 62% 58% at 50% 58%, rgba(10,8,6,.72) 0%, rgba(10,8,6,.55) 45%, rgba(10,8,6,.22) 80%), linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,0) 30%); }
+/* readability: a low, tight dark pool behind the paragraph only; faces in the upper half keep the photo's own exposure */
+.home-hero::after { background: radial-gradient(ellipse 46% 30% at 50% 76%, rgba(10,8,6,.62) 0%, rgba(10,8,6,.4) 55%, rgba(10,8,6,0) 100%), linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,0) 16%, rgba(0,0,0,0) 62%, rgba(0,0,0,.35)); }
 .home-hero .hero-sub { font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,.7), 0 0 16px rgba(0,0,0,.55); }
 .home-sec { max-width: 1240px; margin: 0 auto; padding-block: clamp(80px, 13vh, 150px) 0; }
 .home-sec h2 { font: 300 clamp(34px, 4.6vw, 58px)/1.04 var(--display); margin: 10px 0 28px; text-wrap: balance; }
