@@ -268,3 +268,5 @@ nav.main .panel a[aria-current="page"] { text-decoration: underline; text-underl
 @media print { .fgpage .fig { width: auto; margin: 8px 0 18px; } }
 .guide .signup .sender-form-field iframe { margin-left: auto !important; margin-right: auto !important; }
 .guide .signup { text-align: center; padding-bottom: 20px; }
+/* Phones: name above the menu (30 Oct 2026). */
+@media (max-width: 720px) { header.site { flex-direction: column; align-items: flex-start; gap: 0; } }

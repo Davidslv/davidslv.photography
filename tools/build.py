@@ -36,7 +36,7 @@ WIDTHS = (640, 1200)  # plus the cap below
 CAP_COLUMN, CAP_WIDE = 1600, 2000  # David, 10 Oct 2026: keep web copies too small for a quality large print
 E = html.escape
 SERIES = [("London", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("Sicily", "/sicily/"), ("Cayman", "/cayman/")]
-NAV = SERIES + [("Guides", "/guides/"), ("About", "/#about"), ("Contact", "/#contact")]   # flat list: footer and the Cayman page menu
+NAV = SERIES + [("Guides", "/guides/"), ("Studio Kit", "/studio-kit/"), ("About", "/#about"), ("Contact", "/#contact")]   # flat list: footer and the Cayman page menu
 
 
 def load_pages():
@@ -328,6 +328,7 @@ def main_nav(path):
             f'<div class="panel">{series}</div></details>'
             f'<a href="/sunday/"{cur if path == "/sunday/" else ""}>Book</a>'
             f'<a href="/guides/"{cur if path.startswith("/guides/") else ""}>Guides</a>'
+            f'<a href="/studio-kit/"{cur if path == "/studio-kit/" else ""}>Studio Kit</a>'
             f'<a href="/#about">About</a></nav>')
 
 
