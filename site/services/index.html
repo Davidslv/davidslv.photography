@@ -685,6 +685,8 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 .values-cta { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
 @media (max-width: 1000px) { .values { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 720px) { .values { grid-template-columns: 1fr; } }
+/* home: every section shares one column, so headings and text start on the same left edge */
+.home-sec, .about-home, .values-sec, #ways ~ .more { box-sizing: border-box; max-width: 1240px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); }
 </style>
 </head>
 <body class="plain">
