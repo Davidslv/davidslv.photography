@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://davidslv.photography/images/field-guide/guide-cover-1920w.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "The Car Meet Field Guide", "description": "A free 36-page printable field guide and 32 quick cards for your phone: how to plan a car meet, read the light, the angles round every car, and the settings I use.", "image": "https://davidslv.photography/images/field-guide/guide-cover-1920w.jpg", "url": "https://davidslv.photography/field-guide/", "inLanguage": "en-GB", "dateModified": "2026-11-04T11:53:39+00:00", "author": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}, "publisher": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "The Car Meet Field Guide", "description": "A free 36-page printable field guide and 32 quick cards for your phone: how to plan a car meet, read the light, the angles round every car, and the settings I use.", "image": "https://davidslv.photography/images/field-guide/guide-cover-1920w.jpg", "url": "https://davidslv.photography/field-guide/", "inLanguage": "en-GB", "dateModified": "2026-11-04T11:55:47+00:00", "author": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}, "publisher": {"@type": "Person", "name": "David Silva", "url": "https://davidslv.photography/"}}</script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5049d2f041d46859a41276d44ddba33"}'></script><script>/* Anonymous reading stats for this site (site-stats Worker). No cookies, nothing stored on the device,
    no IP kept. Skipped for browsers sending Global Privacy Control or Do Not Track, and for automation. */
 (() => {
@@ -495,6 +495,9 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 @media (max-width: 720px) { .values { grid-template-columns: 1fr; } }
 /* home: every section shares one column, so headings and text start on the same left edge */
 .home-sec, .about-home, .values-sec, #ways ~ .more { box-sizing: border-box; max-width: 1240px; margin-inline: auto; padding-inline: clamp(16px, 4vw, 48px); }
+/* home: the footer rule and links sit on the same column as the sections above */
+body:has(#ways) footer { box-sizing: border-box; max-width: calc(1240px + 2 * clamp(16px, 4vw, 48px)); padding-inline: calc(2 * clamp(16px, 4vw, 48px)); border-top: 0; }
+body:has(#ways) footer::before { content: ""; flex-basis: 100%; height: 1px; background: var(--hair); margin-bottom: 10px; }
 </style>
 </head>
 <body class="plain">
