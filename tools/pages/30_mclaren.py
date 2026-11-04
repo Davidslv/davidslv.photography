@@ -93,4 +93,4 @@ def after(meta):
 <p class="pitch-note">{EMAIL} · <a href="{IG}" rel="me">@davidslv.photography</a></p>
 <p class="pitch-small">Photographed as a visitor at the McLaren open day, March 2024, on a Nikon D5500 with a 35mm lens. Not affiliated with or endorsed by McLaren.</p>
 </section>
-<a class="next" href="/"><span class="lbl">Next</span><span class="next-title">From last light to last train</span><span class="next-sub">One Saturday in London, and other nights</span></a>"""
+<a class="next" href="/london/"><span class="lbl">Next</span><span class="next-title">From last light to last train</span><span class="next-sub">One Saturday in London, and other nights</span></a>"""
