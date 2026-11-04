@@ -73,7 +73,7 @@
    "primaryImageOfPage": {
     "@id": "https://davidslv.photography/ericeira/#photo-e8537"
    },
-   "dateModified": "2026-11-04T11:06:52+00:00",
+   "dateModified": "2026-11-04T11:08:04+00:00",
    "mainEntity": {
     "@type": "ImageGallery",
     "name": "Skimboarding at Ericeira, 26 February 2012",
@@ -837,13 +837,13 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 .goals input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--ink); }
 .goals .btn { font-size: 15px; cursor: pointer; padding: 14px 28px; }
 .goals .form-note { margin: 0; font-weight: 600; color: var(--accent); }
-/* story grid: every picture in a row has the same height, so the rows line up; London and Sicily take two columns */
+/* story grid: every picture in a row has the same height, so the rows line up; London (first) and Sicily (last) take two columns, corner to corner */
 .story { align-content: start; }
 .story picture { display: block; overflow: hidden; background: var(--hair); height: clamp(220px, 22vw, 340px); }
-.stories .story:nth-child(1), .stories .story:nth-child(6) { grid-column: span 2; }
+.stories .story:nth-child(1), .stories .story:nth-child(7) { grid-column: span 2; }
 @media (max-width: 1000px) {
   .story picture { height: clamp(200px, 30vw, 300px); }
-  .stories .story:nth-child(6) { grid-column: auto; }
+  .stories .story:nth-child(7) { grid-column: auto; }
 }
 @media (max-width: 720px) {
   .stories .story:nth-child(1) { grid-column: auto; }

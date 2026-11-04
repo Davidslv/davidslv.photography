@@ -26,8 +26,8 @@ STORIES = [
     ("McLaren", "/mclaren/", "m0206", "Race cars from the 1970s to now, and the people who came to see them.", "50% 50%"),
     ("Ericeira", "/ericeira/", "e8537", "The first time I had a DSLR in my hands.", "50% 50%"),
     ("Blackbushe", "/blackbushe/", "b7779", "A Porsche Club GB Region 29 morning at Blackbushe.", "50% 35%"),
-    ("Sicily", "/sicily/", "s8801", "Early mornings in the rows, the pick and the work around it.", "50% 45%"),
     ("Cayman", "/cayman/", "c4823", "New tyres and brakes, a drive to Wales for the sunrise, and the view from behind the wheel.", "50% 62%"),
+    ("Sicily", "/sicily/", "s8801", "Early mornings in the rows, the pick and the work around it.", "50% 45%"),
 ]
 SICILY = ["s0392c", "s8268", "s8868l"]
 
