@@ -76,7 +76,7 @@
    "primaryImageOfPage": {
     "@id": "https://davidslv.photography/#photo-n172"
    },
-   "dateModified": "2026-11-04T11:22:45+00:00",
+   "dateModified": "2026-11-04T11:41:37+00:00",
    "mainEntity": {
     "@id": "https://davidslv.photography/#david"
    },
@@ -746,6 +746,19 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 .copy-btn { cursor: pointer; font-size: 15px; }
 .template { white-space: pre-wrap; overflow-wrap: anywhere; font: 16px/1.6 var(--label); color: var(--ink); background: #fbfaf7; border: 1px solid var(--hair); border-radius: 4px; padding: 16px 18px; margin: 16px 0; max-width: 60ch; }
 .copy-note { min-height: 1.5em; font-weight: 600; color: var(--accent); }
+/* home About: a fuller story, then the values */
+.about-home { align-items: center; padding-block: clamp(90px, 14vh, 180px) 24px; }
+.about-home p { font-size: 18px; line-height: 1.6; }
+.about-home .about-why { font: italic 300 clamp(22px, 2.4vw, 28px)/1.35 var(--display); color: var(--ink); border-left: 2px solid var(--accent); padding-left: 18px; margin-top: 24px; max-width: 34ch; }
+.values-sec { max-width: 1040px; margin: 0 auto; padding-block: 40px clamp(60px, 10vh, 120px); padding-inline: clamp(16px, 4vw, 48px); }
+.values-sec h2 { font: 300 clamp(30px, 4vw, 44px)/1.1 var(--display); margin: 6px 0 28px; }
+.values { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px clamp(20px, 3vw, 40px); }
+.values li { border-top: 1px solid var(--hair); padding-top: 16px; }
+.values h3 { font: 400 23px/1.2 var(--display); margin: 0 0 8px; color: var(--ink); }
+.values p { margin: 0; color: #3b3832; font-size: 16px; line-height: 1.55; }
+.values-cta { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 1000px) { .values { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px) { .values { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -777,10 +790,17 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 <div class="client-photos"><figure><picture><source type="image/avif" srcset="/images/s0392c-three-men-talk-beside-the-crates-640.ab7f9cad48.avif 640w, /images/s0392c-three-men-talk-beside-the-crates-1200.6c045ea35e.avif 1200w, /images/s0392c-three-men-talk-beside-the-crates-2000.79c4449182.avif 2000w" sizes="(max-width:720px) 100vw, 66vw"><img src="/images/s0392c-three-men-talk-beside-the-crates-640.b72e37f521.jpg" srcset="/images/s0392c-three-men-talk-beside-the-crates-640.b72e37f521.jpg 640w, /images/s0392c-three-men-talk-beside-the-crates-1200.c5dee9ed6d.jpg 1200w, /images/s0392c-three-men-talk-beside-the-crates-2000.973148d6a2.jpg 2000w" sizes="(max-width:720px) 100vw, 66vw" width="3000" height="1253" alt="Three men talk beside the crates and a blue tractor at the end of a row." loading="lazy" decoding="async"></picture></figure><figure><picture><source type="image/avif" srcset="/images/s8268-a-hand-lifts-a-bunch-of-640.900da91cfe.avif 640w, /images/s8268-a-hand-lifts-a-bunch-of-1200.80f0aa41fb.avif 1200w, /images/s8268-a-hand-lifts-a-bunch-of-1600.365dc553b7.avif 1600w" sizes="(max-width:720px) 100vw, 66vw"><img src="/images/s8268-a-hand-lifts-a-bunch-of-640.350c5fc421.jpg" srcset="/images/s8268-a-hand-lifts-a-bunch-of-640.350c5fc421.jpg 640w, /images/s8268-a-hand-lifts-a-bunch-of-1200.578801a2f1.jpg 1200w, /images/s8268-a-hand-lifts-a-bunch-of-1600.94362e7ece.jpg 1600w" sizes="(max-width:720px) 100vw, 66vw" width="1996" height="3000" alt="A hand lifts a bunch of dark grapes from the vine." loading="lazy" decoding="async"></picture></figure></div>
 <p class="home-line">Photographs of a family vineyard in Sicily, for the website I'm building for them.</p>
 <p><a class="btn" href="/sicily/">See the harvest</a></p></section>
-<section class="about" id="about">
-<img src="/images/david-silva.be338991a1.jpg" width="800" height="800" loading="lazy" decoding="async" alt="Portrait of David Silva.">
-<div><p class="lbl">About</p><h2>David Silva</h2>
-<p>I'm David Silva, a photographer and software engineer in London. I've photographed London at night and two years of Sunday car meets, and made books of both. I've written software since I was 12. So the photos and the website come from the same person, and you deal with one person from start to finish.</p></div></section>
+<section class="about about-home" id="about" aria-labelledby="about-h">
+<img src="/images/david-silva.be338991a1.jpg" width="800" height="800" loading="lazy" decoding="async" alt="David Silva in his car, holding his camera.">
+<div><p class="lbl">About</p><h2 id="about-h">I'm David Silva.</h2>
+<p>I grew up in Lisbon and wrote my first code at 12. I've built software for a living since 2009, and I moved to London in 2013.</p>
+<p>Years later I picked up a camera. I photographed London at night, then spent two years of Sundays at car meets. I went for the cars and stayed for the people. Both became books.</p>
+<p>Now I bring the two together for small businesses. You talk to me, and I make it all: the photos, the videos and the website.</p>
+<p class="about-why">Small businesses are people doing what they love. I want them to be seen properly, and to own everything they build.</p>
+</div></section>
+<section class="values-sec" aria-labelledby="values-h"><p class="lbl">What I believe</p><h2 id="values-h">How I work with you</h2>
+<ul class="values"><li><h3>People first</h3><p>Your business is its people. My photos show them, not just the product.</p></li><li><h3>Your success is my success</h3><p>The work is only good if it works for you: more people finding you, getting in touch and buying.</p></li><li><h3>You own it</h3><p>Your domain, website, accounts and data are yours, and your photos come with a licence to use them. No lock-in to me or to a platform.</p></li><li><h3>Honest work</h3><p>I tell you what it does and what it costs. I promise less and deliver more, and I never invent a number.</p></li><li><h3>Done, then better</h3><p>Something working this month beats something perfect next year. We launch, measure, and improve.</p></li><li><h3>You&#x27;ll understand it</h3><p>I explain how it all works in plain words, so you can run it day to day without me.</p></li></ul>
+<p class="values-cta"><a class="btn solid" href="/services/">Ways to work with me</a> <a class="btn" href="/services/#start">Tell me about your business</a></p></section>
 <section class="more" aria-labelledby="ph-h"><h2 id="ph-h" class="lbl more-head">For photographers</h2>
 <div><p class="lbl">The book</p><h3><a href="/sunday/"><em>It Started on a Sunday</em></a></h3><p>Candid photographs of car meets in and around London, and the people who love the cars.</p></div>
 <div><p class="lbl">Guides</p><h3><a href="/guides/">What I learned, written down</a></h3><p>Free how-to guides for photographers: editing car meet photos, the systems behind a photography business, and making and selling my own book.</p></div>
@@ -789,7 +809,7 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 <section class="home-sec contact" id="contact" aria-labelledby="contact-h"><p class="lbl">Contact</p><h2 id="contact-h">Tell me about your business</h2>
 <p>The quickest way to start is a short email. The services page has a message you can copy, fill in and send.</p>
 <p><a class="btn solid" href="/services/#start">Tell me about your business</a></p>
-<p>Or email <a href="mailto:hello@davidslv.photography">hello@davidslv.photography</a>, or message me on Instagram: <a href="https://www.instagram.com/davidslv.photography/" rel="me">@davidslv.photography</a></p></section>
+<p class="contact-lines">Or write to me directly:<br>Email: <a href="mailto:hello@davidslv.photography">hello@davidslv.photography</a><br>Instagram: <a href="https://www.instagram.com/davidslv.photography/" rel="me">@davidslv.photography</a></p></section>
 </main>
 <footer><nav aria-label="Footer"><a href="/london/">London</a><a href="/sunday/">Sunday</a><a href="/mclaren/">McLaren</a><a href="/ericeira/">Ericeira</a><a href="/blackbushe/">Blackbushe</a><a href="/sicily/">Sicily</a><a href="/cayman/">Cayman</a><a href="/services/">Services</a><a href="/guides/">Guides</a><a href="/studio-kit/">Studio Kit</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav><span>David Silva · London</span><span>All photographs © David Silva. Please ask before using them.</span><span class="legal" style="width:100%;font-size:12px;line-height:1.6">David Silva Photography is a trading name of CARERNOTES LTD, registered in England and Wales, company number 16928805. Registered office: 1st Floor 87/89 High Street, Hoddesdon, Herts, EN11 8TL.</span></footer>
 <script>// Photo pairs drift a little against each other as you scroll. Nothing else moves.

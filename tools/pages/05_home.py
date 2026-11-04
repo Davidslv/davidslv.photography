@@ -38,6 +38,14 @@ STEPS = [
     ("Presence", "A website and search set up on accounts you own."),
     ("Grow", "Keep showing up, measure what it brings in, fix the next thing."),
 ]
+VALUES = [
+    ("People first", "Your business is its people. My photos show them, not just the product."),
+    ("Your success is my success", "The work is only good if it works for you: more people finding you, getting in touch and buying."),
+    ("You own it", "Your domain, website, accounts and data are yours, and your photos come with a licence to use them. No lock-in to me or to a platform."),
+    ("Honest work", "I tell you what it does and what it costs. I promise less and deliver more, and I never invent a number."),
+    ("Done, then better", "Something working this month beats something perfect next year. We launch, measure, and improve."),
+    ("You'll understand it", "I explain how it all works in plain words, so you can run it day to day without me."),
+]
 OFFERS = [
     ("contact-sheet", "Contact Sheet", "Know what makes you different, and where to show it."),
     ("the-reveal", "The Reveal", "Your business at its best, ready to post this week."),
@@ -85,10 +93,18 @@ def body(meta, b):
 <p class="home-line">Photographs of a family vineyard in Sicily, for the website I'm building for them.</p>
 <p><a class="btn" href="/sicily/">See the harvest</a></p></section>"""
 
-    about = f"""<section class="about" id="about">
-<img src="/images/{meta['_portrait']}" width="800" height="800" loading="lazy" decoding="async" alt="Portrait of David Silva.">
-<div><p class="lbl">About</p><h2>David Silva</h2>
-<p>I'm David Silva, a photographer and software engineer in London. I've photographed London at night and two years of Sunday car meets, and made books of both. I've written software since I was 12. So the photos and the website come from the same person, and you deal with one person from start to finish.</p></div></section>"""
+    vals = "".join(f"<li><h3>{E(n)}</h3><p>{E(t)}</p></li>" for n, t in VALUES)
+    about = f"""<section class="about about-home" id="about" aria-labelledby="about-h">
+<img src="/images/{meta['_portrait']}" width="800" height="800" loading="lazy" decoding="async" alt="David Silva in his car, holding his camera.">
+<div><p class="lbl">About</p><h2 id="about-h">I'm David Silva.</h2>
+<p>I grew up in Lisbon and wrote my first code at 12. I've built software for a living since 2009, and I moved to London in 2013.</p>
+<p>Years later I picked up a camera. I photographed London at night, then spent two years of Sundays at car meets. I went for the cars and stayed for the people. Both became books.</p>
+<p>Now I bring the two together for small businesses. You talk to me, and I make it all: the photos, the videos and the website.</p>
+<p class="about-why">Small businesses are people doing what they love. I want them to be seen properly, and to own everything they build.</p>
+</div></section>
+<section class="values-sec" aria-labelledby="values-h"><p class="lbl">What I believe</p><h2 id="values-h">How I work with you</h2>
+<ul class="values">{vals}</ul>
+<p class="values-cta"><a class="btn solid" href="/services/">Ways to work with me</a> <a class="btn" href="/services/#start">Tell me about your business</a></p></section>"""
 
     photographers = """<section class="more" aria-labelledby="ph-h"><h2 id="ph-h" class="lbl more-head">For photographers</h2>
 <div><p class="lbl">The book</p><h3><a href="/sunday/"><em>It Started on a Sunday</em></a></h3><p>Candid photographs of car meets in and around London, and the people who love the cars.</p></div>
@@ -99,6 +115,6 @@ def body(meta, b):
     contact = f"""<section class="home-sec contact" id="contact" aria-labelledby="contact-h"><p class="lbl">Contact</p><h2 id="contact-h">Tell me about your business</h2>
 <p>The quickest way to start is a short email. The services page has a message you can copy, fill in and send.</p>
 <p><a class="btn solid" href="/services/#start">Tell me about your business</a></p>
-<p>Or email <a href="mailto:{EMAIL}">{EMAIL}</a>, or message me on Instagram: <a href="{IG}" rel="me">@davidslv.photography</a></p></section>"""
+<p class="contact-lines">Or write to me directly:<br>Email: <a href="mailto:{EMAIL}">{EMAIL}</a><br>Instagram: <a href="{IG}" rel="me">@davidslv.photography</a></p></section>"""
 
     return "\n".join([hero, '<main id="main">', work, how, ways, client, about, photographers, contact, "</main>"])
