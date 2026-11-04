@@ -99,7 +99,7 @@ def body(meta, b):
 <div><p class="lbl">About</p><h2 id="about-h">I'm David Silva.</h2>
 <p>I grew up in Lisbon and wrote my first code at 12. I've built software for a living since 2009, and I moved to London in 2013.</p>
 <p>Years later I picked up a camera. I photographed London at night, then spent two years of Sundays at car meets. I went for the cars and stayed for the people. Both became books.</p>
-<p>Now I bring the two together for small businesses. The photos, the video, the website and the systems behind them come from one person, and you deal with that person from start to finish.</p>
+<p>Now I bring the two together for small businesses. You talk to me, and I make it all: the photos, the videos and the website.</p>
 <p class="about-why">Small businesses are people doing what they love. I want them to be seen properly, and to own everything they build.</p>
 </div></section>
 <section class="values-sec" aria-labelledby="values-h"><p class="lbl">What I believe</p><h2 id="values-h">How I work with you</h2>
