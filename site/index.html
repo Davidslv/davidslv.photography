@@ -76,7 +76,7 @@
    "primaryImageOfPage": {
     "@id": "https://davidslv.photography/#photo-n172"
    },
-   "dateModified": "2026-11-04T11:08:04+00:00",
+   "dateModified": "2026-11-04T11:09:38+00:00",
    "mainEntity": {
     "@id": "https://davidslv.photography/#david"
    },
@@ -272,25 +272,6 @@
       "license": "https://davidslv.photography/#contact",
       "acquireLicensePage": "https://davidslv.photography/#contact",
       "dateCreated": "2025-08-21T10:39:28"
-     },
-     {
-      "@type": "ImageObject",
-      "@id": "https://davidslv.photography/#photo-s8868l",
-      "contentUrl": "https://davidslv.photography/images/s8868l-stacked-blue-harvest-crates-printed-with-1600.94706f44a1.jpg",
-      "width": 1600,
-      "height": 2405,
-      "caption": "Stacked blue harvest crates printed with Tenuta Tremollito.",
-      "creator": {
-       "@id": "https://davidslv.photography/#david"
-      },
-      "creditText": "David Silva",
-      "copyrightNotice": "© David Silva",
-      "copyrightHolder": {
-       "@id": "https://davidslv.photography/#david"
-      },
-      "license": "https://davidslv.photography/#contact",
-      "acquireLicensePage": "https://davidslv.photography/#contact",
-      "dateCreated": "2025-08-23T08:30:44"
      }
     ]
    }
@@ -707,8 +688,11 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 .offer-name { font: 400 26px/1.1 var(--display); }
 .offer-line { color: #3b3832; font-size: 15px; }
 .offer:hover .offer-name { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
-.client-photos { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: clamp(12px, 2vw, 24px); align-items: start; }
-.client-photos figure:nth-child(2) { margin-top: 10vh; }
+.client-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.4vw, 32px); }
+.client-photos figure { margin: 0; }
+.client-photos figure:first-child { grid-column: span 2; }
+.client-photos picture { display: block; overflow: hidden; background: var(--hair); height: clamp(220px, 22vw, 340px); }
+.client-photos img { width: 100%; height: 100%; object-fit: cover; }
 .more .more-head { grid-column: 1 / -1; margin: 0; }
 .contact p { max-width: 56ch; color: #3b3832; font-size: 17px; }
 .contact a:not(.btn) { color: var(--ink); text-underline-offset: 3px; display: inline-block; padding-block: 3px; }
@@ -722,9 +706,9 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
   .home-hero { min-height: 100svh; height: auto; }
   .home-hero .words { bottom: 32px; }
   .stories, .steps, .offers { grid-template-columns: 1fr; }
-  .client-photos { grid-template-columns: 1fr 1fr; }
-  .client-photos figure:first-child { grid-column: 1 / -1; }
-  .client-photos figure:nth-child(2) { margin-top: 0; }
+  .client-photos { grid-template-columns: 1fr; }
+  .client-photos figure:first-child { grid-column: auto; }
+  .client-photos picture { height: auto; aspect-ratio: 3 / 2; }
 }
 /* /services/ */
 .services h2 { font: 300 clamp(30px, 4vw, 42px)/1.1 var(--display); margin: 0 0 8px; }
@@ -789,7 +773,7 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 <p><a class="btn" href="/services/">All services</a></p></section>
 <!-- PREVIEW: needs David's and the family's OK before going live -->
 <section class="home-sec client" aria-labelledby="client-h"><p class="lbl">Client story</p><h2 id="client-h">Sicily: a family vineyard</h2>
-<div class="client-photos"><figure><picture><source type="image/avif" srcset="/images/s0392c-three-men-talk-beside-the-crates-640.ab7f9cad48.avif 640w, /images/s0392c-three-men-talk-beside-the-crates-1200.6c045ea35e.avif 1200w, /images/s0392c-three-men-talk-beside-the-crates-2000.79c4449182.avif 2000w" sizes="(max-width:720px) 100vw, 33vw"><img src="/images/s0392c-three-men-talk-beside-the-crates-640.b72e37f521.jpg" srcset="/images/s0392c-three-men-talk-beside-the-crates-640.b72e37f521.jpg 640w, /images/s0392c-three-men-talk-beside-the-crates-1200.c5dee9ed6d.jpg 1200w, /images/s0392c-three-men-talk-beside-the-crates-2000.973148d6a2.jpg 2000w" sizes="(max-width:720px) 100vw, 33vw" width="3000" height="1253" alt="Three men talk beside the crates and a blue tractor at the end of a row." loading="lazy" decoding="async"></picture></figure><figure><picture><source type="image/avif" srcset="/images/s8268-a-hand-lifts-a-bunch-of-640.900da91cfe.avif 640w, /images/s8268-a-hand-lifts-a-bunch-of-1200.80f0aa41fb.avif 1200w, /images/s8268-a-hand-lifts-a-bunch-of-1600.365dc553b7.avif 1600w" sizes="(max-width:720px) 100vw, 33vw"><img src="/images/s8268-a-hand-lifts-a-bunch-of-640.350c5fc421.jpg" srcset="/images/s8268-a-hand-lifts-a-bunch-of-640.350c5fc421.jpg 640w, /images/s8268-a-hand-lifts-a-bunch-of-1200.578801a2f1.jpg 1200w, /images/s8268-a-hand-lifts-a-bunch-of-1600.94362e7ece.jpg 1600w" sizes="(max-width:720px) 100vw, 33vw" width="1996" height="3000" alt="A hand lifts a bunch of dark grapes from the vine." loading="lazy" decoding="async"></picture></figure><figure><picture><source type="image/avif" srcset="/images/s8868l-stacked-blue-harvest-crates-printed-with-640.e333fa89d1.avif 640w, /images/s8868l-stacked-blue-harvest-crates-printed-with-1200.2c1850f5fa.avif 1200w, /images/s8868l-stacked-blue-harvest-crates-printed-with-1600.90b669f48e.avif 1600w" sizes="(max-width:720px) 100vw, 33vw"><img src="/images/s8868l-stacked-blue-harvest-crates-printed-with-640.424c81fdaf.jpg" srcset="/images/s8868l-stacked-blue-harvest-crates-printed-with-640.424c81fdaf.jpg 640w, /images/s8868l-stacked-blue-harvest-crates-printed-with-1200.deb64904fc.jpg 1200w, /images/s8868l-stacked-blue-harvest-crates-printed-with-1600.94706f44a1.jpg 1600w" sizes="(max-width:720px) 100vw, 33vw" width="1996" height="3000" alt="Stacked blue harvest crates printed with Tenuta Tremollito." loading="lazy" decoding="async"></picture></figure></div>
+<div class="client-photos"><figure><picture><source type="image/avif" srcset="/images/s0392c-three-men-talk-beside-the-crates-640.ab7f9cad48.avif 640w, /images/s0392c-three-men-talk-beside-the-crates-1200.6c045ea35e.avif 1200w, /images/s0392c-three-men-talk-beside-the-crates-2000.79c4449182.avif 2000w" sizes="(max-width:720px) 100vw, 66vw"><img src="/images/s0392c-three-men-talk-beside-the-crates-640.b72e37f521.jpg" srcset="/images/s0392c-three-men-talk-beside-the-crates-640.b72e37f521.jpg 640w, /images/s0392c-three-men-talk-beside-the-crates-1200.c5dee9ed6d.jpg 1200w, /images/s0392c-three-men-talk-beside-the-crates-2000.973148d6a2.jpg 2000w" sizes="(max-width:720px) 100vw, 66vw" width="3000" height="1253" alt="Three men talk beside the crates and a blue tractor at the end of a row." loading="lazy" decoding="async"></picture></figure><figure><picture><source type="image/avif" srcset="/images/s8268-a-hand-lifts-a-bunch-of-640.900da91cfe.avif 640w, /images/s8268-a-hand-lifts-a-bunch-of-1200.80f0aa41fb.avif 1200w, /images/s8268-a-hand-lifts-a-bunch-of-1600.365dc553b7.avif 1600w" sizes="(max-width:720px) 100vw, 66vw"><img src="/images/s8268-a-hand-lifts-a-bunch-of-640.350c5fc421.jpg" srcset="/images/s8268-a-hand-lifts-a-bunch-of-640.350c5fc421.jpg 640w, /images/s8268-a-hand-lifts-a-bunch-of-1200.578801a2f1.jpg 1200w, /images/s8268-a-hand-lifts-a-bunch-of-1600.94362e7ece.jpg 1600w" sizes="(max-width:720px) 100vw, 66vw" width="1996" height="3000" alt="A hand lifts a bunch of dark grapes from the vine." loading="lazy" decoding="async"></picture></figure></div>
 <p class="home-line">Photographs of a family vineyard in Sicily, for the website I'm building for them.</p>
 <p><a class="btn" href="/sicily/">See the harvest</a></p></section>
 <section class="about" id="about">

@@ -29,7 +29,7 @@ STORIES = [
     ("Cayman", "/cayman/", "c4823", "New tyres and brakes, a drive to Wales for the sunrise, and the view from behind the wheel.", "50% 62%"),
     ("Sicily", "/sicily/", "s8801", "Early mornings in the rows, the pick and the work around it.", "50% 45%"),
 ]
-SICILY = ["s0392c", "s8268", "s8868l"]
+SICILY = ["s0392c", "s8268"]   # wide + single, the same row height as the story grid
 
 STEPS = [
     ("Understand", "What makes your business different, and who buys from you."),
@@ -78,7 +78,7 @@ def body(meta, b):
 <div class="offers">{offer_cards}</div>
 <p><a class="btn" href="/services/">All services</a></p></section>"""
 
-    sic = "".join(f"<figure>{b.picture(k, meta, '(max-width:720px) 100vw, 33vw')}</figure>" for k in SICILY)
+    sic = "".join(f"<figure>{b.picture(k, meta, '(max-width:720px) 100vw, 66vw')}</figure>" for k in SICILY)
     client = f"""<!-- PREVIEW: needs David's and the family's OK before going live -->
 <section class="home-sec client" aria-labelledby="client-h"><p class="lbl">Client story</p><h2 id="client-h">Sicily: a family vineyard</h2>
 <div class="client-photos">{sic}</div>
