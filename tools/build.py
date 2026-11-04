@@ -355,7 +355,7 @@ LEGAL = ("David Silva Photography is a trading name of CARERNOTES LTD, registere
 def footer():
     js = (ROOT / "tools/site.js").read_text()
     links = "".join(f'<a href="{h}">{n}</a>' for n, h in NAV)
-    return (f'<footer><nav aria-label="Footer">{links}</nav><span>{NAME} · London</span><span>All photographs © {NAME}. Please ask before using them.</span>'
+    return (f'<footer><nav aria-label="Footer">{links}</nav><span>{NAME} · London</span><span>All photographs © {NAME}. Please ask before using them.</span><span><a href="/terms/">Terms of sale</a> · <a href="/privacy/">Privacy</a></span>'
             f'<span class="legal" style="width:100%;font-size:12px;line-height:1.6">{LEGAL}</span></footer>\n'
             f"<script>{js}</script>\n</body>\n</html>\n")
 
@@ -369,6 +369,31 @@ def render(page, meta):
 
 
 # ---------- site files ----------
+def privacy_page():
+    """/privacy/: the privacy notice (text page, no photographs). Body in tools/privacy_body.html."""
+    css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
+    out = SITE / "privacy" / "index.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(f"""<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy · David Silva</title>
+<meta name="description" content="What David Silva Photography keeps about you, why, for how long, and how to ask for it to be changed or deleted.">
+<link rel="canonical" href="{URL}/privacy/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{CF_BEACON}
+<style>{css}</style>
+</head>
+<body class="plain">
+<header class="site"><a class="name" href="/">{NAME}</a>{main_nav("/privacy/")}</header>
+{(ROOT / "tools/privacy_body.html").read_text()}
+""" + footer())
+    print("built", out.relative_to(ROOT))
+    return f"<url><loc>{URL}/privacy/</loc><lastmod>{date.today().isoformat()}</lastmod></url>"
+
+
 def terms_page():
     """/terms/: terms of sale for the hardcover (text page, no photographs). Body in tools/terms_body.html."""
     css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
@@ -639,6 +664,7 @@ def extras(meta):
                        for s in page.SEQUENCE for k in s[1:] if isinstance(k, str) and k in PHOTOS)
         urls.append(f"<url><loc>{URL}{page.PATH}</loc><lastmod>{date.today().isoformat()}</lastmod>{imgs}</url>")
     urls.append(terms_page())
+    urls.append(privacy_page())
     urls.append(guide_page())
     urls.append(flat_guide_page())
     urls.append(email_guide_page())
