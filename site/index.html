@@ -76,7 +76,7 @@
    "primaryImageOfPage": {
     "@id": "https://davidslv.photography/#photo-n172"
    },
-   "dateModified": "2026-11-04T10:53:32+00:00",
+   "dateModified": "2026-11-04T11:05:49+00:00",
    "mainEntity": {
     "@id": "https://davidslv.photography/#david"
    },
@@ -180,11 +180,11 @@
      },
      {
       "@type": "ImageObject",
-      "@id": "https://davidslv.photography/#photo-b7708",
-      "contentUrl": "https://davidslv.photography/images/b7708-the-white-classic-911-parked-beside-2000.0ecc484b64.jpg",
+      "@id": "https://davidslv.photography/#photo-b7779",
+      "contentUrl": "https://davidslv.photography/images/b7779-three-owners-talking-and-laughing-between-2000.9a9ba87342.jpg",
       "width": 2000,
-      "height": 837,
-      "caption": "The white classic 911 parked beside the pale blue 911.",
+      "height": 1332,
+      "caption": "Three owners talking and laughing between the parked cars.",
       "creator": {
        "@id": "https://davidslv.photography/#david"
       },
@@ -195,34 +195,15 @@
       },
       "license": "https://davidslv.photography/#contact",
       "acquireLicensePage": "https://davidslv.photography/#contact",
-      "dateCreated": "2026-10-11T11:20:57"
+      "dateCreated": "2026-10-11T11:27:18"
      },
      {
       "@type": "ImageObject",
-      "@id": "https://davidslv.photography/#photo-s8432",
-      "contentUrl": "https://davidslv.photography/images/s8432-a-man-in-a-blue-shirt-2000.8f86fc3399.jpg",
-      "width": 2000,
-      "height": 745,
-      "caption": "A man in a blue shirt reaches into the row for a bunch of white grapes.",
-      "creator": {
-       "@id": "https://davidslv.photography/#david"
-      },
-      "creditText": "David Silva",
-      "copyrightNotice": "© David Silva",
-      "copyrightHolder": {
-       "@id": "https://davidslv.photography/#david"
-      },
-      "license": "https://davidslv.photography/#contact",
-      "acquireLicensePage": "https://davidslv.photography/#contact",
-      "dateCreated": "2025-08-21T11:00:12"
-     },
-     {
-      "@type": "ImageObject",
-      "@id": "https://davidslv.photography/#photo-c2817",
-      "contentUrl": "https://davidslv.photography/images/c2817-a-red-cayman-side-on-the-2000.6ef8f1b73a.jpg",
+      "@id": "https://davidslv.photography/#photo-s8801",
+      "contentUrl": "https://davidslv.photography/images/s8801-rows-of-vines-climbing-towards-the-2000.3ac6c01444.jpg",
       "width": 2000,
       "height": 1331,
-      "caption": "A red Cayman side on, the sun coming up over the hill behind.",
+      "caption": "Rows of vines climbing towards the top of the hill.",
       "creator": {
        "@id": "https://davidslv.photography/#david"
       },
@@ -233,7 +214,26 @@
       },
       "license": "https://davidslv.photography/#contact",
       "acquireLicensePage": "https://davidslv.photography/#contact",
-      "dateCreated": "2026-03-21T06:35:35"
+      "dateCreated": "2025-08-23T08:16:53"
+     },
+     {
+      "@type": "ImageObject",
+      "@id": "https://davidslv.photography/#photo-c4838",
+      "contentUrl": "https://davidslv.photography/images/c4838-the-front-wheel-and-wing-of-1600.32fdaacec4.jpg",
+      "width": 1600,
+      "height": 1065,
+      "caption": "The front wheel and wing of a red Cayman, low and close, in morning sun.",
+      "creator": {
+       "@id": "https://davidslv.photography/#david"
+      },
+      "creditText": "David Silva",
+      "copyrightNotice": "© David Silva",
+      "copyrightHolder": {
+       "@id": "https://davidslv.photography/#david"
+      },
+      "license": "https://davidslv.photography/#contact",
+      "acquireLicensePage": "https://davidslv.photography/#contact",
+      "dateCreated": "2026-04-19T06:51:20"
      },
      {
       "@type": "ImageObject",
@@ -691,11 +691,8 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 .home-sec h2 { font: 300 clamp(34px, 4.6vw, 58px)/1.04 var(--display); margin: 10px 0 28px; text-wrap: balance; }
 .home-line { font: 300 clamp(22px, 2.6vw, 32px)/1.3 var(--display); max-width: 30ch; margin: 36px 0 0; text-wrap: balance; }
 .stories { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.4vw, 32px); }
-.stories .story:first-child, .stories .story:last-child { grid-column: span 2; }
 .story { display: grid; gap: 4px; color: var(--ink); text-decoration: none; }
-.story picture { display: block; aspect-ratio: 3 / 2; overflow: hidden; background: var(--hair); }
 .story picture img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
-.stories .story:first-child picture, .stories .story:last-child picture { aspect-ratio: 3 / 1.45; }
 .story-name { margin-top: 10px; font: 400 26px/1.15 var(--display); }
 .story-line { color: var(--soft); font-size: 15px; max-width: 46ch; }
 .story:hover .story-name { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
@@ -718,8 +715,6 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 #work, #about, #contact, .svc { scroll-margin-top: 16px; }
 @media (max-width: 1000px) {
   .stories { grid-template-columns: 1fr 1fr; }
-  .stories .story:last-child { grid-column: auto; }
-  .stories .story:last-child picture { aspect-ratio: 3 / 2; }
   .steps { grid-template-columns: 1fr 1fr; }
   .offers { grid-template-columns: 1fr 1fr; }
 }
@@ -727,8 +722,6 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
   .home-hero { min-height: 100svh; height: auto; }
   .home-hero .words { bottom: 32px; }
   .stories, .steps, .offers { grid-template-columns: 1fr; }
-  .stories .story:first-child { grid-column: auto; }
-  .stories .story:first-child picture { aspect-ratio: 3 / 2; }
   .client-photos { grid-template-columns: 1fr 1fr; }
   .client-photos figure:first-child { grid-column: 1 / -1; }
   .client-photos figure:nth-child(2) { margin-top: 0; }
@@ -756,11 +749,17 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 .goals input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--ink); }
 .goals .btn { font-size: 15px; cursor: pointer; padding: 14px 28px; }
 .goals .form-note { margin: 0; font-weight: 600; color: var(--accent); }
+/* story grid: every picture in a row has the same height, so the rows line up; London and Sicily take two columns */
 .story { align-content: start; }
-@media (min-width: 1001px) {
-  .stories .story:nth-child(2), .stories .story:nth-child(6) { grid-template-rows: 1fr auto auto; align-content: stretch; }
-  .stories .story:nth-child(2) picture, .stories .story:nth-child(6) picture { aspect-ratio: auto; position: relative; min-height: 200px; }
-  .stories .story:nth-child(2) picture img, .stories .story:nth-child(6) picture img { position: absolute; inset: 0; }
+.story picture { display: block; overflow: hidden; background: var(--hair); height: clamp(220px, 22vw, 340px); }
+.stories .story:nth-child(1), .stories .story:nth-child(6) { grid-column: span 2; }
+@media (max-width: 1000px) {
+  .story picture { height: clamp(200px, 30vw, 300px); }
+  .stories .story:nth-child(6) { grid-column: auto; }
+}
+@media (max-width: 720px) {
+  .stories .story:nth-child(1) { grid-column: auto; }
+  .story picture { height: auto; aspect-ratio: 3 / 2; }
 }
 </style>
 </head>
@@ -778,9 +777,9 @@ header.site nav.main { flex-wrap: wrap; column-gap: 20px; row-gap: 0; }
 <a class="story" href="/sunday/"><picture><source type="image/avif" srcset="/images/s3706-owners-stand-around-a-vintage-open-640.a195ba0a00.avif 640w, /images/s3706-owners-stand-around-a-vintage-open-1200.34f1ba88b3.avif 1200w, /images/s3706-owners-stand-around-a-vintage-open-2000.ef7c1cd8f2.avif 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw"><img style="object-position:50% 60%" src="/images/s3706-owners-stand-around-a-vintage-open-640.bbfd193c53.jpg" srcset="/images/s3706-owners-stand-around-a-vintage-open-640.bbfd193c53.jpg 640w, /images/s3706-owners-stand-around-a-vintage-open-1200.1ae3289bf3.jpg 1200w, /images/s3706-owners-stand-around-a-vintage-open-2000.83d76f09ca.jpg 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw" width="6064" height="4040" alt="Owners stand around a vintage open racing car on frosted grass in the morning fog." loading="lazy" decoding="async"></picture><span class="story-name">Sunday</span><span class="story-line">Car meets in and around London, and the people who love the cars.</span></a>
 <a class="story" href="/mclaren/"><picture><source type="image/avif" srcset="/images/m0206-a-long-white-corridor-of-racing-640.522731fee5.avif 640w, /images/m0206-a-long-white-corridor-of-racing-1200.ffc53840ce.avif 1200w, /images/m0206-a-long-white-corridor-of-racing-2000.61fcdce95c.avif 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw"><img style="object-position:50% 50%" src="/images/m0206-a-long-white-corridor-of-racing-640.48be6b56bc.jpg" srcset="/images/m0206-a-long-white-corridor-of-racing-640.48be6b56bc.jpg 640w, /images/m0206-a-long-white-corridor-of-racing-1200.31ad57def2.jpg 1200w, /images/m0206-a-long-white-corridor-of-racing-2000.3e7c32f77c.jpg 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw" width="6000" height="2510" alt="A long white corridor of racing cars: one car on the floor in front, another behind it, a papaya car mounted high on the wall." loading="lazy" decoding="async"></picture><span class="story-name">McLaren</span><span class="story-line">Race cars from the 1970s to now, and the people who came to see them.</span></a>
 <a class="story" href="/ericeira/"><picture><source type="image/avif" srcset="/images/e8537-a-skimboarder-turns-on-the-lip-640.477924f2bc.avif 640w, /images/e8537-a-skimboarder-turns-on-the-lip-1200.56c984f34b.avif 1200w, /images/e8537-a-skimboarder-turns-on-the-lip-2000.053fcb3526.avif 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw"><img style="object-position:50% 50%" src="/images/e8537-a-skimboarder-turns-on-the-lip-640.b8c040ce13.jpg" srcset="/images/e8537-a-skimboarder-turns-on-the-lip-640.b8c040ce13.jpg 640w, /images/e8537-a-skimboarder-turns-on-the-lip-1200.3a57be70f1.jpg 1200w, /images/e8537-a-skimboarder-turns-on-the-lip-2000.2375df87e2.jpg 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw" width="3582" height="2240" alt="A skimboarder turns on the lip of a wave, one arm thrown up." loading="lazy" decoding="async"></picture><span class="story-name">Ericeira</span><span class="story-line">The first time I had a DSLR in my hands.</span></a>
-<a class="story" href="/blackbushe/"><picture><source type="image/avif" srcset="/images/b7708-the-white-classic-911-parked-beside-640.850a25496b.avif 640w, /images/b7708-the-white-classic-911-parked-beside-1200.818b09d29f.avif 1200w, /images/b7708-the-white-classic-911-parked-beside-2000.c0829c2925.avif 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw"><img style="object-position:50% 50%" src="/images/b7708-the-white-classic-911-parked-beside-640.f8296d87e8.jpg" srcset="/images/b7708-the-white-classic-911-parked-beside-640.f8296d87e8.jpg 640w, /images/b7708-the-white-classic-911-parked-beside-1200.97ffc8593f.jpg 1200w, /images/b7708-the-white-classic-911-parked-beside-2000.0ecc484b64.jpg 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw" width="6064" height="2537" alt="The white classic 911 parked beside the pale blue 911." loading="lazy" decoding="async"></picture><span class="story-name">Blackbushe</span><span class="story-line">A Porsche Club GB Region 29 morning at Blackbushe.</span></a>
-<a class="story" href="/sicily/"><picture><source type="image/avif" srcset="/images/s8432-a-man-in-a-blue-shirt-640.792984bd08.avif 640w, /images/s8432-a-man-in-a-blue-shirt-1200.1038106bb6.avif 1200w, /images/s8432-a-man-in-a-blue-shirt-2000.86fb374841.avif 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw"><img style="object-position:70% 40%" src="/images/s8432-a-man-in-a-blue-shirt-640.cfb40c4681.jpg" srcset="/images/s8432-a-man-in-a-blue-shirt-640.cfb40c4681.jpg 640w, /images/s8432-a-man-in-a-blue-shirt-1200.192bb85a53.jpg 1200w, /images/s8432-a-man-in-a-blue-shirt-2000.8f86fc3399.jpg 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw" width="3000" height="1118" alt="A man in a blue shirt reaches into the row for a bunch of white grapes." loading="lazy" decoding="async"></picture><span class="story-name">Sicily</span><span class="story-line">Early mornings in the rows, the pick and the work around it.</span></a>
-<a class="story" href="/cayman/"><picture><source type="image/avif" srcset="/images/c2817-a-red-cayman-side-on-the-640.dbf1e0fa54.avif 640w, /images/c2817-a-red-cayman-side-on-the-1200.c3f521dcfb.avif 1200w, /images/c2817-a-red-cayman-side-on-the-2000.008dc00578.avif 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw"><img style="object-position:50% 55%" src="/images/c2817-a-red-cayman-side-on-the-640.66ca6fed78.jpg" srcset="/images/c2817-a-red-cayman-side-on-the-640.66ca6fed78.jpg 640w, /images/c2817-a-red-cayman-side-on-the-1200.51ae43bbab.jpg 1200w, /images/c2817-a-red-cayman-side-on-the-2000.6ef8f1b73a.jpg 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw" width="3000" height="1996" alt="A red Cayman side on, the sun coming up over the hill behind." loading="lazy" decoding="async"></picture><span class="story-name">Cayman</span><span class="story-line">New tyres and brakes, a drive to Wales for the sunrise, and the view from behind the wheel.</span></a>
+<a class="story" href="/blackbushe/"><picture><source type="image/avif" srcset="/images/b7779-three-owners-talking-and-laughing-between-640.6ab023cf97.avif 640w, /images/b7779-three-owners-talking-and-laughing-between-1200.1c58abd43b.avif 1200w, /images/b7779-three-owners-talking-and-laughing-between-2000.ca70a8bb32.avif 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw"><img style="object-position:50% 35%" src="/images/b7779-three-owners-talking-and-laughing-between-640.5b7d213528.jpg" srcset="/images/b7779-three-owners-talking-and-laughing-between-640.5b7d213528.jpg 640w, /images/b7779-three-owners-talking-and-laughing-between-1200.bbc6a78b4c.jpg 1200w, /images/b7779-three-owners-talking-and-laughing-between-2000.9a9ba87342.jpg 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw" width="6064" height="4040" alt="Three owners talking and laughing between the parked cars." loading="lazy" decoding="async"></picture><span class="story-name">Blackbushe</span><span class="story-line">A Porsche Club GB Region 29 morning at Blackbushe.</span></a>
+<a class="story" href="/sicily/"><picture><source type="image/avif" srcset="/images/s8801-rows-of-vines-climbing-towards-the-640.0a703fa4db.avif 640w, /images/s8801-rows-of-vines-climbing-towards-the-1200.dcf0a956fb.avif 1200w, /images/s8801-rows-of-vines-climbing-towards-the-2000.1237b924a0.avif 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw"><img style="object-position:50% 45%" src="/images/s8801-rows-of-vines-climbing-towards-the-640.1c9ed2129a.jpg" srcset="/images/s8801-rows-of-vines-climbing-towards-the-640.1c9ed2129a.jpg 640w, /images/s8801-rows-of-vines-climbing-towards-the-1200.95a5f53688.jpg 1200w, /images/s8801-rows-of-vines-climbing-towards-the-2000.3ac6c01444.jpg 2000w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw" width="3000" height="1996" alt="Rows of vines climbing towards the top of the hill." loading="lazy" decoding="async"></picture><span class="story-name">Sicily</span><span class="story-line">Early mornings in the rows, the pick and the work around it.</span></a>
+<a class="story" href="/cayman/"><picture><source type="image/avif" srcset="/images/c4838-the-front-wheel-and-wing-of-640.b87e19bec1.avif 640w, /images/c4838-the-front-wheel-and-wing-of-1200.802e557b6b.avif 1200w, /images/c4838-the-front-wheel-and-wing-of-1600.4247749324.avif 1600w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw"><img style="object-position:50% 55%" src="/images/c4838-the-front-wheel-and-wing-of-640.d0471b9472.jpg" srcset="/images/c4838-the-front-wheel-and-wing-of-640.d0471b9472.jpg 640w, /images/c4838-the-front-wheel-and-wing-of-1200.735f659621.jpg 1200w, /images/c4838-the-front-wheel-and-wing-of-1600.32fdaacec4.jpg 1600w" sizes="(max-width:720px) 100vw, (max-width:1000px) 50vw, 34vw" width="6048" height="4024" alt="The front wheel and wing of a red Cayman, low and close, in morning sun." loading="lazy" decoding="async"></picture><span class="story-name">Cayman</span><span class="story-line">New tyres and brakes, a drive to Wales for the sunrise, and the view from behind the wheel.</span></a>
 </div></section>
 <section class="home-sec" id="how" aria-labelledby="how-h"><p class="lbl">How I work</p><h2 id="how-h">Five steps</h2>
 <ol class="steps"><li><h3>Understand</h3><p>What makes your business different, and who buys from you.</p></li><li><h3>Story</h3><p>The story worth telling, and where to tell it.</p></li><li><h3>Content</h3><p>Photos and short videos of your people, place and product.</p></li><li><h3>Presence</h3><p>A website and search set up on accounts you own.</p></li><li><h3>Grow</h3><p>Keep showing up, measure what it brings in, fix the next thing.</p></li></ol>
