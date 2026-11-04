@@ -115,6 +115,6 @@ def body(meta, b):
     contact = f"""<section class="home-sec contact" id="contact" aria-labelledby="contact-h"><p class="lbl">Contact</p><h2 id="contact-h">Tell me about your business</h2>
 <p>The quickest way to start is a short email. The services page has a message you can copy, fill in and send.</p>
 <p><a class="btn solid" href="/services/#start">Tell me about your business</a></p>
-<p>Or email <a href="mailto:{EMAIL}">{EMAIL}</a>, or message me on Instagram: <a href="{IG}" rel="me">@davidslv.photography</a></p></section>"""
+<p class="contact-lines">Or write to me directly:<br>Email: <a href="mailto:{EMAIL}">{EMAIL}</a><br>Instagram: <a href="{IG}" rel="me">@davidslv.photography</a></p></section>"""
 
     return "\n".join([hero, '<main id="main">', work, how, ways, client, about, photographers, contact, "</main>"])
