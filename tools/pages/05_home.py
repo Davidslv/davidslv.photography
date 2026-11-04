@@ -27,7 +27,7 @@ STORIES = [
     ("Ericeira", "/ericeira/", "e8537", "The first time I had a DSLR in my hands.", "50% 50%"),
     ("Blackbushe", "/blackbushe/", "b7779", "A Porsche Club GB Region 29 morning at Blackbushe.", "50% 35%"),
     ("Sicily", "/sicily/", "s8801", "Early mornings in the rows, the pick and the work around it.", "50% 45%"),
-    ("Cayman", "/cayman/", "c4838", "New tyres and brakes, a drive to Wales for the sunrise, and the view from behind the wheel.", "50% 55%"),
+    ("Cayman", "/cayman/", "c4823", "New tyres and brakes, a drive to Wales for the sunrise, and the view from behind the wheel.", "50% 62%"),
 ]
 SICILY = ["s0392c", "s8268", "s8868l"]
 
