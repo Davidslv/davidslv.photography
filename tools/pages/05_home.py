@@ -97,7 +97,7 @@ def body(meta, b):
 </section>"""
 
     contact = f"""<section class="home-sec contact" id="contact" aria-labelledby="contact-h"><p class="lbl">Contact</p><h2 id="contact-h">Tell me about your business</h2>
-<p>The quickest way to start is the short form on the services page. It asks what you want more of and when you'd like to start.</p>
+<p>The quickest way to start is a short email. The services page has a message you can copy, fill in and send.</p>
 <p><a class="btn solid" href="/services/#start">Tell me about your business</a></p>
 <p>Or email <a href="mailto:{EMAIL}">{EMAIL}</a>, or message me on Instagram: <a href="{IG}" rel="me">@davidslv.photography</a></p></section>"""
 

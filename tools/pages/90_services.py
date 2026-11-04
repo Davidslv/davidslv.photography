@@ -1,8 +1,7 @@
 """/services/: ways to work with David (4 Nov 2026, branch services-home, preview). No prices anywhere.
 
-Copy is David's, from the brief of 4 Nov 2026. The goals form is not connected: there is no endpoint for it yet,
-so its fields have no name attributes (nothing would be sent even without JavaScript) and the script only shows a
-preview note. To connect it: add name="..." to each field, an action, and a Worker that emails David.
+Copy is David's, from the brief of 4 Nov 2026. No form for now (David, 4 Nov): the start section gives the email
+address and a message template, each with a copy button, plus a mailto link as a shortcut.
 """
 PATH = "/services/"
 NAV_NAME = "Services"
@@ -47,7 +46,24 @@ SERVICES = [
      None),
 ]
 
-STEPS = ["Tell me about your business (the form below).", "A short call, prepared from your answers.",
+EMAIL = "hello@davidslv.photography"
+SUBJECT = "About my business"
+TEMPLATE = """Hi David,
+
+My name is ... and my business is ...
+Website or Instagram: ...
+
+What we do, in a sentence: ...
+What I'd like more of (enquiries, bookings, sales, people finding us online): ...
+In six months, I'd like: ...
+I'd like to start: as soon as possible / in the next three months / just looking
+
+Thanks,
+..."""
+from urllib.parse import quote as _q
+SUBJECT_Q, BODY_Q = _q(SUBJECT), _q(TEMPLATE)
+
+STEPS = ["Tell me about your business (the message below).", "A short call, prepared from your answers.",
          "A plan and a fixed quote by email.", "The work.", "You choose.", "Launch, then a monthly check if we keep going."]
 
 FAQ = [
@@ -87,24 +103,23 @@ def body(meta, b):
 <p><a class="svc-start" href="#start">Start with {E(n)}</a></p></section>""")
     steps = "".join(f"<li>{E(s)}</li>" for s in STEPS)
     faq = "".join(f"<details><summary>{E(q)}</summary><p>{E(a)}</p></details>" for q, a in FAQ)
-    wants = ["enquiries", "bookings", "sales", "people finding you online", "other"]
-    boxes = "".join(f'<label class="check"><input type="checkbox" value="{w}"> {w.capitalize()}</label>' for w in wants)
     form = f"""<section class="svc start" id="start" aria-labelledby="start-h"><h2 id="start-h">Tell me about your business</h2>
-<p>A few questions, so the first call is about you and your business.</p>
-<form class="goals" novalidate>
-<label for="g-name">Your name</label><input id="g-name" type="text" autocomplete="name" required>
-<label for="g-email">Email</label><input id="g-email" type="email" autocomplete="email" required>
-<label for="g-biz">Business name</label><input id="g-biz" type="text" autocomplete="organization" required>
-<label for="g-web">Website or Instagram <span class="opt">(optional)</span></label><input id="g-web" type="text" autocomplete="url">
-<fieldset><legend>What do you want more of?</legend>{boxes}</fieldset>
-<label for="g-six">What would you like to be different in six months?</label><textarea id="g-six" rows="5"></textarea>
-<label for="g-when">When would you like to start?</label>
-<select id="g-when"><option>As soon as possible</option><option>In the next three months</option><option>Just looking</option></select>
-<p><button class="btn solid" type="submit">Send</button></p>
-<p class="form-note" role="status" aria-live="polite"></p>
-</form></section>
-<script>document.querySelector("form.goals").addEventListener("submit", e => {{ e.preventDefault();
-  e.target.querySelector(".form-note").textContent = "Preview: this form isn't connected yet."; }});</script>"""
+<p>Send me an email. Copy the message below, fill in the gaps and send it to me. Then the first call is about you and your business.</p>
+<p class="copy-row"><span class="copy-label">Email</span> <a class="copy-email" href="mailto:{EMAIL}?subject={SUBJECT_Q}">{EMAIL}</a>
+<button class="btn copy-btn" type="button" data-copy="email">Copy address</button></p>
+<pre class="template" id="template" tabindex="0">{E(TEMPLATE)}</pre>
+<p class="copy-row"><button class="btn solid copy-btn" type="button" data-copy="template">Copy message</button>
+<a class="btn" href="mailto:{EMAIL}?subject={SUBJECT_Q}&amp;body={BODY_Q}">Open in my email app</a></p>
+<p class="copy-note" role="status" aria-live="polite"></p></section>
+<script>
+document.querySelectorAll(".copy-btn").forEach(b => b.addEventListener("click", async () => {{
+  const text = b.dataset.copy === "email" ? "{EMAIL}" : document.getElementById("template").textContent;
+  const note = document.querySelector(".copy-note");
+  try {{ await navigator.clipboard.writeText(text); note.textContent = b.dataset.copy === "email" ? "Email address copied." : "Message copied. Paste it into a new email to {EMAIL}."; }}
+  catch (e) {{ const r = document.createRange(); r.selectNodeContents(b.dataset.copy === "email" ? document.querySelector(".copy-email") : document.getElementById("template"));
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); note.textContent = "Selected. Press Ctrl+C or Cmd+C to copy."; }}
+}}));
+</script>"""
     return f"""<main id="main" class="terms-page services">
 <p class="lbl">Services</p>
 <h1>Ways to work with me</h1>
