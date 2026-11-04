@@ -78,4 +78,4 @@ def after(meta):
 <p><a class="btn" href="{GUMROAD}">The 40 photos on Gumroad</a></p>
 <p class="pitch-small">Pay what you want, from €2. Shot on 26 February 2012 with a Sony DSLR-A350 and a 55–200 mm zoom, lent to me by a friend.</p>
 </section>
-<a class="next" href="/"><span class="lbl">Next</span><span class="next-title">From last light to last train</span><span class="next-sub">One Saturday in London, and other nights</span></a>"""
+<a class="next" href="/london/"><span class="lbl">Next</span><span class="next-title">From last light to last train</span><span class="next-sub">One Saturday in London, and other nights</span></a>"""

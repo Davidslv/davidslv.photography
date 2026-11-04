@@ -98,4 +98,4 @@ def after(meta):
 <h2>Tenuta Tremollito is a family vineyard near Licodia Eubea, in Sicily.</h2>
 <p><a class="btn" href="{WINERY}">Tenuta Tremollito</a></p>
 </section>
-<a class="next" href="/"><span class="lbl">Next</span><span class="next-title">From last light to last train</span><span class="next-sub">One Saturday in London, and other nights</span></a>"""
+<a class="next" href="/london/"><span class="lbl">Next</span><span class="next-title">From last light to last train</span><span class="next-sub">One Saturday in London, and other nights</span></a>"""

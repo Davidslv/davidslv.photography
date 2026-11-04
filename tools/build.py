@@ -35,8 +35,8 @@ PORTRAIT = Path(__file__).resolve().parent / "assets/david-silva-portrait.jpg"
 WIDTHS = (640, 1200)  # plus the cap below
 CAP_COLUMN, CAP_WIDE = 1600, 2000  # David, 10 Oct 2026: keep web copies too small for a quality large print
 E = html.escape
-SERIES = [("London", "/#work"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("Sicily", "/sicily/"), ("Cayman", "/cayman/")]
-NAV = SERIES + [("Guides", "/guides/"), ("Studio Kit", "/studio-kit/"), ("About", "/#about"), ("Contact", "/#contact")]   # flat list: footer and the Cayman page menu
+SERIES = [("London", "/london/"), ("Sunday", "/sunday/"), ("McLaren", "/mclaren/"), ("Ericeira", "/ericeira/"), ("Blackbushe", "/blackbushe/"), ("Sicily", "/sicily/"), ("Cayman", "/cayman/")]
+NAV = SERIES + [("Services", "/services/"), ("Guides", "/guides/"), ("Studio Kit", "/studio-kit/"), ("About", "/#about"), ("Contact", "/#contact")]   # flat list: footer and the Cayman page menu
 
 
 def load_pages():
@@ -215,7 +215,7 @@ def sequence_html(page, meta):
 
 def person(meta):
     return {"@type": "Person", "@id": f"{URL}/#david", "name": NAME, "url": f"{URL}/",
-            "jobTitle": "Street photographer", "image": f"{URL}/images/{meta['_portrait']}", "email": f"mailto:{EMAIL}",
+            "jobTitle": "Photographer and software engineer", "image": f"{URL}/images/{meta['_portrait']}", "email": f"mailto:{EMAIL}",
             "address": {"@type": "PostalAddress", "addressLocality": "London", "addressCountry": "GB"},
             "sameAs": [IG]}
 
@@ -241,6 +241,16 @@ def image_objects(page, meta):
 def jsonld(page, meta):
     site = {"@type": "WebSite", "@id": f"{URL}/#site", "url": f"{URL}/", "name": f"{NAME} Photography",
             "publisher": {"@id": f"{URL}/#david"}, "inLanguage": "en-GB"}
+    graph = [person(meta), site]
+    if not page.SEQUENCE:   # a page without photos, e.g. /services/
+        graph.append({"@type": "WebPage", "@id": f"{URL}{page.PATH}#page", "url": f"{URL}{page.PATH}", "name": page.HERO_TITLE,
+                      "description": page.DESC, "inLanguage": "en-GB", "isPartOf": {"@id": f"{URL}/#site"},
+                      "author": {"@id": f"{URL}/#david"}})
+        graph += getattr(page, "extra_jsonld", lambda meta: [])(meta)
+        graph.append({"@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": f"{URL}/"},
+            {"@type": "ListItem", "position": 2, "name": page.NAV_NAME, "item": f"{URL}{page.PATH}"}]})
+        return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, indent=1)
     hero = page.SEQUENCE[0][1]
     gallery = {"@type": "ImageGallery", "name": page.GALLERY_NAME, "associatedMedia": image_objects(page, meta)}
     node = {"@type": "CollectionPage", "@id": f"{URL}{page.PATH}#page", "url": f"{URL}{page.PATH}", "name": page.HERO_TITLE,
@@ -252,7 +262,7 @@ def jsonld(page, meta):
         node.update({"@type": ["ProfilePage", "CollectionPage"], "mainEntity": {"@id": f"{URL}/#david"}, "hasPart": gallery})
     else:
         node["mainEntity"] = gallery
-    graph = [person(meta), site, node]
+    graph.append(node)
     graph += getattr(page, "extra_jsonld", lambda meta: [])(meta)
     if page.PATH != "/":
         graph.append({"@type": "BreadcrumbList", "itemListElement": [
@@ -269,7 +279,7 @@ CF_BEACON += "<script>" + (ROOT / "tools/track.js").read_text() + "</script>"
 
 def head_tags(page, meta):
     """Everything in <head> a search engine or link preview reads: title, description, canonical, Open Graph, icons, JSON-LD."""
-    hero = page.SEQUENCE[0][1]
+    og_alt = getattr(page, "OG_ALT", None) or PHOTOS[page.SEQUENCE[0][1]]["alt"]
     return f"""<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{E(page.TITLE)}</title>
@@ -287,7 +297,7 @@ def head_tags(page, meta):
 <meta property="og:image" content="{URL}/{page.OG_IMAGE}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="{E(PHOTOS[hero]['alt'])}">
+<meta property="og:image:alt" content="{E(og_alt)}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32">
@@ -301,35 +311,40 @@ def head_tags(page, meta):
 
 
 def head(page, meta):
-    hero = page.SEQUENCE[0][1]
-    hw = meta[hero][2]
     css = "".join((ROOT / f"tools/{f}").read_text() for f in ("fonts-local.css", "fonts-fallback.css", "site.css"))
+    preload = ""
+    if page.SEQUENCE:
+        hero = page.SEQUENCE[0][1]
+        preload = (f'<link rel="preload" as="image" type="image/avif" imagesrcset="'
+                   f'{", ".join(f"{src(hero, meta, x, 'avif')} {x}w" for x in meta[hero][2])}" imagesizes="100vw" fetchpriority="high">\n')
     return f"""<!doctype html>
 <html lang="en-GB">
 <head>
 {head_tags(page, meta)}
-<link rel="preload" as="image" type="image/avif" imagesrcset="{", ".join(f"{src(hero, meta, x, 'avif')} {x}w" for x in hw)}" imagesizes="100vw" fetchpriority="high">
-<style>{css}</style>
+{preload}<style>{css}</style>
 </head>"""
 
 
 def header(page):
-    return (f'<body>\n<a class="skip" href="#work">Skip to the photographs</a>\n'
+    target, label = getattr(page, "SKIP", ("#work", "Skip to the photographs"))
+    cls = f' class="{page.BODY_CLASS}"' if getattr(page, "BODY_CLASS", None) else ""
+    return (f'<body{cls}>\n<a class="skip" href="{target}">{label}</a>\n'
             f'<header class="site"><a class="name" href="/">{NAME}</a>{main_nav(page.PATH)}</header>')
 
 
 def main_nav(path):
-    """Same menu on phones and desktop (David, 15 Oct 2026): Work opens the series, then Book, Guides, About.
-    Four visible items, after NN/g's hidden-navigation study. No-JS <details>; site.js closes it on outside tap or Esc."""
+    """Same menu on phones and desktop (David, 15 Oct 2026): Work opens the series, then Services, Book, Guides,
+    Studio Kit, About, Contact (4 Nov 2026). On phones the items wrap onto a second line. No-JS <details>; site.js closes it on outside tap or Esc."""
     cur = ' aria-current="page"'
     series = "".join(f'<a href="{h}"{cur if h == path else ""}>{n}</a>' for n, h in SERIES)
     in_work = any(h == path for _, h in SERIES) and path != "/sunday/"
     return (f'<nav class="main" aria-label="Main"><details class="work"><summary{" class=cur" if in_work else ""}>Work</summary>'
             f'<div class="panel">{series}</div></details>'
+            f'<a href="/services/"{cur if path == "/services/" else ""}>Services</a>'
             f'<a href="/sunday/"{cur if path == "/sunday/" else ""}>Book</a>'
             f'<a href="/guides/"{cur if path.startswith("/guides/") else ""}>Guides</a>'
             f'<a href="/studio-kit/"{cur if path == "/studio-kit/" else ""}>Studio Kit</a>'
-            f'<a href="/#about">About</a></nav>')
+            f'<a href="/#about">About</a><a href="/#contact">Contact</a></nav>')
 
 
 # Company disclosure required on every page (Trading Disclosures Regulations 2015, regs 24 and 25).
@@ -348,6 +363,8 @@ def footer():
 def render(page, meta):
     if hasattr(page, "render_page"):  # a page with its own design (e.g. /cayman/), still given the site's head tags and nav
         return page.render_page(meta, {"head": head_tags(page, meta), "nav": NAV, "name": NAME, "legal": LEGAL})
+    if hasattr(page, "body"):  # a page laid out in its own module (the home page, /services/), on the shared head, menu and footer
+        return "\n".join([head(page, meta), header(page), page.body(meta, sys.modules[__name__]), footer()])
     return "\n".join([head(page, meta), header(page), sequence_html(page, meta), page.after(meta), footer()])
 
 
@@ -682,7 +699,7 @@ if __name__ == "__main__":
         meta["_portrait"] = hashed(portrait)
         meta["_assets"] = {name: {str(w): {f: hashed(n) for f, n in v.items()} for w, v in sizes.items()}
                            for name, sizes in assets.items()}
-        for page in PAGES:
+        for page in [p for p in PAGES if p.SEQUENCE]:
             og_image(page.SEQUENCE[0][1], page.OG_IMAGE, getattr(page, "OG_TOP", 0.22))
         icons()
         meta_file.write_text(json.dumps(meta, indent=0))

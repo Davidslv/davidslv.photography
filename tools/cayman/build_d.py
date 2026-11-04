@@ -471,7 +471,7 @@ def page_html(site=None):
                     '\n<link rel="preload" as="font" type="font/woff2" href="/fonts/Newsreader-italic-300.woff2" crossorigin>')
         links = "".join(f'<a href="{h}"{" aria-current=page" if h == "/cayman/" else ""}>{n}</a>' for n, h in site["nav"])
         sitemenu = f'<details class="sm"><summary>Menu</summary><nav aria-label="Site menu">{links}</nav></details>'   # the other pages (David, 14 Oct 2026)
-        foot = (f'<footer><a class="next" href="/"><span class="lbl">Next</span> From last light to last train</a>'
+        foot = (f'<footer><a class="next" href="/london/"><span class="lbl">Next</span> From last light to last train</a>'
                 f'<nav aria-label="Site">{links}</nav><span>All photographs \u00a9 {site["name"]}. Please ask before using them.</span>'
                 f'<span class="legal" style="width:100%;font-size:12px;line-height:1.6">{site["legal"]}</span></footer>')
     else:
